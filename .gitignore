@@ -1,0 +1,4 @@
+.tool-versions
+.idea
+node_modules
+build
