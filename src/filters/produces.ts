@@ -5,7 +5,7 @@ export const producesMatch =
   (operator: Operator, value: Set<string>): Filter<NormedCard> =>
     (card: NormedCard) => {
       // scryfall includes these cards in when operator is != for some reason
-      if (card.produced_mana === undefined) return false
+      if (card.produced_mana === undefined || card.produced_mana === null) return false
 
       const lower = card.produced_mana.map(it => it.toLowerCase())
       const match = lower.filter(color => value.has(color))

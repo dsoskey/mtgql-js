@@ -1,12 +1,13 @@
 import { FilterNode } from './base'
 import { printNode } from './print'
 import _isEqual from 'lodash/isEqual'
+import {Printing} from "../types";
 
 type NewValue = "rarity" | "flavor" | "art" | "artist" | "frame" | "language" | "game" | "paper" | "mtgo" | "arena" | "nonfoil" | "foil"
 
 export function newFilter(value: NewValue): FilterNode {
   return printNode(["new"], ({printing, card}) => {
-    let getField;
+    let getField: (print: Printing) => any;
     switch (value) {
       case 'game': {
         const games = new Set();
@@ -43,7 +44,7 @@ export function newFilter(value: NewValue): FilterNode {
         break;
       case 'nonfoil':
       case 'foil':
-        getField = (current) => current[value]
+        getField = (current) => current.finishes.includes(value)
     }
     return _isEqual(card.printings.find(it => getField(it) !== undefined && getField(it) === getField(printing)), printing)
   })

@@ -85,6 +85,7 @@ export const allPrintings =
       const filteredPrints: Card[] = []
       for (const printing of printings) {
         if (filterFunc({ printing, card })) {
+            // @ts-ignore
           filteredPrints.push(Card.construct(<Card>{
             ...rest,
             ...printing,
@@ -115,10 +116,11 @@ export const uniqueArts =
         }
       }
       return returnedPrints.map((it) =>
-        Card.construct(<Card>{
-          ...rest,
-          ...it,
-        })
+          // @ts-ignore
+          Card.construct(<Card>{
+              ...rest,
+              ...it,
+          })
       )
     }
 

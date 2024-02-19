@@ -3,9 +3,9 @@ import { FILTER_KEYWORDS } from './types'
 
 const KEYWORDS_BY_LENGTH = Object.values(FILTER_KEYWORDS).sort((a, b) => b.length - a.length)
 
-const caseInsensitiveKeywords = map => {
+const caseInsensitiveKeywords = (map: { [kw: string]: string | string[] }) => {
   const transform = moo.keywords(map)
-  return text => transform(text.toLowerCase())
+  return (text: string) => transform(text.toLowerCase())
 }
 
 export const lexer = moo.states({
@@ -15,8 +15,8 @@ export const lexer = moo.states({
     negate: "-",
     art: "@@",
     prints: "++",
-    decimal: { match: /[0-9]*\.[0-9]+/, value: s => Number.parseFloat(s) },
-    integer: { match:/[0-9]+/, value: s => Number.parseInt(s, 10) },
+    decimal: { match: /[0-9]*\.[0-9]+/ },
+    integer: { match:/[0-9]+/ },
     lparen: "(",
     rparen: ")",
     lbrace: { match: "{", push: "manasymbol" },
@@ -34,20 +34,5 @@ export const lexer = moo.states({
     number: /[0-9]+/,
     color: /[xyzwubrgsc]/,
     slash: "/",
-  }
-})
-
-export const states = moo.states({
-  main: {
-
-    bool: ["and", "or"],
-    filter: { match: KEYWORDS_BY_LENGTH, push:"maybefilter" },
-  },
-  maybefilter: {
-    ws: { match: /[ \t]+/, pop: 1 },
-    operator: { match: [":","=","!=","<>","<=","<",">=",">"], push: "filtervalue" }
-  },
-  filtervalue: {
-
   }
 })

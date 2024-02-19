@@ -2,12 +2,13 @@
   "compilerOptions": {
     "module": "Node16",
     "target": "es2020",
-    "strict": true,
+    "strict": false,
     "declaration": true,
     "sourceMap": true,
     "declarationMap": true,
     "outDir": "build",
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
+    "rootDir": "./src",
   },
   "include": [
     "src/**/*"

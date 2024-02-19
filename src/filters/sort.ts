@@ -69,7 +69,7 @@ function byReleased(card: Card) {
   return new Date(card.released_at)
 }
 
-const colorOrder = {
+const colorOrder: { [key: string]: number } = {
   W: 0,
   U: 1,
   B: 2,
@@ -109,7 +109,7 @@ export function byName(card:Card) {
 }
 
 function byColor(card: Card) {
-  const colors = Array.from(new Set(card.colors ?? card.card_faces.flatMap(face => face.colors)))
+  const colors = Array.from(new Set(card.colors ?? card.card_faces.flatMap(face => face.colors ?? [])))
   const sorted = colors.sort().join('')
   return colorOrder[sorted]
 }

@@ -1,6 +1,6 @@
 import { NormedCard, OracleKeys, PrintingFilterTuple } from '../types/normedCard'
 import { defaultCompare, Filter, Operator } from './base'
-import { anyFaceContains, anyFaceRegexMatch, noReminderText, replaceNamePlaceholder } from '../types/card'
+import {anyFaceContains, anyFaceRegexMatch, noReminderText, RegexableField, replaceNamePlaceholder} from '../types/card'
 
 export const textMatch =
   (field: OracleKeys, value: string): Filter<NormedCard> =>
@@ -14,7 +14,7 @@ export const textMatch =
 
 export const exactMatch =
   (field: OracleKeys, value: string): Filter<NormedCard> =>
-    (card: NormedCard) => card[field].toString().toLowerCase() === value
+    (card: NormedCard) => card[field]?.toString().toLowerCase() === value
 
 export const noReminderTextMatch =
   (field: OracleKeys, value: string): Filter<NormedCard> =>
@@ -26,9 +26,9 @@ export const noReminderTextMatch =
         noReminderText
       )
 
-export const oracleTextCount = (operator: Operator, count: number, transform = (it) => it) =>
+export const oracleTextCount = (operator: Operator, count: number, transform = (it: string) => it) =>
   (card: NormedCard) => {
-    const getCount = (it) => {
+    const getCount = (it: string | null | undefined) => {
       const transed = transform(it??"")
       return transed.length ? transed.split(/\s+/).length : 0
     }
@@ -44,8 +44,9 @@ export const oracleTextCount = (operator: Operator, count: number, transform = (
 export const flavorTextCount = (operator: Operator, count: number) =>
   (tuple: PrintingFilterTuple) => {
     const {printing} = tuple;
-    const getCount = (it) => {
-      return (it ?? "").length ? it.split(/\s+/).length : 0
+    const getCount = (it: string | null | undefined) => {
+        const itt = it ?? ""
+        return itt.length ? itt.split(/\s+/).length : 0
     }
     let wordCount;
     if (printing.flavor_text !== undefined) {
@@ -92,7 +93,7 @@ export const substituteScryfallRegex = (value: string): string => {
 }
 
 export const regexMatch =
-  (field: OracleKeys, value: string): Filter<NormedCard> => {
+  (field: RegexableField, value: string): Filter<NormedCard> => {
       const baseRegex = substituteScryfallRegex(value)
       return (card: NormedCard) =>
         anyFaceRegexMatch(
@@ -104,7 +105,7 @@ export const regexMatch =
 
 
 export const noReminderRegexMatch =
-  (field: OracleKeys, value: string): Filter<NormedCard> => {
+  (field: RegexableField, value: string): Filter<NormedCard> => {
       const baseRegex = substituteScryfallRegex(value)
       return (card: NormedCard) =>
         anyFaceRegexMatch(

@@ -49,7 +49,7 @@ export class QueryRunner {
     return func(query, options)
   }
 
-  static parseFilterNode = (getParser: ParserProducer, filters: FilterProvider, query): ResultAsync<FilterNode, SearchError> => {
+  static parseFilterNode = (getParser: ParserProducer, filters: FilterProvider, query: string): ResultAsync<FilterNode, SearchError> => {
     const parser = getParser();
     try {
       console.debug(`feeding ${query}`)

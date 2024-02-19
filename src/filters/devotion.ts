@@ -20,8 +20,8 @@ export const devotionOperation = (operator: Operator, pips: string[]): FilterNod
         card.mana_cost,
         ...card.card_faces.map((it) => it.mana_cost),
       ]
-        .filter((it) => it !== undefined)
         .filter((rawCost) => {
+          if (rawCost === undefined || rawCost === null) return false
           const cost = toManaCost(toSplitCost(rawCost))
           const compareValue = cost[pip] ?? 0
           switch (operator) {

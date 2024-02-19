@@ -1,8 +1,7 @@
 import { FilterNode } from './base'
 import { printNode } from './print'
+import {PrintingFilterTuple} from "../types";
 
 export const stampFilter = (value: string): FilterNode =>
-  printNode(['stamp'], ({ printing }) =>
-    printing.security_stamp !== undefined
-      ? printing.security_stamp.toString() === value
-      : false)
+  printNode(['stamp'], ({ printing }: PrintingFilterTuple) =>
+      printing.security_stamp?.toString() === value)

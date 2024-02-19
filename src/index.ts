@@ -29,4 +29,4 @@ export { CachingFilterProvider } from './filters';
 export { OPERATORS } from './filters/base';
 export { isOracleVal } from './filters/is';
 
-export { lexer as MQL_LEXER } from './lexer'
+export { lexer } from './lexer'

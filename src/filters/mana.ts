@@ -1,6 +1,6 @@
 import { FilterNode, Operator } from './base'
 import { NormedCard } from '../types/normedCard'
-import { toManaCost, toSplitCost } from '../types/card'
+import { ManaSymbol, toManaCost, toSplitCost } from '../types/card'
 import isEqual from 'lodash/isEqual'
 import { oracleNode } from './oracle'
 
@@ -25,7 +25,7 @@ export function combineHybridSymbols(chars: string[]): string[] {
 
 // optimization opportunity
 export const manaCostMatch =
-  (operator: Operator, value: string[]): FilterNode => oracleNode({
+  (operator: Operator, value: ManaSymbol[]): FilterNode => oracleNode({
     filtersUsed: ['mana'],
     filterFunc: (card: NormedCard) => {
       const targetCost = toManaCost(value)
@@ -35,7 +35,7 @@ export const manaCostMatch =
         ...card.card_faces.map((it) => it.mana_cost),
       ]
         .filter((rawCost) => {
-          if (rawCost === undefined) return false
+          if (rawCost === undefined || rawCost === null) return false
           const cost = toManaCost(toSplitCost(rawCost))
           switch (operator) {
             case '=':

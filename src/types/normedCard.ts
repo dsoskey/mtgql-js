@@ -106,7 +106,7 @@ export const normCardList = (cardList: Card[]): NormedCard[] => {
   for (const oracleId in cardsByOracle) {
     // sorting by released at is needed for new and prefer filters
     const cards = _sortBy(cardsByOracle[oracleId], it => new Date(it.released_at), "set")
-    const normed = {
+    const normed: NormedCard = {
       ...(_omit(cards[0], ignorePaths)) as Omit<Card, PrintKeys>,
       printings: cards.map((it) => _pick(it, printPaths) as Printing),
       card_faces: cards[0].card_faces,

@@ -228,6 +228,7 @@ const MANA_SYMBOLS = {
   s: 's',
   x: 'x',
   y: 'y',
+  z: 'z',
 
   'w/u': 'w/u',
   'w/b': 'w/b',
@@ -324,7 +325,6 @@ export const manaAliases: Record<ManaSymbol, ManaSymbol> = {
   'w/u': 'w/u',
   x: 'x',
   y: 'y',
-  // @ts-ignore
   z: 'z',
   generic: 'generic',
   w: 'w',
@@ -345,7 +345,7 @@ export const replaceNamePlaceholder = (text: string, name: string): string => {
   return text.replace(/~/g, name).toLowerCase()
 }
 
-export const toManaCost = (splitCost: string[]): ManaCost => {
+export const toManaCost = (splitCost: ManaSymbol[]): ManaCost => {
   const result: ManaCost = {}
   for (const rawSymbol of splitCost) {
     // hybrids are considered NaN
@@ -354,6 +354,7 @@ export const toManaCost = (splitCost: string[]): ManaCost => {
       if (result[manaAliases[rawSymbol]] === undefined) {
         result[manaAliases[rawSymbol]] = 0
       }
+      // @ts-ignore
       result[manaAliases[rawSymbol]] += 1
     } else {
       if (result.generic === undefined) {
@@ -365,14 +366,14 @@ export const toManaCost = (splitCost: string[]): ManaCost => {
   return result
 }
 
-export const toSplitCost = (cost: string): string[] =>
+export const toSplitCost = (cost: string): Array<ManaSymbol> =>
   cost.toLowerCase()
     .slice(1, cost.length - 1)
     .split('}{')
-    .sort()
+    .sort() as ManaSymbol[]
 
 export const isDual = (card: Card | NormedCard) =>
-  card.type_line.includes('Land') && /Add \{.} or \{.}\./.test(card.oracle_text)
+  card.type_line.includes('Land') && /Add \{.} or \{.}\./.test(card.oracle_text ?? "")
 export const hasNumLandTypes = (card: Card | NormedCard, num: number) =>
   BASIC_LAND_TYPES.filter((type) => card.type_line.toLowerCase().includes(type))
     .length === num
@@ -381,27 +382,36 @@ export const anyFaceContains = (
   card: Card | NormedCard,
   field: OracleKeys,
   value: string,
-  fieldTransform: (string) => string = (it) => it
+  fieldTransform: (a: string) => string = (it) => it
 ): boolean =>
+  //   @ts-ignore
   fieldTransform(card[field]?.toString().toLowerCase() ?? '').includes(value) ||
-  card.card_faces.filter((face) =>
-    fieldTransform(face[field]?.toString().toLowerCase() ?? '').includes(value)
-  ).length > 0
+  card.card_faces.filter((face) => {
+    //   @ts-ignore
+    return fieldTransform(face[field]?.toString().toLowerCase() ?? '').includes(value)
+  }).length > 0
 
+export type RegexableField = 'name' | 'mana_cost' | 'type_line' | 'oracle_text'
 export const anyFaceRegexMatch = (
   card: Card | NormedCard,
-  field: OracleKeys,
+  field: RegexableField,
   regex: RegExp,
-  fieldTransform: (string) => string = (it) => it
-): boolean =>
-  (card[field] !== undefined
-    ? regex.test(fieldTransform(card[field].toString().toLowerCase()))
-    : false) ||
-  card.card_faces.filter((face) =>
-    face[field] !== undefined
-      ? regex.test(fieldTransform(face[field].toString().toLowerCase()))
-      : false
-  ).length > 0
+  fieldTransform: (val: string) => string = (it) => it
+): boolean => {
+  const fieldVal = card[field];
+  if (fieldVal) {
+    return regex.test(fieldTransform(fieldVal.toString().toLowerCase()))
+  }
+
+  return card.card_faces.filter((face) => {
+    const fieldVal = face[field];
+    if (fieldVal) {
+      return regex.test(fieldTransform(fieldVal.toString().toLowerCase()))
+    }
+    return false;
+  }).length > 0
+}
+
 
 export const noReminderText = (text: string): string =>
   text.replace(/\(.*\)/gi, '')

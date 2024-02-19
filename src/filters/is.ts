@@ -172,7 +172,7 @@ export const isPrintVal = (value: IsValue) => ({ printing, card }: PrintingFilte
     case 'etched':
       return printing.finishes.includes('etched')
     case 'contentwarning':
-    return card.content_warning
+    return card.content_warning ?? false
     case 'booster':
     case 'variation':
     case 'promo':
@@ -309,12 +309,9 @@ export const isPrintVal = (value: IsValue) => ({ printing, card }: PrintingFilte
         printing.set === "ptg" ||
         printing.set === "h17" ||
         printing.set_type === 'token' ||
-        // @ts-ignore
-        printing.promo_types?.includes("thick") ||
-        // @ts-ignore
-        printing.games.includes("astral") ||
-        // @ts-ignore
-        printing.games.includes("sega") ||
+        (printing.promo_types??[] as string[]).includes("thick") ||
+        (printing.games as string[]).includes("astral") ||
+        (printing.games as string[]).includes("sega") ||
         printing.set_name.includes("Heroes of the Realm") ||
         printing.set_name.includes("Playtest Cards")
     case 'placeholderimage':
@@ -330,6 +327,7 @@ export const isPrintVal = (value: IsValue) => ({ printing, card }: PrintingFilte
 }
 
 export const isOracleVal = (value: IsValue) => (card: NormedCard): boolean => {
+  const oracle_text = card.oracle_text ?? ""
   switch (value) {
     case 'unique': {
       const set = new Set(card.printings.map(it => it.set))
@@ -363,7 +361,7 @@ export const isOracleVal = (value: IsValue) => (card: NormedCard): boolean => {
     case 'reversible':
       return card.layout.toLowerCase() === "reversible_card"
     case 'related':
-      return card.all_parts !== undefined && card.all_parts.length > 0
+      return card.all_parts?.length > 0
     case 'onlyprint':
       return card.printings.length === 1
     case 'gold':
@@ -439,119 +437,99 @@ export const isOracleVal = (value: IsValue) => (card: NormedCard): boolean => {
       )
     case 'vanilla':
       return (
-        card.oracle_text?.length === 0 ||
-        card.card_faces.filter((i) => i.oracle_text.length === 0).length > 0
+        oracle_text.length === 0 ||
+        card.card_faces.filter((i) => i.oracle_text?.length === 0).length > 0
       )
     case 'modal':
-      return /chooses? (\S* or \S*|(up to )?(one|two|three|four|five))( or (more|both)| that hasn't been chosen)?( —|\.)/.test(
-        card.oracle_text?.toLowerCase()
-      )
+      return /chooses? (\S* or \S*|(up to )?(one|two|three|four|five))( or (more|both)| that hasn't been chosen)?( —|\.)/
+          .test(oracle_text.toLowerCase())
     case 'token':
       return card.layout === 'token' || card.type_line.includes('Token')
     case 'bikeland':
     case 'cycleland':
     case 'bicycleland':
       return (
-        hasNumLandTypes(card, 2) && card.oracle_text?.includes('Cycling {2}')
+        hasNumLandTypes(card, 2) && oracle_text.includes('Cycling {2}')
       )
     case 'bounceland':
     case 'karoo':
-      return (
-        /Add \{.}\{.}\./.test(card.oracle_text) &&
-        (/When .* enters the battlefield, sacrifice it unless you return an untapped/.test(
-            card.oracle_text
-          ) ||
-          /When .* enters the battlefield, return a land you control to its owner's hand/.test(
-            card.oracle_text
-          ))
+      return (/Add \{.}\{.}\./.test(oracle_text)
+          && (/When .* enters the battlefield, sacrifice it unless you return an untapped/.test(oracle_text)
+              || /When .* enters the battlefield, return a land you control to its owner's hand/.test(oracle_text))
       )
     case 'canopyland':
     case 'canland':
-      return /Pay 1 life: Add \{.} or \{.}\.\n\{1}, \{T}, Sacrifice/m.test(
-        card.oracle_text
-      )
+      return /Pay 1 life: Add \{.} or \{.}\.\n\{1}, \{T}, Sacrifice/m.test(oracle_text)
     case 'fetchland':
-      return /\{T}, Pay 1 life, Sacrifice .*: Search your library for an? .* or .* card, put it onto the battlefield, then shuffle/.test(
-        card.oracle_text
-      )
+      return /\{T}, Pay 1 life, Sacrifice .*: Search your library for an? .* or .* card, put it onto the battlefield, then shuffle/
+          .test(oracle_text)
     case 'checkland':
-      return (
-        isDual(card) &&
-        /.* enters the battlefield tapped unless you control an? .* or an? *./.test(
-          card.oracle_text
-        )
+      return (isDual(card) &&
+        /.* enters the battlefield tapped unless you control an? .* or an? *./
+            .test(oracle_text)
       )
     case 'dual':
       return (
         hasNumLandTypes(card, 2) &&
-        noReminderText(card.oracle_text?.toLowerCase()).length === 0
+        noReminderText(oracle_text.toLowerCase()).length === 0
       )
     case 'fastland':
       return (
         isDual(card) &&
-        /.* enters the battlefield tapped unless you control two or fewer other lands\./.test(
-          card.oracle_text
-        )
+        /.* enters the battlefield tapped unless you control two or fewer other lands\./.test(oracle_text)
       )
     case 'filterland':
       return (
-        card.type_line.includes('Land') &&
-        (/\{T}: Add \{C}\.\n{.\/.}, \{T}: Add \{.}{.}, \{.}\{.}, or \{.}\{.}\./m.test(
-            card.oracle_text
-          ) ||
-          /\{1}, \{T}: Add \{.}\{.}\./.test(card.oracle_text))
+          card.type_line.includes('Land') &&
+          (/\{T}: Add \{C}\.\n{.\/.}, \{T}: Add \{.}{.}, \{.}\{.}, or \{.}\{.}\./m.test(oracle_text) ||
+              /\{1}, \{T}: Add \{.}\{.}\./.test(oracle_text))
       )
     case 'gainland':
       return (
         isDual(card) &&
-        /.* enters the battlefield tapped\./.test(card.oracle_text) &&
-        /When .* enters the battlefield, you gain 1 life\./.test(
-          card.oracle_text
-        )
+        /.* enters the battlefield tapped\./.test(oracle_text) &&
+        /When .* enters the battlefield, you gain 1 life\./.test(oracle_text)
       )
     case 'painland':
       return (
         card.type_line.includes('Land') &&
-        /\{T}: Add \{C}\./.test(card.oracle_text) &&
-        /\{T}: Add \{.} or \{.}\. .* deals 1 damage to you\./.test(
-          card.oracle_text
-        )
+        /\{T}: Add \{C}\./.test(oracle_text) &&
+        /\{T}: Add \{.} or \{.}\. .* deals 1 damage to you\./.test(oracle_text)
       )
     case 'scryland':
       return (
         isDual(card) &&
-        /When .* enters the battlefield, scry 1/.test(card.oracle_text)
+        /When .* enters the battlefield, scry 1/.test(oracle_text)
       )
     case 'shadowland':
     case 'snarl':
       return (
         isDual(card) &&
         /As .* enters the battlefield, you may reveal an? .* or .* card from your hand\. If you don't, .* enters the battlefield tapped./.test(
-          card.oracle_text
+          oracle_text
         )
       )
     case 'shockland':
       return (
-        hasNumLandTypes(card, 2) && SHOCKLAND_REGEX.test(card.oracle_text)
+        hasNumLandTypes(card, 2) && SHOCKLAND_REGEX.test(oracle_text)
       )
     case 'storageland':
       return (
         card.type_line.includes('Land') &&
-        /storage counter/.test(card.oracle_text)
+        /storage counter/.test(oracle_text)
       )
     case 'manland':
     case 'creatureland':
       return (
         card.type_line.includes('Land') &&
-        new RegExp(`(${card.name}|it) becomes? an? .* creature`).test(
-          card.oracle_text
-        )
+        new RegExp(`(${card.name}|it) becomes? an? .* creature`)
+            .test(oracle_text)
       )
     case 'triland':
       return (
         card.type_line.includes('Land') &&
         hasNumLandTypes(card, 0) &&
-        /\{T}: Add \{.}, \{.}, or \{.}\./.test(card.oracle_text)
+        /\{T}: Add \{.}, \{.}, or \{.}\./.test(oracle_text)
       )
     case 'trikeland':
     case 'tricycleland':
@@ -559,28 +537,26 @@ export const isOracleVal = (value: IsValue) => (card: NormedCard): boolean => {
       return (
         card.type_line.includes('Land') &&
         hasNumLandTypes(card, 3) &&
-        /\{T}: Add \{.}, \{.}, or \{.}\./.test(card.oracle_text)
+        /\{T}: Add \{.}, \{.}, or \{.}\./.test(oracle_text)
       )
     case 'tangoland':
     case 'battleland':
       return (
         card.type_line.includes('Land') &&
         hasNumLandTypes(card, 2) &&
-        /.* enters the battlefield tapped unless you control two or more basic lands\./.test(
-          card.oracle_text
-        )
+        /.* enters the battlefield tapped unless you control two or more basic lands\./
+            .test(oracle_text)
       )
     case 'bondland':
       return (
         card.type_line.includes("Land") &&
-        card.oracle_text?.includes("enters the battlefield tapped unless you have two or more opponents")
+        oracle_text.includes("enters the battlefield tapped unless you have two or more opponents")
       )
     case 'slowland':
       return (
         isDual(card) &&
-        /.* enters the battlefield tapped unless you control two or more other lands\./.test(
-          card.oracle_text
-        )
+        /.* enters the battlefield tapped unless you control two or more other lands\./
+            .test(oracle_text)
       )
     case 'extra':
        /*

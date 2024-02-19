@@ -35,14 +35,14 @@ import { oddEvenFilter } from './manavalue'
 import { nameFilter } from './name'
 import { paperPrintCount, printCountFilter } from './printCount'
 import { oracleNode } from './oracle'
-import { NormedCard } from '../types/normedCard'
 import { printNode } from './print'
-import { FilterType } from '../types/filterKeyword'
-import { AstLeaf, AstNode, BinaryNode, UnaryNode } from '../types/ast'
 import { errAsync, fromPromise, okAsync, ResultAsync } from 'neverthrow'
-import { FilterError } from '../types/error'
 import { DataProvider } from './dataProvider'
 import { newFilter } from './new'
+import { NormedCard } from '../types/normedCard'
+import { FilterType } from '../types/filterKeyword'
+import { AstLeaf, AstNode, BinaryNode, UnaryNode } from '../types/ast'
+import { FilterError } from '../types/error'
 import { noReminderText } from '../types/card'
 import { Block } from '../types/block'
 
@@ -146,8 +146,8 @@ export class CachingFilterProvider implements FilterProvider {
       return printNode(
         ['atag'],
         ({ printing }) => {
-          return ids.has(printing.illustration_id) ||
-            printing.card_faces.find(it => ids.has(it.illustration_id)) !== undefined
+          return ids.has(printing.illustration_id??"") ||
+            printing.card_faces.find(it => ids.has(it.illustration_id??"")) !== undefined
         }
       )
     })
@@ -163,7 +163,6 @@ export class CachingFilterProvider implements FilterProvider {
     if (node.hasOwnProperty("filter")) {
       return this.getFilter(node as AstLeaf)
     } else {
-      // @ts-ignore
       switch (node.operator) {
         case "negate":
           return this.visitNode((node as UnaryNode).clause)
@@ -180,6 +179,10 @@ export class CachingFilterProvider implements FilterProvider {
           ]).map(([l, r])=> orNode(l, r))
       }
     }
+    return errAsync({
+      errorOffset: node.offset,
+      message: `unknown branch node type ${node}. please report this bug below`
+    })
   }
 
   getFilter = (leaf: AstLeaf): ResultAsync<FilterNode, FilterError> => {
@@ -188,7 +191,7 @@ export class CachingFilterProvider implements FilterProvider {
         case FilterType.CmcInt:
           return okAsync(oracleNode({
             filtersUsed: ["cmc"],
-            filterFunc: defaultOperation("cmc", leaf.operator, leaf.value)
+            filterFunc: defaultOperation("cmc", leaf.operator!, leaf.value)
           }))
         case FilterType.CmcOddEven:
           return okAsync(oddEvenFilter(leaf.value === "even"))
@@ -208,15 +211,15 @@ export class CachingFilterProvider implements FilterProvider {
             filterFunc: regexMatch('name', leaf.value)
           }));
         case FilterType.ColorSet:
-          return okAsync(colorMatch(leaf.operator, new Set(leaf.value)))
+          return okAsync(colorMatch(leaf.operator!, new Set(leaf.value)))
         case FilterType.ColorInt:
-          return okAsync(colorCount(leaf.operator, leaf.value))
+          return okAsync(colorCount(leaf.operator!, leaf.value))
         case FilterType.ColorIdentitySet:
-          return okAsync(colorIdentityMatch(leaf.operator, new Set(leaf.value)))
+          return okAsync(colorIdentityMatch(leaf.operator!, new Set(leaf.value)))
         case FilterType.ColorIdentityInt:
-          return okAsync(colorIdentityCount(leaf.operator, leaf.value))
+          return okAsync(colorIdentityCount(leaf.operator!, leaf.value))
         case FilterType.Mana:
-          return okAsync(manaCostMatch(leaf.operator, leaf.value))
+          return okAsync(manaCostMatch(leaf.operator!, leaf.value))
         case FilterType.ManaRegex:
           return okAsync(oracleNode({
             filtersUsed: ['mana-regex'],
@@ -235,7 +238,7 @@ export class CachingFilterProvider implements FilterProvider {
         case FilterType.OracleCount:
           return okAsync(oracleNode({
             filtersUsed: ["oracle"],
-            filterFunc: oracleTextCount(leaf.operator, leaf.value, noReminderText),
+            filterFunc: oracleTextCount(leaf.operator!, leaf.value, noReminderText),
           }))
         case FilterType.FullOracle:
           return okAsync(oracleNode({
@@ -250,7 +253,7 @@ export class CachingFilterProvider implements FilterProvider {
         case FilterType.FullOracleCount:
           return okAsync(oracleNode({
             filtersUsed: ["full-oracle"],
-            filterFunc: oracleTextCount(leaf.operator, leaf.value),
+            filterFunc: oracleTextCount(leaf.operator!, leaf.value),
           }))
         case FilterType.Keyword:
           return okAsync(keywordMatch(leaf.value))
@@ -265,15 +268,15 @@ export class CachingFilterProvider implements FilterProvider {
             filterFunc: regexMatch('type_line', leaf.value),
           }))
         case FilterType.Power:
-          return okAsync(combatToCombatNode('power', leaf.operator, leaf.value))
+          return okAsync(combatToCombatNode('power', leaf.operator!, leaf.value))
         case FilterType.Tough:
-          return okAsync(combatToCombatNode('toughness', leaf.operator, leaf.value))
+          return okAsync(combatToCombatNode('toughness', leaf.operator!, leaf.value))
         case FilterType.PowTou:
-          return okAsync(powTouTotalOperation(leaf.operator, leaf.value))
+          return okAsync(powTouTotalOperation(leaf.operator!, leaf.value))
         case FilterType.Loyalty:
-          return okAsync(combatToCombatNode('loyalty', leaf.operator, leaf.value))
+          return okAsync(combatToCombatNode('loyalty', leaf.operator!, leaf.value))
         case FilterType.Defense:
-          return okAsync(combatToCombatNode('defense', leaf.operator, leaf.value))
+          return okAsync(combatToCombatNode('defense', leaf.operator!, leaf.value))
         case FilterType.Layout:
           return okAsync(oracleNode({
             filtersUsed: ["layout"],
@@ -290,23 +293,23 @@ export class CachingFilterProvider implements FilterProvider {
         case FilterType.Not:
           return okAsync(notNode(isVal(leaf.value)))
         case FilterType.PaperPrints:
-          return okAsync(paperPrintCount(leaf.operator, leaf.value))
+          return okAsync(paperPrintCount(leaf.operator!, leaf.value))
         case FilterType.Prints:
-          return okAsync(printCountFilter(leaf.operator, leaf.value))
+          return okAsync(printCountFilter(leaf.operator!, leaf.value))
         case FilterType.In:
           return okAsync(inFilter(leaf.value))
         case FilterType.ProducesSet:
           return okAsync(oracleNode({
             filtersUsed: ["produces"],
-            filterFunc: producesMatch(leaf.operator, new Set(leaf.value)),
+            filterFunc: producesMatch(leaf.operator!, new Set(leaf.value)),
           }))
         case FilterType.ProducesInt:
           return okAsync(oracleNode({
             filtersUsed: ["produces"],
-            filterFunc: producesMatchCount(leaf.operator, leaf.value),
+            filterFunc: producesMatchCount(leaf.operator!, leaf.value),
           }))
         case FilterType.Devotion:
-          return okAsync(devotionOperation(leaf.operator, leaf.value))
+          return okAsync(devotionOperation(leaf.operator!, leaf.value))
         case FilterType.Unique:
           return okAsync(oracleNode({
             filtersUsed: [`unique:${leaf.value}`],
@@ -326,7 +329,7 @@ export class CachingFilterProvider implements FilterProvider {
             inverseFunc: identity(),
           }))
         case FilterType.Rarity:
-          return okAsync(rarityFilterNode(leaf.operator, leaf.value))
+          return okAsync(rarityFilterNode(leaf.operator!, leaf.value))
         case FilterType.Set:
           return okAsync(setNode(leaf.value))
         case FilterType.SetType:
@@ -334,13 +337,13 @@ export class CachingFilterProvider implements FilterProvider {
         case FilterType.Artist:
           return okAsync(artistNode(leaf.value))
         case FilterType.CollectorNumber:
-          return okAsync(collectorNumberNode(leaf.operator, leaf.value))
+          return okAsync(collectorNumberNode(leaf.operator!, leaf.value))
         case FilterType.Border:
           return okAsync(borderNode(leaf.value))
         case FilterType.Date:
-          return okAsync(dateNode(leaf.operator, leaf.value))
+          return okAsync(dateNode(leaf.operator!, leaf.value))
         case FilterType.Price:
-          return okAsync(priceNode(leaf.unit, leaf.operator, leaf.value))
+          return okAsync(priceNode(leaf.unit!, leaf.operator!, leaf.value))
         case FilterType.Frame:
           return okAsync(frameNode(leaf.value))
         case FilterType.Flavor:
@@ -348,7 +351,7 @@ export class CachingFilterProvider implements FilterProvider {
         case FilterType.FlavorRegex:
           return okAsync(flavorRegex(leaf.value))
         case FilterType.FlavorCount:
-          return okAsync(printNode(["flavor-text"], flavorTextCount(leaf.operator, leaf.value)))
+          return okAsync(printNode(["flavor-text"], flavorTextCount(leaf.operator!, leaf.value)))
         case FilterType.Game:
           return okAsync(gameNode(leaf.value))
         case FilterType.Language:
