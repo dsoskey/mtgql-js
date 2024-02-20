@@ -8,7 +8,7 @@ const caseInsensitiveKeywords = (map: { [kw: string]: string | string[] }) => {
   return (text: string) => transform(text.toLowerCase())
 }
 
-export const lexer = moo.states({
+export const buildLexer = () => moo.states({
   main: {
     ws: /[ \t]+/,
     operator: [":","=","!=","<>","<=","<",">=",">"],
@@ -36,3 +36,5 @@ export const lexer = moo.states({
     slash: "/",
   }
 })
+
+export const lexer = buildLexer();

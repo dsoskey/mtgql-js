@@ -26,7 +26,11 @@ export type { SearchOptions } from './types/searchOptions';
 export type { IllustrationTag, OracleTag, TagType } from './types/tag';
 
 export { CachingFilterProvider } from './filters';
-export { OPERATORS } from './filters/base';
+export type { Filter, FilterNode } from './filters/base';
+export { OPERATORS, not, identityNode } from './filters/base';
+export type { DataProvider } from './filters/dataProvider'
 export { isOracleVal } from './filters/is';
 
-export { lexer } from './lexer'
+export { buildLexer } from './lexer';
+
+export { MQLParser } from './mql';

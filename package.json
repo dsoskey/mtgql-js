@@ -1,14 +1,16 @@
 {
   "name": "mtgql",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "query language for searching magic: the gathering cards",
-  "main": "src/index.ts",
+  "main": "build/index.js",
+  "types": "build/index.d.ts",
   "scripts": {
     "build": "npm run build:ts && npm run build:ne",
     "build:ts": "tsc",
     "build:ne": "nearleyc src/mql.ne -o build/mql.ne.js",
     "clean": "rm -rf build",
-    "test": "jest"
+    "test": "jest",
+    "release": "npm run build && npm run test && echo 'ready to run npm publish'"
   },
   "repository": {
     "type": "git",
@@ -19,6 +21,7 @@
   "bugs": {
     "url": "https://github.com/dsoskey/mtgql-js/issues"
   },
+  "files": ["build"],
   "homepage": "https://github.com/dsoskey/mtgql-js#readme",
   "devDependencies": {
     "@swc/core": "^1.4.0",
@@ -33,6 +36,7 @@
     "typescript": "^5.3.3"
   },
   "dependencies": {
+    "axios": "^1.6.7",
     "lodash": "^4.17.21",
     "moo": "^0.5.2",
     "nearley": "^2.20.1",
