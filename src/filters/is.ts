@@ -558,6 +558,8 @@ export const isOracleVal = (value: IsValue) => (card: NormedCard): boolean => {
         /.* enters the battlefield tapped unless you control two or more other lands\./
             .test(oracle_text)
       )
+    case 'star':
+      return card.power?.includes("*") || card.toughness?.includes("*");
     case 'extra':
        /*
        these aren't accounted for
