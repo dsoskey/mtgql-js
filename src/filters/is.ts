@@ -560,6 +560,8 @@ export const isOracleVal = (value: IsValue) => (card: NormedCard): boolean => {
       )
     case 'star':
       return card.power?.includes("*") || card.toughness?.includes("*");
+    case 'custom':
+      return card.collectionId?.length > 0
     case 'extra':
        /*
        these aren't accounted for

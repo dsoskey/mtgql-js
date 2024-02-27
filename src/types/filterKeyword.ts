@@ -58,6 +58,8 @@ export const FILTER_KEYWORDS = {
   // Requires set data
   b: 'b', block: 'block',
   paperprints: 'paperprints',
+  // mtgql exclusive
+  collection: "collection",
 } as const
 
 export const KEYWORDS_TO_IMPLEMENT = {
@@ -136,4 +138,5 @@ export enum FilterType {
   New,
   Prefer,
   Block,
+  Collection,
 }

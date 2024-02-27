@@ -379,6 +379,11 @@ export class CachingFilterProvider implements FilterProvider {
             ...identityNode(),
             filtersUsed: [`prefer:${leaf.value}`],
           })
+        case FilterType.Collection:
+          return okAsync(oracleNode({
+            filtersUsed: [`collection`],
+            filterFunc: (card) => card.collectionId === leaf.value,
+          }))
       }
     } catch (e) {
       return errAsync({

@@ -92,7 +92,8 @@ condition -> (
     artTagCondition |
     exactNameCondition |
     newCondition |
-    preferCondition
+    preferCondition |
+    collectionCondition
 ) {% ([[condition]]) => condition %}
 
 cmcCondition ->
@@ -325,6 +326,9 @@ oracleTagCondition -> ("function" | "oracletag" | "otag") onlyEqualOperator stri
 artTagCondition -> ("art" | "arttag" | "atag") onlyEqualOperator stringValue
     {% ([[{offset}], _, {value}]) => ({ filter: FilterType.IllustrationTag, value, offset }) %}
 
+collectionCondition -> "collection" onlyEqualOperator stringValue
+    {% ([{offset}, _, {value}]) => ({ filter: FilterType.Collection, value, offset }) %}
+
 # Values
 stringValue -> (noQuoteStringValue | %dqstring | %sqstring) {% ([[token]]) => {
     const { value, ...rest } = token
@@ -386,7 +390,7 @@ isValue -> (
   | "schinesealtart" | "playerrewards" | "storechampionship" | "giftbox" | "galaxyfoil" | "glossy" | "stepandcompleat" | "oilslick"
   | "tourney" | "premiereshop" | "judgegift" | "thick" | "jpwalker" | "prerelease" | "planeswalkerdeck"
   # non-scryfall filters
-  | "star"
+  | "star" | "custom"
 ) {% ([[category]]) => category %}
 
 # This somehow picks up restricted!=vintage

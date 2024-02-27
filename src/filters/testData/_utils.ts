@@ -1,9 +1,8 @@
-import { SearchOptions } from '../../types/searchOptions'
 import { Result } from 'neverthrow'
 import { Card } from 'scryfall-sdk'
-import { SearchError } from '../../types/error'
 import { MemoryDataProvider } from '../dataProvider'
 import { QueryRunner } from '../../queryRunner'
+import { SearchError, SearchOptions } from '../../types'
 
 export const defaultOptions: SearchOptions = { order: 'name' }
 
