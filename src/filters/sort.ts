@@ -1,6 +1,6 @@
 import { ObjectValues } from '../types/common'
-import { Card, Rarity } from 'scryfall-sdk'
-import { parsePowTou } from '../types/card'
+import { parsePowTou } from '../types'
+import { Card, Rarity } from '../generated'
 
 const SORT_ORDERS = {
   artist: 'artist',

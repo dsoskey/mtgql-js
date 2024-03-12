@@ -1,6 +1,6 @@
-import { Card } from 'scryfall-sdk'
+import { Card } from '../../generated'
 
-export const emberethShieldbreaker = Card.construct({
+export const emberethShieldbreaker = {
   "object": "card",
   "oracle_id": "52e439d0-a263-4d53-9ae3-fa1f8aa8293e",
   "name": "Embereth Shieldbreaker // Battle Display",
@@ -149,4 +149,4 @@ export const emberethShieldbreaker = Card.construct({
   "full_art": false,
   "textless": false,
   "story_spotlight": false
-})
+} as Card

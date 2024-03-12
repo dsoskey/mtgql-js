@@ -1,6 +1,6 @@
-import { Card } from 'scryfall-sdk'
+import { Card } from '../../generated'
 
-export const adantoVanguard = Card.construct({
+export const adantoVanguard: Card = {
   "object": "card",
   "oracle_id": "91c380f6-2c41-48b7-9f07-104e8659e397",
   "name": "Adanto Vanguard",
@@ -116,4 +116,4 @@ export const adantoVanguard = Card.construct({
   "full_art": false,
   "textless": false,
   "story_spotlight": false
-})
+} as Card;

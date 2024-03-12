@@ -1,6 +1,6 @@
-import { Card } from 'scryfall-sdk'
+import { Card } from '../../generated'
 
-export const bloodCrypt = Card.construct({
+export const bloodCrypt = {
   "object": "card",
   "oracle_id": "43985bbc-a0f6-4812-984e-392bc8562633",
   "name": "Blood Crypt",
@@ -125,4 +125,4 @@ export const bloodCrypt = Card.construct({
   "full_art": false,
   "textless": false,
   "story_spotlight": false
-})
+} as Card

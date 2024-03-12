@@ -39,12 +39,14 @@ import { printNode } from './print'
 import { errAsync, fromPromise, okAsync, ResultAsync } from 'neverthrow'
 import { DataProvider } from './dataProvider'
 import { newFilter } from './new'
-import { NormedCard } from '../types/normedCard'
-import { FilterType } from '../types/filterKeyword'
-import { AstLeaf, AstNode, BinaryNode, UnaryNode } from '../types/ast'
-import { FilterError } from '../types/error'
-import { noReminderText } from '../types/card'
-import { Block } from '../types/block'
+import {
+  NormedCard,
+  FilterType,
+  AstLeaf, AstNode, BinaryNode, UnaryNode,
+  FilterError,
+  noReminderText, Block
+} from '../types'
+import { Legality } from "../generated";
 
 
 export interface FilterProvider {
@@ -283,11 +285,11 @@ export class CachingFilterProvider implements FilterProvider {
             filterFunc: defaultOperation('layout', "=", leaf.value),
           }))
         case FilterType.Format:
-          return okAsync(formatMatch("legal", leaf.value))
+          return okAsync(formatMatch(Legality.legal, leaf.value))
         case FilterType.Banned:
-          return okAsync(formatMatch("banned", leaf.value))
+          return okAsync(formatMatch(Legality.banned, leaf.value))
         case FilterType.Restricted:
-          return okAsync(formatMatch("restricted", leaf.value))
+          return okAsync(formatMatch(Legality.restricted, leaf.value))
         case FilterType.Is:
           return okAsync(isVal(leaf.value))
         case FilterType.Not:

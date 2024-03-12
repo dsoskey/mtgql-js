@@ -1,5 +1,5 @@
 import { Result } from 'neverthrow'
-import { Card } from 'scryfall-sdk'
+import { Card } from '../../generated'
 import { MemoryDataProvider } from '../dataProvider'
 import { QueryRunner } from '../../queryRunner'
 import { SearchError, SearchOptions } from '../../types'

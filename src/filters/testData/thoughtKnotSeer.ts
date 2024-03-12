@@ -1,6 +1,6 @@
-import { Card } from 'scryfall-sdk'
+import { Card } from '../../generated'
 
-export const thoughtKnotSeer = Card.construct({
+export const thoughtKnotSeer = {
   "object": "card",
   "oracle_id": "cef7396d-2168-4282-bf38-670ca9eebd91",
   "name": "Thought-Knot Seer",
@@ -116,4 +116,4 @@ export const thoughtKnotSeer = Card.construct({
   "full_art": true,
   "textless": false,
   "story_spotlight": false
-})
+} as Card

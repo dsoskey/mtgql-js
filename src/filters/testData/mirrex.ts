@@ -1,5 +1,5 @@
-import { Card } from 'scryfall-sdk'
-export const mirrex = Card.construct({
+import { Card } from '../../generated'
+export const mirrex = {
     "object": "card",
     "oracle_id": "5502741a-e3b9-454e-8121-4360a6db6750",
     "name": "Mirrex",
@@ -148,4 +148,4 @@ export const mirrex = Card.construct({
     "full_art": false,
     "textless": false,
     "story_spotlight": false
-  })
+  } as Card

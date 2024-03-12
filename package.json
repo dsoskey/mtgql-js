@@ -1,14 +1,15 @@
 {
   "name": "mtgql",
-  "version": "1.1.2",
+  "version": "1.2.0",
   "description": "query language for searching magic: the gathering cards",
   "main": "build/index.js",
   "types": "build/index.d.ts",
   "scripts": {
-    "build": "npm run build:ts && npm run build:ne",
+    "build": "npm run build:card-models && npm run build:ts && npm run build:ne",
+    "build:card-models": "models/bin/typescript-client",
     "build:ts": "tsc",
     "build:ne": "nearleyc src/mql.ne -o build/mql.ne.js",
-    "clean": "rm -rf build",
+    "clean": "rm -rf build src/generated",
     "test": "jest",
     "release": "npm run build && npm run test && echo 'ready to run npm publish'"
   },
@@ -21,26 +22,28 @@
   "bugs": {
     "url": "https://github.com/dsoskey/mtgql-js/issues"
   },
-  "files": ["build"],
+  "files": [
+    "build"
+  ],
   "homepage": "https://github.com/dsoskey/mtgql-js#readme",
   "devDependencies": {
-    "@swc/core": "^1.4.0",
-    "@swc/jest": "^0.2.36",
-    "@types/jest": "^29.5.12",
-    "@types/lodash": "^4.14.202",
-    "@types/moo": "^0.5.9",
-    "@types/nearley": "^2.11.5",
-    "jest": "^29.7.0",
-    "jest-transform-nearley": "^2.0.0",
-    "ts-jest": "^29.1.2",
-    "typescript": "^5.3.3"
+    "@swc/core": "1.4.0",
+    "@swc/jest": "0.2.36",
+    "@types/jest": "29.5.12",
+    "@types/lodash": "4.14.202",
+    "@types/moo": "0.5.9",
+    "@types/nearley": "2.11.5",
+    "jest": "29.7.0",
+    "jest-transform-nearley": "2.0.0",
+    "ts-jest": "29.1.2",
+    "ts-node": "10.9.2",
+    "typescript": "5.3.3"
   },
   "dependencies": {
     "axios": "1.6.7",
     "lodash": "4.17.21",
     "moo": "0.5.2",
     "nearley": "2.20.1",
-    "neverthrow": "6.1.0",
-    "scryfall-sdk": "4.2.2"
+    "neverthrow": "6.1.0"
   }
 }

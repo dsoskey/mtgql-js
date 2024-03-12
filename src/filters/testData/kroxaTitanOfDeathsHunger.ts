@@ -1,6 +1,6 @@
-import { Card } from 'scryfall-sdk'
+import { Card } from '../../generated'
 
-export const kroxaTitanOfDeathsHunger = Card.construct({
+export const kroxaTitanOfDeathsHunger = {
   "object": "card",
   "oracle_id": "2cb1c213-b3f2-4433-8f89-6a3b4c3d2795",
   "name": "Kroxa, Titan of Death's Hunger",
@@ -128,4 +128,4 @@ export const kroxaTitanOfDeathsHunger = Card.construct({
   "full_art": false,
   "textless": false,
   "story_spotlight": false
-})
+} as Card

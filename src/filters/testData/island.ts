@@ -1,6 +1,6 @@
-import { Card } from 'scryfall-sdk'
+import { Card } from '../../generated'
 
-const island1 = Card.construct({
+const island1 = {
   "object": "card",
   "oracle_id": "b2c6aa39-2d2a-459c-a555-fb48ba993373",
   "name": "Island",
@@ -115,9 +115,9 @@ const island1 = Card.construct({
   "full_art": false,
   "textless": false,
   "story_spotlight": false
-})
+} as Card
 
-const island2 = Card.construct({
+const island2 = {
   "object": "card",
   "oracle_id": "b2c6aa39-2d2a-459c-a555-fb48ba993373",
   "name": "Island",
@@ -229,6 +229,6 @@ const island2 = Card.construct({
   "full_art": false,
   "textless": false,
   "story_spotlight": false
-})
+} as Card
 
 export const islandPrints = [island1, island2]

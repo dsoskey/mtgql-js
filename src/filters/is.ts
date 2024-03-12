@@ -1,18 +1,20 @@
 import {
-  anyFaceContains, anyFaceRegexMatch,
+  anyFaceContains,
+  anyFaceRegexMatch,
   DOUBLE_FACED_LAYOUTS,
   hasNumLandTypes,
   isDual,
   IsValue,
   noReminderText,
-  SHOCKLAND_REGEX
-} from '../types/card'
-import { DEFAULT_CARD_BACK_ID, NormedCard, PrintingFilterTuple } from '../types/normedCard'
+  parsePowTou,
+  SHOCKLAND_REGEX,
+  DEFAULT_CARD_BACK_ID,
+  NormedCard, PrintingFilterTuple } from '../types'
 import { FilterNode } from './base'
 import { oracleNode } from './oracle'
 import { textMatch } from './text'
-import { parsePowTou } from '../types/card'
 import { printNode } from './print'
+import { CardFinish, CardSecurityStamp, FrameEffect } from "../generated";
 
 export const isPrintPrefix = `is-print:`
 
@@ -165,12 +167,12 @@ export const isPrintVal = (value: IsValue) => ({ printing, card }: PrintingFilte
     case 'flavorname':
       return printing.flavor_name !== undefined
     case 'foil':
-      return printing.finishes.includes('foil')
+      return printing.finishes.includes(CardFinish.foil)
     case 'nonfoil':
-      return printing.finishes.includes('nonfoil')
+      return printing.finishes.includes(CardFinish.nonfoil)
     case 'etch':
     case 'etched':
-      return printing.finishes.includes('etched')
+      return printing.finishes.includes(CardFinish.etched)
     case 'contentwarning':
     return card.content_warning ?? false
     case 'booster':
@@ -198,7 +200,7 @@ export const isPrintVal = (value: IsValue) => ({ printing, card }: PrintingFilte
       return printing.security_stamp?.length > 0
     case 'ub':
     case 'universesbeyond':
-      return printing.security_stamp?.includes('triangle')
+      return printing.security_stamp?.includes(CardSecurityStamp.triangle)
     case 'artist':
       return printing.artist?.length > 0
     case 'flavor':
@@ -208,14 +210,12 @@ export const isPrintVal = (value: IsValue) => ({ printing, card }: PrintingFilte
     case 'firstprinting':
       return !printing.reprint
     case 'tombstone':
-    case 'showcase':
-      return printing.frame_effects?.includes(value)
-    case 'extended':
-      return printing.frame_effects?.includes('extendedart')
     case 'colorshifted':
-      return printing.frame_effects?.includes('colorshifted')
+    case 'showcase':
+      return printing.frame_effects?.includes(FrameEffect[value])
+    case 'extended':
+      return printing.frame_effects?.includes(FrameEffect.extendedart)
     case 'lights':
-      // @ts-ignore scryfall-sdk needs to update it
       return printing.attraction_lights?.length > 0
     case 'back':
       return printing.card_back_id !== DEFAULT_CARD_BACK_ID
@@ -406,7 +406,6 @@ export const isOracleVal = (value: IsValue) => (card: NormedCard): boolean => {
         console.warn(`Found card with no type: ${card.name}`)
         console.warn(card)
       }
-      // @ts-ignore upgrade scryfall-sdk
       return card.type_line.split('//')[0].includes('Planeswalker') && card.legalities.oathbreaker === 'legal'
     case 'duelcommander':
       return !isOracleVal('token')(card) && isOracleVal('commander')(card) && card.legalities.duel === 'legal'

@@ -1,6 +1,6 @@
-import { Card } from 'scryfall-sdk'
+import { Card } from '../../generated'
 
-export const aetherbladeAgent = Card.construct({
+export const aetherbladeAgent = {
   "object": "card",
   "oracle_id": "80ecb069-36e2-490d-9f6c-ef553c00e997",
   "name": "Aetherblade Agent // Gitaxian Mindstinger",
@@ -163,4 +163,4 @@ export const aetherbladeAgent = Card.construct({
   "full_art": false,
   "textless": false,
   "story_spotlight": false
-})
+} as Card

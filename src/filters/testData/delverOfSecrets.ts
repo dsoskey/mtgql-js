@@ -1,4 +1,4 @@
-import { Card } from 'scryfall-sdk'
+import { Card } from '../../generated'
 
 const printings = [
   {
@@ -1880,5 +1880,5 @@ const printings = [
   },
 ]
 
-export const delverOfSecrets = Card.construct(printings[0])
-export const ftvDelverOfSecrets = Card.construct(printings[1])
+export const delverOfSecrets = (printings[0] as Card)
+export const ftvDelverOfSecrets = (printings[1] as Card)

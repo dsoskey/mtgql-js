@@ -1,6 +1,6 @@
-import { Card } from 'scryfall-sdk'
+import { Card } from '../../generated'
 
-export const concordantCrossroads = Card.construct({
+export const concordantCrossroads = {
   "object": "card",
   "oracle_id": "ff01b408-6d17-40a3-9efd-a1b341ec1307",
   "name": "Concordant Crossroads",
@@ -116,4 +116,4 @@ export const concordantCrossroads = Card.construct({
   "full_art": false,
   "textless": false,
   "story_spotlight": false
-})
+} as Card

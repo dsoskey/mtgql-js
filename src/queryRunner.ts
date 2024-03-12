@@ -1,14 +1,17 @@
 import { Parser } from 'nearley'
-import { normCardList, NormedCard } from './types/normedCard'
-import { SearchOptions } from './types/searchOptions'
+import {
+  normCardList, NormedCard,
+  SearchOptions,
+  NearlyError,
+  SearchError,
+  AstNode,
+} from './types'
 import { errAsync, okAsync, ResultAsync } from 'neverthrow'
-import { Card } from 'scryfall-sdk'
-import { NearlyError, SearchError } from './types/error'
+import { Card } from './generated'
 import { FilterProvider, CachingFilterProvider } from './filters'
 import { chooseFilterFunc } from './filters/print'
 import { byName, sortFunc, SortOrder } from './filters/sort'
 import sortBy from 'lodash/sortBy'
-import { AstNode } from './types/ast'
 import { MQLParser } from './mql'
 import { DataProvider } from './filters/dataProvider'
 import { FilterNode } from './filters/base'

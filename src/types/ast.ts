@@ -1,5 +1,5 @@
 import { FilterType } from './filterKeyword'
-import { Prices } from 'scryfall-sdk'
+import { Prices } from '../generated'
 import { Operator } from '../filters/base'
 
 interface AstNodeCommon {

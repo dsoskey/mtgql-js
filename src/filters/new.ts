@@ -1,7 +1,8 @@
-import { FilterNode } from './base'
-import { printNode } from './print'
+import {FilterNode} from './base'
+import {printNode} from './print'
 import _isEqual from 'lodash/isEqual'
 import {Printing} from "../types";
+import {CardFinish, Game} from "../generated";
 
 type NewValue = "rarity" | "flavor" | "art" | "artist" | "frame" | "language" | "game" | "paper" | "mtgo" | "arena" | "nonfoil" | "foil"
 
@@ -22,8 +23,8 @@ export function newFilter(value: NewValue): FilterNode {
       case 'paper':
       case 'mtgo':
       case 'arena': // new:arena is adding a bunch of extra cards, looking like from not main sets
-        return (!printing.reprint && printing.games.includes(value))
-          || _isEqual(card.printings.find(it => it.games.includes(value)), printing)
+        return (!printing.reprint && printing.games.includes(Game[value]))
+          || _isEqual(card.printings.find(it => it.games.includes(Game[value])), printing)
       case 'rarity':
         getField = (current) => current.rarity;
         break;
@@ -44,7 +45,7 @@ export function newFilter(value: NewValue): FilterNode {
         break;
       case 'nonfoil':
       case 'foil':
-        getField = (current) => current.finishes.includes(value)
+        getField = (current) => current.finishes.includes(CardFinish[value])
     }
     return _isEqual(card.printings.find(it => getField(it) !== undefined && getField(it) === getField(printing)), printing)
   })

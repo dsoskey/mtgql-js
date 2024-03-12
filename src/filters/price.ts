@@ -1,6 +1,6 @@
 import { defaultCompare, FilterNode, Operator } from './base'
 import { printNode } from './print'
-import { Prices } from 'scryfall-sdk'
+import { Prices } from '../generated'
 
 export const priceNode = (unit: keyof Prices, operator: Operator, value: number): FilterNode =>
   printNode([unit], ({ printing }) => {

@@ -1,6 +1,6 @@
-import { Card } from 'scryfall-sdk'
+import { Card } from '../../generated'
 
-export const preordain = Card.construct({
+export const preordain = {
   "object": "card",
   "oracle_id": "ac641490-ca14-48d7-8cc4-b69ce984befa",
   "name": "Preordain",
@@ -122,4 +122,4 @@ export const preordain = Card.construct({
   "full_art": false,
   "textless": false,
   "story_spotlight": false
-})
+} as Card

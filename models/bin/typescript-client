@@ -1,0 +1,19 @@
+#! /usr/bin/env bash
+set -e
+
+ROOT="$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )/.."
+PROJECT_ROOT="$ROOT/.."
+CLIENT_DIR="$ROOT/clients/typescript"
+CUSTOM_TEMPLATE_DIR="$ROOT/customTemplates/typescript"
+
+# TODO: handle openapi-generator & npm download
+openapi-generator generate \
+  -i "$ROOT/card_definition.json" \
+  -g 'typescript-fetch' \
+  -o "$CLIENT_DIR" \
+  -t "$CUSTOM_TEMPLATE_DIR" \
+  --additional-properties=supportsES6=true,npmName=@types/mtgql-js,generateAliasAsModel=true,enumPropertyNaming=original,paramNaming=original,modelPropertyNaming=original
+mkdir -p "$PROJECT_ROOT/src/generated"
+for f in $(ls "$CLIENT_DIR/src"); do
+  cp -R "$CLIENT_DIR/src/$f" "$PROJECT_ROOT/src/generated"
+done

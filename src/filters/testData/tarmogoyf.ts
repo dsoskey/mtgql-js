@@ -1,6 +1,6 @@
-import { Card } from 'scryfall-sdk'
+import { Card } from '../../generated'
 
-export const tarmogoyf = Card.construct({
+export const tarmogoyf = {
   "object": "card",
   "oracle_id": "45900b2f-f6a9-4c42-9642-008f3c1cf6dd",
   "name": "Tarmogoyf",
@@ -124,4 +124,4 @@ export const tarmogoyf = Card.construct({
   "full_art": false,
   "textless": false,
   "story_spotlight": false
-})
+} as Card

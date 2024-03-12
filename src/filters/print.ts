@@ -1,6 +1,6 @@
 import { Filter, FilterNode } from './base'
-import { Card } from 'scryfall-sdk'
-import { NormedCard, Printing, PrintingFilterTuple } from '../types/normedCard'
+import { Card } from '../generated'
+import { NormedCard, Printing, PrintingFilterTuple } from '../types'
 import { maxBy, minBy } from 'lodash'
 
 export const printNode = (
@@ -70,10 +70,10 @@ export const findPrinting = (prefer?: string) =>
           default:
             print = maybePrints[0]
         }
-        return [Card.construct(<Card>{
+        return [{
           ...rest,
           ...print,
-        })]
+        }]
       }
       return []
     }
@@ -115,13 +115,10 @@ export const uniqueArts =
           returnedPrints.push(print)
         }
       }
-      return returnedPrints.map((it) =>
-          // @ts-ignore
-          Card.construct(<Card>{
-              ...rest,
-              ...it,
-          })
-      )
+      return returnedPrints.map((it) => ({
+          ...rest,
+          ...it,
+      }))
     }
 
 

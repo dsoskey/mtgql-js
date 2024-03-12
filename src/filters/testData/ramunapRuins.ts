@@ -1,6 +1,6 @@
-import { Card } from 'scryfall-sdk'
+import { Card } from '../../generated'
 
-export const ramunapRuins = Card.construct({
+export const ramunapRuins = {
   "object": "card",
   "oracle_id": "d0d35864-1edc-4af1-9b89-3d7e94908011",
   "name": "Ramunap Ruins",
@@ -123,4 +123,4 @@ export const ramunapRuins = Card.construct({
   "full_art": false,
   "textless": false,
   "story_spotlight": false
-})
+} as Card

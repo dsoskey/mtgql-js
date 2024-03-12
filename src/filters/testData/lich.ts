@@ -1,6 +1,6 @@
-import { Card } from 'scryfall-sdk'
+import { Card } from '../../generated'
 
-export const lich = Card.construct({
+export const lich = {
   "object": "card",
   "oracle_id": "5b7515f2-7a5a-4e2a-9784-6cbacd768172",
   "name": "Lich",
@@ -117,4 +117,4 @@ export const lich = Card.construct({
   "full_art": false,
   "textless": false,
   "story_spotlight": false
-})
+} as Card

@@ -2,9 +2,10 @@ import { QueryRunner } from '../queryRunner'
 import { defaultDataProvider, defaultOptions, names } from './testData/_utils'
 import { mishrasFactoryPrints } from './testData/mishrasFactory'
 import { islandPrints } from './testData/island'
+import {Card} from "../generated";
 
 describe('new filter', function() {
-  const corpus = [
+  const corpus: Card[] = [
     ...mishrasFactoryPrints,
     ...islandPrints
   ]

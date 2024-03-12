@@ -1,0 +1,324 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Magic Card Types",
+    "version": "0.0.1"
+  },
+  "paths": {
+    "/cards/search": {
+      "get": {
+        "operationId": "search",
+        "description": "searches for cards that match a query",
+        "tags": ["mtgql"],
+        "responses": {
+          "200": {
+            "description": "notification stream has begun in websocket channel",
+            "content": {
+              "application/json": { "schema": { "$ref": "#/components/schemas/Card" } }
+            }
+          },
+          "default": { "$ref": "#/components/responses/UnexpectedError" }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Card": {
+        "type": "object",
+        "required": ["object", "id", "lang", "oracle_id", "layout", "prints_search_uri", "rulings_uri", "scryfall_uri", "uri", "card_faces", "cmc", "color_identity", "keywords", "legalities", "name", "reserved", "booster", "border_color", "card_back_id", "collector_number", "digital", "finishes", "frame", "full_art", "games", "highres_image", "image_status", "oversized", "prices", "promo", "rarity", "related_uris", "released_at", "reprint", "scryfall_set_uri", "set_name", "set_search_uri", "set_type", "set_uri", "set", "set_id", "story_spotlight", "textless", "variation"],
+        "properties": {
+          "object": { "type": "string", "enum": ["card"] },
+          "id": { "type": "string" },
+          "arena_id": { "type": "integer" },
+          "lang": { "type": "string" },
+          "mtgo_id": { "type": "integer" },
+          "mtgo_foil_id": { "type": "integer" },
+          "multiverse_ids": {
+            "type": "array",
+            "items": { "type": "integer" }
+          },
+          "tcgplayer_id": { "type": "integer" },
+          "tcgplayer_etched_id": { "type": "integer" },
+          "cardmarket_id": { "type": "integer" },
+          "oracle_id": { "type": "string" },
+          "layout": { "$ref": "#/components/schemas/Layout" },
+          "prints_search_uri": { "type": "string" },
+          "rulings_uri": { "type": "string" },
+          "scryfall_uri": { "type": "string" },
+          "uri": { "type": "string" },
+          "all_parts": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/RelatedCard" }
+          },
+          "card_faces": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/CardFace" }
+          },
+          "cmc": { "type": "number" },
+          "color_identity": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/Color" }
+          },
+          "color_indicator": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/Color" }
+          },
+          "colors": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/Color" }
+          },
+          "edhrec_rank": { "type": "integer" },
+          "hand_modifier": { "$ref": "#/components/schemas/Modifier" },
+          "keywords": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "legalities": { "$ref": "#/components/schemas/Legalities" },
+          "life_modifier": { "$ref": "#/components/schemas/Modifier" },
+          "loyalty": { "type": "string" },
+          "mana_cost": { "type": "string" },
+          "name": { "type": "string" },
+          "oracle_text": { "type": "string" },
+          "penny_rank": { "type": "integer" },
+          "power": { "type": "string" },
+          "produced_mana": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/Color" }
+          },
+          "reserved": { "type": "boolean" },
+          "toughness": { "type": "string" },
+          "type_line": { "type": "string" },
+          "artist": { "type": "string" },
+          "artist_ids": { "type": "array", "items": { "type":  "string"} },
+          "attraction_lights": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/AttractionLight" }
+          },
+          "booster": { "type": "boolean" },
+          "border_color": { "$ref": "#/components/schemas/Border" },
+          "card_back_id": { "type": "string" },
+          "collector_number": { "type": "string" },
+          "content_warning": { "type": "boolean" },
+          "digital": { "type": "boolean" },
+          "finishes": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/CardFinish" }
+          },
+          "flavor_name": { "type": "string" },
+          "flavor_text": { "type": "string" },
+          "frame_effects": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/FrameEffect" }
+          },
+          "frame": { "$ref": "#/components/schemas/CardFrame"},
+          "full_art": { "type": "boolean" },
+          "games": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/Game" }
+          },
+          "highres_image": { "type": "boolean" },
+          "illustration_id": { "type": "string" },
+          "image_status": { "$ref": "#/components/schemas/CardStatus" },
+          "image_uris": { "$ref": "#/components/schemas/ImageUris" },
+          "oversized": { "type": "boolean" },
+          "prices": { "$ref": "#/components/schemas/Prices" },
+          "printed_name": { "type": "string" },
+          "printed_text": { "type": "string" },
+          "printed_type_line": { "type": "string" },
+          "promo": { "type": "boolean" },
+          "promo_types": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/PromoType" }
+          },
+          "purchase_uris": { "$ref": "#/components/schemas/PurchaseUris" },
+          "rarity": { "$ref": "#/components/schemas/Rarity" },
+          "related_uris": { "$ref": "#/components/schemas/RelatedUris" },
+          "released_at": { "type": "string" },
+          "reprint": { "type": "boolean" },
+          "scryfall_set_uri": { "type": "string" },
+          "set_name": { "type": "string" },
+          "set_search_uri": { "type": "string" },
+          "set_type": { "$ref": "#/components/schemas/SetType" },
+          "set_uri": { "type": "string" },
+          "set": { "type": "string" },
+          "set_id": { "type": "string" },
+          "story_spotlight": { "type": "boolean" },
+          "textless": { "type": "boolean" },
+          "variation": { "type": "boolean" },
+          "variation_of": { "type": "string" },
+          "security_stamp":  {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/CardSecurityStamp" }
+          },
+          "watermark": { "type": "string" },
+          "preview":  { "$ref": "#/components/schemas/Preview" }
+        },
+        "additionalProperties": false
+      },
+      "Layout": {
+        "type": "string",
+        "enum": ["normal", "split", "flip", "transform", "modal_dfc", "meld", "leveler", "saga", "adventure", "planar", "scheme", "vanguard", "token", "double_faced_token", "emblem", "augment", "host", "art_series", "double_sided"]
+      },
+      "RelatedCard": {
+        "type": "object",
+        "properties": {
+          "object": { "type": "string", "enum": ["related_card"] },
+          "id": { "type": "string" },
+          "component": { "$ref": "#/components/schemas/RelatedCardComponent" },
+          "name": { "type": "string" },
+          "type_line": { "type": "string" },
+          "uri": { "type": "string" }
+        }
+      },
+      "RelatedCardComponent": {
+        "type": "string",
+        "enum": ["token", "meld_part", "meld_result", "combo_piece"]
+      },
+      "CardFace": {
+        "type": "object",
+        "required": ["object", "name"],
+        "properties": {
+          "object": { "type": "string", "enum": ["card_face"] },
+          "artist": { "type": "string" },
+          "artist_id": { "type": "string" },
+          "cmc": { "type": "number" },
+          "color_indicator": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/Color" }
+          },
+          "colors": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/Color" }
+          },
+          "defense": { "type": "string" },
+          "flavor_text": { "type": "string" },
+          "illustration_id": { "type": "string" },
+          "image_uris": { "$ref": "#/components/schemas/ImageUris" },
+          "layout": { "type": "string" },
+          "loyalty": { "type": "string" },
+          "mana_cost": { "type": "string" },
+          "name": { "type": "string" },
+          "oracle_id": { "type": "string" },
+          "oracle_text": { "type": "string" },
+          "power": { "type": "string" },
+          "printed_name": { "type": "string" },
+          "printed_text": { "type": "string" },
+          "printed_type_line": { "type": "string" },
+          "toughness": { "type": "string" },
+          "type_line": { "type": "string" },
+          "watermark": { "type": "string" }
+        }
+      },
+      "Color": { "type": "string", "enum": ["W", "U", "B", "R", "G"] },
+      "Modifier": {
+        "type": "string",
+        "pattern": "^[+-]\\d+$"
+      },
+      "Legalities": {
+        "type": "object",
+        "additionalProperties": { "$ref": "#/components/schemas/Legality"}
+      },
+      "Legality": {
+        "type": "string",
+        "enum": ["legal", "not_legal", "restricted", "banned"]
+      },
+      "AttractionLight": {
+        "type": "integer",
+        "enum": [1, 2, 3, 4, 5, 6]
+      },
+      "Border": {
+        "type": "string",
+        "enum": ["black", "borderless", "gold", "silver", "white"]
+      },
+      "CardFinish": {
+        "type": "string",
+        "enum": ["foil", "nonfoil", "etched", "glossy"]
+      },
+      "FrameEffect": {
+        "type": "string",
+        "enum": ["legendary", "miracle", "nyxtouched", "draft", "devoid", "tombstone", "colorshifted", "inverted", "sunmoondfc", "compasslanddfc", "originpwdfc", "mooneldrazidfc", "moonreversemoondfc", "showcase", "extendedart", "companion", "etched", "snow", "lesson", "shatteredglass", "convertdfc", "fandfc", "upsidedowndfc"]
+      },
+      "CardFrame": {
+        "type": "string",
+        "enum": ["1993", "1997", "2003", "2015", "Future"]
+      },
+      "Game": {
+        "type": "string",
+        "enum": ["paper", "arena", "mtgo"]
+      },
+      "CardStatus": {
+        "type": "string",
+        "enum": ["missing", "placeholder", "lowres", "highres_scan"]
+      },
+      "ImageUris": {
+        "type": "object",
+        "required": ["small", "normal", "large", "png", "art_crop", "border_crop"],
+        "properties": {
+          "small": { "type": "string" },
+          "normal": { "type": "string" },
+          "large": { "type": "string" },
+          "png": { "type": "string" },
+          "art_crop": { "type": "string" },
+          "border_crop": { "type": "string" }
+        }
+      },
+      "Prices": {
+        "type": "object",
+        "properties": {
+          "usd": { "type": "string" },
+          "usd_foil": { "type": "string" },
+          "usd_etched": { "type": "string" },
+          "eur": { "type": "string" },
+          "eur_foil": { "type": "string" },
+          "tix": { "type": "string" }
+        }
+      },
+      "PromoType": {
+        "type": "string",
+        "enum": ["tourney", "prerelease", "datestamped", "planeswalkerdeck", "buyabox", "judgegift", "event", "convention", "starterdeck", "instore", "setpromo", "fnm", "openhouse", "league", "draftweekend", "gameday", "release", "intropack", "giftbox", "duels", "wizardsplaynetwork", "premiereshop", "playerrewards", "gateway", "arenaleague"]
+      },
+      "PurchaseUris": {
+        "type": "object",
+        "properties": {
+          "tcgplayer": { "type": "string" },
+          "cardmarket": { "type": "string" },
+          "cardhoarder": { "type": "string" }
+        },
+        "additionalProperties": { "type": "string" }
+      },
+      "Rarity": {
+        "type": "string",
+        "enum": ["common", "uncommon", "rare", "special", "mythic", "bonus"]
+      },
+      "RelatedUris": {
+        "type": "object",
+        "properties": {
+          "gatherer": { "type": "string" },
+          "tcgplayer_decks":{ "type": "string" },
+          "tcgplayer_infinite_decks": { "type": "string" },
+          "tcgplayer_infinite_articles":{ "type": "string" },
+          "edhrec": { "type": "string" },
+          "mtgtop8":{ "type": "string" }
+        },
+        "additionalProperties": { "type": "string" }
+      },
+      "CardSecurityStamp": {
+        "type": "string",
+        "enum": ["oval", "triangle", "acorn", "circle", "arena", "heart"]
+      },
+      "Preview": {
+        "type": "object",
+        "properties": {
+          "previewed_at": { "type": "string" },
+          "source_uri": { "type": "string" },
+          "source": { "type": "string" }
+        }
+      },
+      "SetType": {
+        "type": "string",
+        "enum": ["core", "expansion", "masters", "alchemy", "masterpiece", "arsenal", "from_the_vault", "spellbook", "premium_deck", "duel_deck", "draft_innovation", "treasure_chest", "commander", "planechase", "archenemy", "vanguard", "funny", "starter", "box", "promo", "token", "memorabilia", "minigame"]
+      }
+    }
+  }
+}

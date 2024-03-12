@@ -1,6 +1,6 @@
-import { Card } from 'scryfall-sdk'
+import { Card } from '../../generated'
 
-export const asymmetrySage = Card.construct({
+export const asymmetrySage = {
   "object": "card",
   "oracle_id": "f9f1deaa-4f93-4207-9096-e0c5261e2b3c",
   "name": "A-Symmetry Sage",
@@ -139,4 +139,4 @@ export const asymmetrySage = Card.construct({
   "full_art": false,
   "textless": false,
   "story_spotlight": false
-})
+} as Card

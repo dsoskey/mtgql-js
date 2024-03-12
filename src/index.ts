@@ -34,3 +34,5 @@ export { isOracleVal } from './filters/is';
 export { buildLexer } from './lexer';
 
 export { MQLParser } from './mql';
+
+export * from "./generated/models"

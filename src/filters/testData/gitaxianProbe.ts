@@ -1,6 +1,6 @@
-import { Card } from 'scryfall-sdk'
+import { Card } from '../../generated'
 
-export const gitaxianProbe = Card.construct({
+export const gitaxianProbe = {
   "object": "card",
   "oracle_id": "1d67f5ff-1fce-45e5-b6a1-416c569351e2",
   "name": "Gitaxian Probe",
@@ -116,4 +116,4 @@ export const gitaxianProbe = Card.construct({
   "full_art": false,
   "textless": false,
   "story_spotlight": false
-})
+} as Card

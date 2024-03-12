@@ -1,6 +1,6 @@
-import { Card } from 'scryfall-sdk'
+import { Card } from '../../generated'
 
-export const negate = Card.construct({
+export const negate = {
   "object": "card",
   "oracle_id": "3407fe41-fdd3-4119-8f70-4bc4590a379f",
   "name": "Negate",
@@ -122,4 +122,4 @@ export const negate = Card.construct({
   "full_art": false,
   "textless": false,
   "story_spotlight": false
-})
+} as Card

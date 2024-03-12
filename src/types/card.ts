@@ -1,4 +1,4 @@
-import { Card } from 'scryfall-sdk'
+import { Card } from '../generated'
 import { ObjectValues } from './common'
 import { NormedCard, OracleKeys } from './normedCard'
 

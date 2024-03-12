@@ -1,4 +1,4 @@
-import { Card } from 'scryfall-sdk'
+import { Card } from '../../generated'
 
 const rawdata = [
   {
@@ -180,4 +180,4 @@ const rawdata = [
   'story_spotlight': false
 }]
 
-export const mishrasFactoryPrints = rawdata.map(Card.construct);
+export const mishrasFactoryPrints = rawdata as Card[];
