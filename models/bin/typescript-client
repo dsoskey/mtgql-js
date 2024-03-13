@@ -7,7 +7,7 @@ CLIENT_DIR="$ROOT/clients/typescript"
 CUSTOM_TEMPLATE_DIR="$ROOT/customTemplates/typescript"
 
 # TODO: handle openapi-generator & npm download
-openapi-generator generate \
+npx @openapitools/openapi-generator-cli generate \
   -i "$ROOT/card_definition.json" \
   -g 'typescript-fetch' \
   -o "$CLIENT_DIR" \

@@ -27,6 +27,7 @@
   ],
   "homepage": "https://github.com/dsoskey/mtgql-js#readme",
   "devDependencies": {
+    "@openapitools/openapi-generator-cli": "^2.12.0",
     "@swc/core": "1.4.0",
     "@swc/jest": "0.2.36",
     "@types/jest": "29.5.12",
