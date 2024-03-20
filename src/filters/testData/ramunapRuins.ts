@@ -50,11 +50,6 @@ export const ramunapRuins = {
   ],
   "edhrec_rank": 4140,
   "penny_rank": 20,
-  "card_faces": [
-    {
-      "object": "card_face"
-    }
-  ],
   "artist": "Florian de Gesincourt",
   "booster": true,
   "border_color": "black",

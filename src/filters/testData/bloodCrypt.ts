@@ -50,11 +50,6 @@ export const bloodCrypt = {
     "b5f1bd34-abee-40c9-99f7-a6ee089fb30b"
   ],
   "edhrec_rank": 74,
-  "card_faces": [
-    {
-      "object": "card_face"
-    }
-  ],
   "artist": "Vincent Proce",
   "booster": true,
   "border_color": "black",

@@ -47,11 +47,6 @@ export const concordantCrossroads = {
     "c1160787-e72e-4f89-b361-c6864f7a4e3a"
   ],
   "edhrec_rank": 1306,
-  "card_faces": [
-    {
-      "object": "card_face"
-    }
-  ],
   "artist": "Amy Weber",
   "booster": true,
   "border_color": "white",

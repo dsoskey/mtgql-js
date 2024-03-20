@@ -50,11 +50,6 @@ export const norinTheWary = {
   ],
   "edhrec_rank": 5837,
   "penny_rank": 5080,
-  "card_faces": [
-    {
-      "object": "card_face"
-    }
-  ],
   "artist": "Heather Hudson",
   "booster": false,
   "border_color": "black",

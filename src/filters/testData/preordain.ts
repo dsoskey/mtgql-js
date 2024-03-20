@@ -49,11 +49,6 @@ export const preordain = {
     "ffd063ae-c097-4f26-b2e6-b1e2137708bc"
   ],
   "edhrec_rank": 124,
-  "card_faces": [
-    {
-      "object": "card_face"
-    }
-  ],
   "artist": "Svetlin Velinov",
   "booster": true,
   "border_color": "black",

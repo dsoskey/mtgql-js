@@ -48,11 +48,6 @@ export const bojukaBog = {
     "6dd06426-59fe-4b9c-aad5-6da8446a5c3d"
   ],
   "edhrec_rank": 27,
-  "card_faces": [
-    {
-      "object": "card_face"
-    }
-  ],
   "artist": "Howard Lyon",
   "booster": false,
   "border_color": "black",

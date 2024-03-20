@@ -53,11 +53,6 @@ export const kroxaTitanOfDeathsHunger = {
     "d82b1138-76d3-49f7-9d8c-bc2e2d3e0b0a"
   ],
   "edhrec_rank": 3651,
-  "card_faces": [
-    {
-      "object": "card_face"
-    }
-  ],
   "artist": "Vincent Proce",
   "booster": false,
   "border_color": "black",

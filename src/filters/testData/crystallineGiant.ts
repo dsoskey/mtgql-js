@@ -46,11 +46,6 @@ export const crystallineGiant = {
   ],
   "edhrec_rank": 4238,
   "penny_rank": 4157,
-  "card_faces": [
-    {
-      "object": "card_face"
-    }
-  ],
   "arena_id": 73651,
   "artist": "Kotakan",
   "booster": false,

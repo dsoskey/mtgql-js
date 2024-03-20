@@ -49,11 +49,6 @@ export const darkConfidant = {
     "23b0cf43-3e43-44c6-8329-96446eca5bce"
   ],
   "edhrec_rank": 991,
-  "card_faces": [
-    {
-      "object": "card_face"
-    }
-  ],
   "artist": "Scott M. Fischer",
   "booster": true,
   "border_color": "black",

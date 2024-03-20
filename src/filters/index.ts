@@ -149,7 +149,7 @@ export class CachingFilterProvider implements FilterProvider {
         ['atag'],
         ({ printing }) => {
           return ids.has(printing.illustration_id??"") ||
-            printing.card_faces.find(it => ids.has(it.illustration_id??"")) !== undefined
+            printing.card_faces?.find(it => ids.has(it.illustration_id??"")) !== undefined
         }
       )
     })

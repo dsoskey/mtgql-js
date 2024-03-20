@@ -45,11 +45,6 @@ export const thoughtKnotSeer = {
     "5e470014-31cb-41b0-b054-e23374484449"
   ],
   "edhrec_rank": 5891,
-  "card_faces": [
-    {
-      "object": "card_face"
-    }
-  ],
   "artist": "Aleksi Briclot",
   "booster": false,
   "border_color": "borderless",

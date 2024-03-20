@@ -50,11 +50,6 @@ export const phantomBeast = {
   ],
   "edhrec_rank": 20642,
   "penny_rank": 14711,
-  "card_faces": [
-    {
-      "object": "card_face"
-    }
-  ],
   "artist": "Ryan Yee",
   "booster": true,
   "border_color": "black",

@@ -36,7 +36,7 @@ export const oracleTextCount = (operator: Operator, count: number, transform = (
     if (card.oracle_text !== undefined) {
       wordCount = getCount(card.oracle_text)
     } else {
-      wordCount = card.card_faces.map(it => getCount(it.oracle_text)).reduce((l,r) => l+r)
+      wordCount = card.card_faces?.map(it => getCount(it.oracle_text)).reduce((l,r) => l+r)
     }
     return defaultCompare(wordCount, operator, count)
   }

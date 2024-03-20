@@ -50,11 +50,6 @@ export const phyrexianWalker = {
     "cardmarket": "https://www.cardmarket.com/en/Magic/Products/Search?referrer=scryfall&searchString=Phyrexian+Walker&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
     "cardhoarder": "https://www.cardhoarder.com/cards/7667?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall"
   },
-  "card_faces": [
-    {
-      "object": "card_face"
-    }
-  ],
   "artist": "Bryan Talbot",
   "booster": true,
   "border_color": "black",

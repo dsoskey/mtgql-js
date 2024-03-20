@@ -49,11 +49,6 @@ export const tarmogoyf = {
     "a4e0102e-bbeb-497c-babc-1c0741fea914"
   ],
   "edhrec_rank": 12205,
-  "card_faces": [
-    {
-      "object": "card_face"
-    }
-  ],
   "artist": "Ryan Barger",
   "booster": true,
   "border_color": "black",

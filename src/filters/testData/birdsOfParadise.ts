@@ -59,11 +59,6 @@ export const birdsOfParadise = {
   ],
   "edhrec_rank": 59,
   "penny_rank": 46,
-  "card_faces": [
-    {
-      "object": "card_face"
-    }
-  ],
   "artist": "Mark Poole",
   "booster": true,
   "border_color": "white",

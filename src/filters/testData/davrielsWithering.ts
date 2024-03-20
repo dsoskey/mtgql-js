@@ -46,11 +46,6 @@ export const davrielsWithering = {
   "artist_ids": [
     "ce381d25-868c-4f13-b1e9-e7cd2f67e994"
   ],
-  "card_faces": [
-    {
-      "object": "card_face"
-    }
-  ],
   "arena_id": 79374,
   "artist": "Alex Brock",
   "booster": true,

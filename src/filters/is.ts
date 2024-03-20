@@ -205,7 +205,7 @@ export const isPrintVal = (value: IsValue) => ({ printing, card }: PrintingFilte
       return printing.artist?.length > 0
     case 'flavor':
       return printing.flavor_text !== undefined
-        || printing.card_faces.find(it => it.flavor_text !== undefined) !== undefined
+        || printing.card_faces?.find(it => it.flavor_text !== undefined) !== undefined
     case 'firstprint':
     case 'firstprinting':
       return !printing.reprint

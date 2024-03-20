@@ -50,11 +50,6 @@ export const adantoVanguard: Card = {
   ],
   "edhrec_rank": 9940,
   "penny_rank": 988,
-  "card_faces": [
-    {
-      "object": "card_face"
-    }
-  ],
   "artist": "Anna Steinbauer",
   "booster": true,
   "border_color": "black",

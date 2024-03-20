@@ -50,11 +50,6 @@ export const arrogantBloodlord = {
   ],
   "edhrec_rank": 20229,
   "penny_rank": 3920,
-  "card_faces": [
-    {
-      "object": "card_face"
-    }
-  ],
   "artist": "Mike Bierek",
   "booster": true,
   "border_color": "black",

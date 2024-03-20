@@ -51,11 +51,6 @@ const island1 = {
     "cardmarket": "https://www.cardmarket.com/en/Magic/Products/Search?referrer=scryfall&searchString=Island&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
     "cardhoarder": "https://www.cardhoarder.com/cards?affiliate_id=scryfall&data%5Bsearch%5D=Island&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall"
   },
-  "card_faces": [
-    {
-      "object": "card_face"
-    }
-  ],
   "arena_id": 77467,
   "artist": "Adam Paquette",
   "booster": true,
@@ -168,11 +163,6 @@ const island2 = {
     "cardmarket": "https://www.cardmarket.com/en/Magic/Products/Search?referrer=scryfall&searchString=Island&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
     "cardhoarder": "https://www.cardhoarder.com/cards?affiliate_id=scryfall&data%5Bsearch%5D=Island&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall"
   },
-  "card_faces": [
-    {
-      "object": "card_face"
-    }
-  ],
   "artist": "Donato Giancola",
   "booster": true,
   "border_color": "black",

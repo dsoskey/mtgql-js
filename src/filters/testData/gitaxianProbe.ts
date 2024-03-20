@@ -52,11 +52,6 @@ export const gitaxianProbe = {
     "cardmarket": "https://www.cardmarket.com/en/Magic/Products/Search?referrer=scryfall&searchString=Gitaxian+Probe&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
     "cardhoarder": "https://www.cardhoarder.com/cards/39976?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall"
   },
-  "card_faces": [
-    {
-      "object": "card_face"
-    }
-  ],
   "artist": "Chippy",
   "booster": true,
   "border_color": "black",

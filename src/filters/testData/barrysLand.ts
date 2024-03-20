@@ -45,11 +45,6 @@ export const barrysLand = {
   "artist_ids": [
     "5362bf77-40e5-40d7-bcdb-d2d3b1f50e8c"
   ],
-  "card_faces": [
-    {
-      "object": "card_face"
-    }
-  ],
   "artist": "Matt Tabak",
   "booster": false,
   "border_color": "black",

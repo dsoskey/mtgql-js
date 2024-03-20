@@ -69,11 +69,6 @@ export const asymmetrySage = {
   "artist_ids": [
     "515df9fe-9c29-4e75-9e49-6ce5be4ec8c8"
   ],
-  "card_faces": [
-    {
-      "object": "card_face"
-    }
-  ],
   "arena_id": 76449,
   "artist": "Jehan Choo",
   "booster": false,

@@ -46,11 +46,6 @@ export const necroimpotence = {
   "artist_ids": [
     "9ee9a9cc-c09e-486f-918b-69f80cbc4188"
   ],
-  "card_faces": [
-    {
-      "object": "card_face"
-    }
-  ],
   "artist": "Mark Tedin",
   "booster": true,
   "border_color": "silver",

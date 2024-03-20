@@ -70,11 +70,6 @@ export const okoThiefOfCrowns = {
     "5ab91c3b-a6da-4751-a56e-81d0f61a67ab"
   ],
   "edhrec_rank": 948,
-  "card_faces": [
-    {
-      "object": "card_face"
-    }
-  ],
   "artist": "Yongjae Choi",
   "booster": false,
   "border_color": "black",

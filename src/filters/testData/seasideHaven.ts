@@ -50,11 +50,6 @@ export const seasideHaven = {
   ],
   "edhrec_rank": 10003,
   "penny_rank": 3467,
-  "card_faces": [
-    {
-      "object": "card_face"
-    }
-  ],
   "artist": "Mark Brill",
   "booster": true,
   "border_color": "black",

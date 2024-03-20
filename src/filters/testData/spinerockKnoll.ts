@@ -51,11 +51,6 @@ export const spinerockKnoll = {
   ],
   "edhrec_rank": 613,
   "penny_rank": 5095,
-  "card_faces": [
-    {
-      "object": "card_face"
-    }
-  ],
   "artist": "Steve Prescott",
   "booster": false,
   "border_color": "black",

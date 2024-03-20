@@ -53,11 +53,6 @@ export const lagoHirvienteDeDarigaaz = {
   ],
   "edhrec_rank": 8485,
   "penny_rank": 3329,
-  "card_faces": [
-    {
-      "object": "card_face"
-    }
-  ],
   "artist": "Franz Vohwinkel",
   "booster": false,
   "border_color": "white",

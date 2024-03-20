@@ -63,11 +63,6 @@ export const eomerKingOfRohan = {
     "tcgplayer_infinite_decks": "https://infinite.tcgplayer.com/search?contentMode=deck&game=magic&partner=scryfall&q=%C3%89omer%2C+King+of+Rohan&utm_campaign=affiliate&utm_medium=api&utm_source=scryfall",
     "edhrec": "https://edhrec.com/route/?cc=%C3%89omer%2C+King+of+Rohan"
   },
-  "card_faces": [
-    {
-      "object": "card_face"
-    }
-  ],
   "cube_ids": {},
   "oracle_tags": {
     "burn": true,

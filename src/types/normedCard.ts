@@ -110,7 +110,7 @@ export const normCardList = (cardList: Card[], collectionId?: string): NormedCar
     const normed: NormedCard = {
       ...(_omit(cards[0], ignorePaths)) as Omit<Card, PrintKeys>,
       printings: cards.map((it) => _pick(it, printPaths) as Printing),
-      card_faces: cards[0].card_faces,
+      card_faces: cards[0].card_faces ?? [],
       collectionId,
     }
     result.push(normed)

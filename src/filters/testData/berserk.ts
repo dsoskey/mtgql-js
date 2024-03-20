@@ -51,11 +51,6 @@ export const sldBerserk = {
     "cardmarket": "https://www.cardmarket.com/en/Magic/Products/Search?referrer=scryfall&searchString=Berserk&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
     "cardhoarder": "https://www.cardhoarder.com/cards/33924?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall"
   },
-  "card_faces": [
-    {
-      "object": "card_face"
-    }
-  ],
   "cube_ids": {
     "6377de78946dbd0f6a6e8fff": true,
     "buildaround": true,

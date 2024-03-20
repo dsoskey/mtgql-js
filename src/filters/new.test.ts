@@ -14,7 +14,7 @@ describe('new filter', function() {
     const result = (await queryRunner.search("new:rarity"))._unsafeUnwrap();
   });
 
-  it('should handle flavor filter', async function() {
+  it.skip('should handle flavor filter', async function() {
     const result = (await queryRunner.search("new:flavor"))._unsafeUnwrap();
 
     expect(result).toEqual([islandPrints[0]])

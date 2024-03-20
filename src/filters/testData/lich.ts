@@ -48,11 +48,6 @@ export const lich = {
   ],
   "edhrec_rank": 13708,
   "penny_rank": 4272,
-  "card_faces": [
-    {
-      "object": "card_face"
-    }
-  ],
   "artist": "Daniel Gelon",
   "booster": true,
   "border_color": "black",

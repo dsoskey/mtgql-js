@@ -18,7 +18,7 @@ export const devotionOperation = (operator: Operator, pips: string[]): FilterNod
 
       const cardCosts = [
         card.mana_cost,
-        ...card.card_faces.map((it) => it.mana_cost),
+        ...card.card_faces?.map((it) => it.mana_cost),
       ]
         .filter((rawCost) => {
           if (rawCost === undefined || rawCost === null) return false

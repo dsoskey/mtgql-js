@@ -48,11 +48,6 @@ export const negate = {
   ],
   "edhrec_rank": 46,
   "penny_rank": 253,
-  "card_faces": [
-    {
-      "object": "card_face"
-    }
-  ],
   "artist": "Jeremy Jarvis",
   "booster": true,
   "border_color": "black",

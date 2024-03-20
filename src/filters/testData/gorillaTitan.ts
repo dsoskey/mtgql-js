@@ -51,11 +51,6 @@ export const gorillaTitan = {
     "4441fe52-9e41-40c1-9b74-8510426279ab"
   ],
   "edhrec_rank": 13979,
-  "card_faces": [
-    {
-      "object": "card_face"
-    }
-  ],
   "artist": "Heather Hudson",
   "booster": true,
   "border_color": "black",

@@ -52,11 +52,6 @@ export const narcomoeba = {
   ],
   "edhrec_rank": 9461,
   "penny_rank": 211,
-  "card_faces": [
-    {
-      "object": "card_face"
-    }
-  ],
   "artist": "Matt Stewart",
   "booster": true,
   "border_color": "black",

@@ -48,11 +48,6 @@ export const ancientStirrings = {
   ],
   "edhrec_rank": 11009,
   "penny_rank": 267,
-  "card_faces": [
-    {
-      "object": "card_face"
-    }
-  ],
   "artist": "Vincent Proce",
   "booster": true,
   "border_color": "black",

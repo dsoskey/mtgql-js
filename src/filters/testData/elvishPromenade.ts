@@ -66,11 +66,6 @@ export const elvishPromenade = {
   ],
   "edhrec_rank": 2051,
   "penny_rank": 7086,
-  "card_faces": [
-    {
-      "object": "card_face"
-    }
-  ],
   "artist": "Steve Ellis",
   "booster": false,
   "border_color": "black",

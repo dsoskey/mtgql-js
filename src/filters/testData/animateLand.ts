@@ -48,11 +48,6 @@ export const animateLand = {
   ],
   "edhrec_rank": 19224,
   "penny_rank": 5923,
-  "card_faces": [
-    {
-      "object": "card_face"
-    }
-  ],
   "artist": "Rebecca Guay",
   "booster": true,
   "border_color": "black",

@@ -50,11 +50,6 @@ export const zodiacDragonMtgo = {
   ],
   "edhrec_rank": 19719,
   "penny_rank": 2654,
-  "card_faces": [
-    {
-      "object": "card_face"
-    }
-  ],
   "artist": "Qi Baocheng",
   "booster": true,
   "border_color": "black",
