@@ -389,7 +389,7 @@ export const anyFaceContains = (
 ): boolean =>
   //   @ts-ignore
   fieldTransform(card[field]?.toString().toLowerCase() ?? '').includes(value) ||
-  card.card_faces.filter((face) => {
+  card.card_faces?.filter((face) => {
     //   @ts-ignore
     return fieldTransform(face[field]?.toString().toLowerCase() ?? '').includes(value)
   }).length > 0
