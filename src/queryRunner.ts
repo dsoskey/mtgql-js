@@ -6,7 +6,7 @@ import {
   SearchError,
   AstNode,
 } from './types'
-import { errAsync, okAsync, ResultAsync } from 'neverthrow'
+import {err, errAsync, ok, okAsync, ResultAsync} from 'neverthrow'
 import { Card } from './generated'
 import { FilterProvider, CachingFilterProvider } from './filters'
 import { chooseFilterFunc } from './filters/print'
@@ -94,55 +94,56 @@ export class QueryRunner {
     options: SearchOptions
   ): ResultAsync<Card[], SearchError> => {
     return QueryRunner.parseFilterNode(getParser, filters, query)
-      .map(node => {
+      .andThen(node => {
         const { filtersUsed, filterFunc } = node;
 
         // filter normedCards
         const filtered: NormedCard[] = []
-        // try {
+        try {
           for (const card of corpus) {
             if (filterFunc(card)) {
               filtered.push(card)
             }
           }
-        // } catch (e) {
-        //   console.error(e)
-        //   return err({
-        //     query,
-        //     errorOffset: 0, // how do i manage this??
-        //     message: `Filter error: ${e.message}`,
-        //   })
-        // }
 
-        const printFilterFunc = chooseFilterFunc(node)
+          const printFilterFunc = chooseFilterFunc(node)
 
-        // filter prints
-        const printFiltered: Card[] = filtered.flatMap(printFilterFunc)
+          // filter prints
+          const printFiltered: Card[] = filtered.flatMap(printFilterFunc)
 
-        // sort
-        const order: SortOrder = getOrder(filtersUsed, options)
-        const sorted = sortBy(printFiltered, [...sortFunc(order), byName]) as Card[]
+          // sort
+          const order: SortOrder = getOrder(filtersUsed, options)
+          const sorted = sortBy(printFiltered, [...sortFunc(order), byName]) as Card[]
 
-        // direction
-        const direction = getDirection(filtersUsed, options)
-        if (direction === 'auto') {
-          switch (order) {
-            case 'rarity':
-            case 'usd':
-            case 'tix':
-            case 'eur':
-            case 'edhrec':
-              sorted.reverse()
-              break
-            case 'released':
-            default:
-              break
+          // direction
+          const direction = getDirection(filtersUsed, options)
+          if (direction === 'auto') {
+            switch (order) {
+              case 'rarity':
+              case 'usd':
+              case 'tix':
+              case 'eur':
+              case 'edhrec':
+                sorted.reverse()
+                break
+              case 'released':
+              default:
+                break
+            }
+          } else if (direction === 'desc') {
+            sorted.reverse()
           }
-        } else if (direction === 'desc') {
-          sorted.reverse()
-        }
 
-        return sorted
+          return ok(sorted)
+        } catch (e) {
+          console.error(e)
+          return err({
+            query,
+            type: "filter",
+            errorOffset: 0, // how do i manage this??
+            message: `Filter error: ${e.message}`,
+          })
+        }
       })
   }
 

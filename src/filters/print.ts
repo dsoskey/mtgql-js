@@ -86,10 +86,10 @@ export const allPrintings =
       for (const printing of printings) {
         if (filterFunc({ printing, card })) {
             // @ts-ignore
-          filteredPrints.push(Card.construct(<Card>{
+          filteredPrints.push({
             ...rest,
             ...printing,
-          }))
+          })
         }
       }
 
