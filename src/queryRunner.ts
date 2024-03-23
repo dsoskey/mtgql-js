@@ -164,74 +164,85 @@ export class QueryRunner {
         const rightOracles: Set<string> = new Set()
         const union: NormedCard[] = []
 
-        for (const card of corpus) {
-          const isLeft = leftNode.filterFunc(card)
-          const isRight = rightNode.filterFunc(card)
+        try {
+          for (const card of corpus) {
+            const isLeft = leftNode.filterFunc(card)
+            const isRight = rightNode.filterFunc(card)
 
-          if (isLeft || isRight) {
-            union.push(card)
-          }
-          if (isRight) {
-            rightOracles.add(card.oracle_id)
-          }
-          if (isLeft) {
-            leftOracles.add(card.oracle_id)
-          }
-        }
-
-        const leftPrintFilter = chooseFilterFunc(leftNode)
-        const rightPrintFilter = chooseFilterFunc(rightNode)
-
-        const leftIds: Set<string> = new Set()
-        const bothIds: Set<string> = new Set()
-        const rightIds: Set<string> = new Set()
-        const unionPrints: Card[] = []
-        for (const card of union) {
-          const matchedLeft  = leftPrintFilter(card)
-          for (const c of matchedLeft) {
-            if (leftOracles.has(c.oracle_id)) {
-              unionPrints.push(c)
-              leftIds.add(c.id)
+            if (isLeft || isRight) {
+              union.push(card)
+            }
+            if (isRight) {
+              rightOracles.add(card.oracle_id)
+            }
+            if (isLeft) {
+              leftOracles.add(card.oracle_id)
             }
           }
-          const matchedRight = rightPrintFilter(card)
-          for (const c of matchedRight) {
-            if (rightOracles.has(c.oracle_id)) {
-              if (leftIds.has(c.id)) {
-                bothIds.add(c.id)
-                leftIds.delete(c.id)
-              } else {
+
+          const leftPrintFilter = chooseFilterFunc(leftNode)
+          const rightPrintFilter = chooseFilterFunc(rightNode)
+
+          const leftIds: Set<string> = new Set()
+          const bothIds: Set<string> = new Set()
+          const rightIds: Set<string> = new Set()
+          const unionPrints: Card[] = []
+          for (const card of union) {
+            const matchedLeft  = leftPrintFilter(card)
+            for (const c of matchedLeft) {
+              if (leftOracles.has(c.oracle_id)) {
                 unionPrints.push(c)
-                rightIds.add(c.id)
+                leftIds.add(c.id)
+              }
+            }
+            const matchedRight = rightPrintFilter(card)
+            for (const c of matchedRight) {
+              if (rightOracles.has(c.oracle_id)) {
+                if (leftIds.has(c.id)) {
+                  bothIds.add(c.id)
+                  leftIds.delete(c.id)
+                } else {
+                  unionPrints.push(c)
+                  rightIds.add(c.id)
+                }
               }
             }
           }
-        }
 
-        const combinedFiltersUsed = [...leftNode.filtersUsed, ...rightNode.filtersUsed]
-        const order: SortOrder = getOrder(combinedFiltersUsed, options)
-        const sorted = sortBy(unionPrints, [...sortFunc(order), byName]) as Card[]
+          const combinedFiltersUsed = [...leftNode.filtersUsed, ...rightNode.filtersUsed]
+          const order: SortOrder = getOrder(combinedFiltersUsed, options)
+          const sorted = sortBy(unionPrints, [...sortFunc(order), byName]) as Card[]
 
-        // direction
-        const direction = getDirection(combinedFiltersUsed, options)
-        if (direction === 'auto') {
-          switch (order) {
-            case 'rarity':
-            case 'usd':
-            case 'tix':
-            case 'eur':
-            case 'edhrec':
-              sorted.reverse()
-              break
-            case 'released':
-            default:
-              break
+          // direction
+          const direction = getDirection(combinedFiltersUsed, options)
+          if (direction === 'auto') {
+            switch (order) {
+              case 'rarity':
+              case 'usd':
+              case 'tix':
+              case 'eur':
+              case 'edhrec':
+                sorted.reverse()
+                break
+              case 'released':
+              default:
+                break
+            }
+          } else if (direction === 'desc') {
+            sorted.reverse()
           }
-        } else if (direction === 'desc') {
-          sorted.reverse()
+
+          return okAsync({ cards: sorted, leftIds, rightIds, bothIds })
+        } catch (e) {
+          console.error(e)
+          return err({
+            query: `left: ${left}\nright: ${right}`,
+            type: "venn",
+            errorOffset: 0, // how do i manage this??
+            message: `Filter error: ${e.message}`,
+          })
         }
 
-        return okAsync({ cards: sorted, leftIds, rightIds, bothIds })
       })
   }
 }
