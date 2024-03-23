@@ -9,7 +9,7 @@ describe('date filters', function() {
   const queryRunner = new QueryRunner({ corpus, defaultOptions, dataProvider: defaultDataProvider })
 
   it("returns an error when the date doesnt fit yyyy-MM-dd", async () => {
-    return expect(queryRunner.search("date<jan1st2021")).rejects.toBeTruthy()
+    return expect((await queryRunner.search("date<jan1st2021"))._unsafeUnwrapErr()).toBeDefined()
   })
 
   it('should handle year only queries', async () => {
