@@ -18,7 +18,8 @@ const SORT_ORDERS = {
   spoiled: 'spoiled',
   tix: 'tix',
   toughness: 'toughness',
-  usd: 'usd'
+  usd: 'usd',
+  cube: 'cube',
 } as const
 export type SortOrder = ObjectValues<typeof SORT_ORDERS>
 
@@ -54,6 +55,8 @@ export const sortFunc = (key: SortOrder): any[] => {
       return [byColor]
     case 'review':
       return [byColor, 'cmc']
+    case "cube":
+      return [byColorId, byColor, 'cmc', 'type', "name"]
   }
 }
 
@@ -110,6 +113,12 @@ export function byName(card:Card) {
 
 function byColor(card: Card) {
   const colors = Array.from(new Set(card.colors ?? card.card_faces.flatMap(face => face.colors ?? [])))
+  const sorted = colors.sort().join('')
+  return colorOrder[sorted]
+}
+
+function byColorId(card: Card) {
+  const colors = Array.from(new Set(card.color_identity))
   const sorted = colors.sort().join('')
   return colorOrder[sorted]
 }

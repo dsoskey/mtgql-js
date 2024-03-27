@@ -58,7 +58,7 @@ export class CachingFilterProvider implements FilterProvider {
   // should these be cached?
   // cubeId -> oracleId
   private readonly cubes: { [cubeId: string]: Set<string> }
-  private getCube = (key: string): ResultAsync<Set<string>, FilterError> => {
+  private getCubeOracles = (key: string): ResultAsync<Set<string>, FilterError> => {
     if (this.cubes[key]) {
       return okAsync(this.cubes[key])
     }
@@ -67,11 +67,24 @@ export class CachingFilterProvider implements FilterProvider {
         if (cube === undefined){
           return Promise.reject({ message: `Couldn't find cube ${key}`, errorOffset: 0 })
         }
-        const set = new Set(cube.oracle_ids)
+        const set = new Set(cube.cards?.map(it => it.oracle_id) ?? cube.oracle_ids ?? [])
         this.cubes[key] = set;
         return Promise.resolve(set)
       }),
       (it: FilterError) => it)
+  }
+
+  private getCubePrints = (key: string): ResultAsync<Set<string>, FilterError> => {
+    return fromPromise(this.provider.getCube(key)
+      .then(cube => {
+        if (cube === undefined){
+          return Promise.reject({ message: `Couldn't find cube ${key}`, errorOffset: 0 })
+        }
+
+        const set = new Set(cube.cards?.map(it => it.print_id) ?? cube.print_ids ?? [])
+        return Promise.resolve(set)
+      }),
+  (it: FilterError) => it)
   }
 
   // otag -> oracleId
@@ -127,13 +140,20 @@ export class CachingFilterProvider implements FilterProvider {
     this.atags = {}
   }
 
-  cubeFilter = (cubeKey: string): ResultAsync<FilterNode, FilterError> =>
-    this.getCube(cubeKey).map(ids => {
+  cubeOracleFilter = (cubeKey: string): ResultAsync<FilterNode, FilterError> =>
+    this.getCubeOracles(cubeKey).map(ids => {
       return oracleNode({
         filtersUsed: ['cube'],
         filterFunc: (card: NormedCard) => ids.has(card.oracle_id)
       })
     })
+
+  cubePrintFilter = (cubeKey: string): ResultAsync<FilterNode, FilterError> =>
+      this.getCubePrints(cubeKey).map(ids => {
+        return printNode(
+            ['newcube'],
+            ({ printing }) => ids.has(printing.id))
+      })
 
   otagFilter = (key: string): ResultAsync<FilterNode, FilterError> =>
     this.getOtag(key).map(ids => {
@@ -362,9 +382,12 @@ export class CachingFilterProvider implements FilterProvider {
           return okAsync(stampFilter(leaf.value))
         case FilterType.Watermark:
           return okAsync(watermarkFilter(leaf.value))
-        case FilterType.Cube:
-          return this.cubeFilter(leaf.value)
+        case FilterType.CubeOracle:
+          return this.cubeOracleFilter(leaf.value)
             .mapErr(({ message }) => ({ message, errorOffset: leaf.offset }))
+        case FilterType.CubePrints:
+          return this.cubePrintFilter(leaf.value)
+              .mapErr(({ message }) => ({ message, errorOffset: leaf.offset }))
         case FilterType.OracleTag:
           return this.otagFilter(leaf.value)
             .mapErr(({ message }) => ({ message, errorOffset: leaf.offset }))

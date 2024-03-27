@@ -82,7 +82,8 @@ condition -> (
     priceCondition |
     stampCondition |
     watermarkCondition |
-    cubeCondition |
+    cubeOracleCondition |
+    cubePrintCondition |
     producesCondition |
     uniqueCondition |
     orderCondition |
@@ -317,8 +318,11 @@ newCondition -> "new" onlyEqualOperator newValue
 preferCondition -> "prefer" onlyEqualOperator preferValue
     {% ([{offset}, _, {value}]) => ({ filter: FilterType.Prefer, value, offset }) %}
 
-cubeCondition -> ("cube" | "ctag" | "tag") onlyEqualOperator cubeValue
-    {% ([[{offset}], _, {value}]) => ({ filter: FilterType.Cube, value, offset }) %}
+cubeOracleCondition -> "cubeo" onlyEqualOperator cubeValue
+    {% ([{offset}, _, {value}]) => ({ filter: FilterType.CubeOracle, value, offset }) %}
+
+cubePrintCondition -> ("cube" | "ctag" | "tag") onlyEqualOperator cubeValue
+    {% ([[{offset}], _, {value}]) => ({ filter: FilterType.CubePrints, value, offset }) %}
 
 oracleTagCondition -> ("function" | "oracletag" | "otag") onlyEqualOperator stringValue
     {% ([[{offset}], _, {value}]) => ({ filter: FilterType.OracleTag, value, offset }) %}
