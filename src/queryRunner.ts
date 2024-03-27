@@ -10,7 +10,7 @@ import {err, errAsync, ok, okAsync, ResultAsync} from 'neverthrow'
 import { Card } from './generated'
 import { FilterProvider, CachingFilterProvider } from './filters'
 import { chooseFilterFunc } from './filters/print'
-import { byName, sortFunc, SortOrder } from './filters/sort'
+import { SortFunctions, SortOrder } from './filters/sort'
 import sortBy from 'lodash/sortBy'
 import { MQLParser } from './mql'
 import { DataProvider } from './filters/dataProvider'
@@ -113,7 +113,7 @@ export class QueryRunner {
 
           // sort
           const order: SortOrder = getOrder(filtersUsed, options)
-          const sorted = sortBy(printFiltered, [...sortFunc(order), byName]) as Card[]
+          const sorted = sortBy(printFiltered, [...SortFunctions.bySortOrder(order), SortFunctions.byName]) as Card[]
 
           // direction
           const direction = getDirection(filtersUsed, options)
@@ -211,7 +211,7 @@ export class QueryRunner {
 
           const combinedFiltersUsed = [...leftNode.filtersUsed, ...rightNode.filtersUsed]
           const order: SortOrder = getOrder(combinedFiltersUsed, options)
-          const sorted = sortBy(unionPrints, [...sortFunc(order), byName]) as Card[]
+          const sorted = sortBy(unionPrints, [...SortFunctions.bySortOrder(order), SortFunctions.byName]) as Card[]
 
           // direction
           const direction = getDirection(combinedFiltersUsed, options)

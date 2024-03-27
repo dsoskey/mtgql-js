@@ -23,131 +23,132 @@ const SORT_ORDERS = {
 } as const
 export type SortOrder = ObjectValues<typeof SORT_ORDERS>
 
-export const sortFunc = (key: SortOrder): any[] => {
-  switch (key) {
-    case 'name':
-      return [byName]
-    case 'artist':
-    case 'cmc':
-      return [key]
-    case 'set':
-      return ['set', byCollectorNumber]
-    case 'spoiled':
-      return [bySpoiled]
-    case 'released':
-      return [byReleased]
-    case 'usd':
-      return [byUsd]
-    case 'tix':
-      return [byTix]
-    case 'eur':
-      return [byEur]
-    case 'edhrec':
-      return [byEdhrecRank]
-    case 'penny':
-      return [byPennyRank]
-    case 'power':
-    case 'toughness':
-      return [byPowTou(key)]
-    case 'rarity':
-      return [byRarity]
-    case 'color':
-      return [byColor]
-    case 'review':
-      return [byColor, 'cmc']
-    case "cube":
-      return [byColorId, byColor, 'cmc', 'type', "name"]
+export class SortFunctions {
+  private static colorOrder: { [key: string]: number } = {
+    W: 0,
+    U: 1,
+    B: 2,
+    R: 3,
+    G: 4,
+    UW: 5,
+    BU: 6,
+    BR: 7,
+    GR: 8,
+    GW: 9,
+    BW: 10,
+    RU: 11,
+    BG: 12,
+    RW: 13,
+    GU: 14,
+    BUW: 15,
+    BRU: 16,
+    BGR: 17,
+    GRW: 18,
+    GUW: 19,
+    BRW: 20,
+    GRU: 21,
+    BGW: 22,
+    RUW: 23,
+    BGU: 24,
+    BRUW: 25,
+    BGRU: 26,
+    BGRW: 27,
+    GRUW: 28,
+    BGUW: 29,
+    BGRUW: 30,
+    "": 31,
   }
-}
 
-function byCollectorNumber(card: Card) {
-  return Number.parseInt(card.collector_number, 10)
-}
+  static bySortOrder(key: SortOrder): any[] {
+    switch (key) {
+      case 'name':
+        return [SortFunctions.byName]
+      case 'artist':
+      case 'cmc':
+        return [key]
+      case 'set':
+        return ['set', SortFunctions.byCollectorNumber]
+      case 'spoiled':
+        return [SortFunctions.bySpoiled]
+      case 'released':
+        return [SortFunctions.byReleased]
+      case 'usd':
+        return [SortFunctions.byUsd]
+      case 'tix':
+        return [SortFunctions.byTix]
+      case 'eur':
+        return [SortFunctions.byEur]
+      case 'edhrec':
+        return [SortFunctions.byEdhrecRank]
+      case 'penny':
+        return [SortFunctions.byPennyRank]
+      case 'power':
+      case 'toughness':
+        return [SortFunctions.byPowTou(key)]
+      case 'rarity':
+        return [SortFunctions.byRarity]
+      case 'color':
+        return [SortFunctions.byColor]
+      case 'review':
+        return [SortFunctions.byColor, 'cmc']
+      case "cube":
+        return [SortFunctions.byColorId, SortFunctions.byColor, 'cmc', 'type']
+    }
+  }
 
-function bySpoiled(card: Card) {
-  return new Date(card.preview?.previewed_at ?? card.released_at)
-}
+  static byCollectorNumber(card: Card) {
+    return Number.parseInt(card.collector_number, 10)
+  }
 
-function byReleased(card: Card) {
-  return new Date(card.released_at)
-}
+  static bySpoiled(card: Card) {
+    return new Date(card.preview?.previewed_at ?? card.released_at)
+  }
 
-const colorOrder: { [key: string]: number } = {
-  W: 0,
-  U: 1,
-  B: 2,
-  R: 3,
-  G: 4,
-  UW: 5,
-  BU: 6,
-  BR: 7,
-  GR: 8,
-  GW: 9,
-  BW: 10,
-  RU: 11,
-  BG: 12,
-  RW: 13,
-  GU: 14,
-  BUW: 15,
-  BRU: 16,
-  BGR: 17,
-  GRW: 18,
-  GUW: 19,
-  BRW: 20,
-  GRU: 21,
-  BGW: 22,
-  RUW: 23,
-  BGU: 24,
-  BRUW: 25,
-  BGRU: 26,
-  BGRW: 27,
-  GRUW: 28,
-  BGUW: 29,
-  BGRUW: 30,
-  "": 31,
-}
+  static byReleased(card: Card) {
+    return new Date(card.released_at)
+  }
 
-export function byName(card:Card) {
-  return card.name.toLowerCase().replace(/( |\B|-)/g, "");
-}
+  static byName(card:Card) {
+    return card.name.toLowerCase().replace(/( |\B|-)/g, "");
+  }
 
-function byColor(card: Card) {
-  const colors = Array.from(new Set(card.colors ?? card.card_faces.flatMap(face => face.colors ?? [])))
-  const sorted = colors.sort().join('')
-  return colorOrder[sorted]
-}
+  static byColor(card: Card) {
+    const colors = Array.from(new Set(card.colors ?? card.card_faces.flatMap(face => face.colors ?? [])))
+    const sorted = colors.sort().join('')
+    return SortFunctions.colorOrder[sorted]
+  }
 
-function byColorId(card: Card) {
-  const colors = Array.from(new Set(card.color_identity))
-  const sorted = colors.sort().join('')
-  return colorOrder[sorted]
-}
+  static byColorId(card: Card) {
+    const colors = Array.from(new Set(card.color_identity))
+    const sorted = colors.sort().join('')
+    return SortFunctions.colorOrder[sorted]
+  }
 
-function byRarity(card: Card) {
-  return Rarity[card.rarity]
-}
+  static byRarity(card: Card) {
+    return Rarity[card.rarity]
+  }
 
-function byPowTou(key: 'power' | 'toughness') {
-  return (card: Card) => parsePowTou(card[key])
-}
+  static byPowTou(key: 'power' | 'toughness') {
+    return (card: Card) => parsePowTou(card[key])
+  }
 
-function byPennyRank(card: Card) {
-// @ts-ignore
-  return card.penny_rank ?? 0
-}
+  static byPennyRank(card: Card) {
+    return card.penny_rank ?? 0
+  }
 
-function byEdhrecRank(card: Card) {
-  return card.edhrec_rank ?? 0
-}
+  static byEdhrecRank(card: Card) {
+    return card.edhrec_rank ?? 0
+  }
 
-function byUsd(card: Card) {
-  return Number.parseFloat(card.prices.usd ?? card.prices.usd_foil ?? card.prices.usd_etched ?? '0')
-}
+  static byUsd(card: Card) {
+    return Number.parseFloat(card.prices.usd ?? card.prices.usd_foil ?? card.prices.usd_etched ?? '0')
+  }
 
-function byTix(card: Card) {
-  return Number.parseFloat(card.prices.tix ?? '0')
-}
+  static byTix(card: Card) {
+    return Number.parseFloat(card.prices.tix ?? '0')
+  }
 
-function byEur(card: Card) {
-  return Number.parseFloat(card.prices.eur ?? card.prices.eur_foil ?? '0')
+  static byEur(card: Card) {
+    return Number.parseFloat(card.prices.eur ?? card.prices.eur_foil ?? '0')
+  }
 }
