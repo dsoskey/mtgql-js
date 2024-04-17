@@ -401,20 +401,32 @@ export const anyFaceRegexMatch = (
   regex: RegExp,
   fieldTransform: (val: string) => string = (it) => it
 ): boolean => {
+  const squiggleMode = regex.source.includes("~")
   const fieldVal = card[field];
   if (fieldVal) {
-    return regex.test(fieldTransform(fieldVal.toString().toLowerCase()))
+    const squiggled = squiggleMode
+        ? fieldVal.toString().replace(new RegExp(escapeRegex(card.name), "g"), "~")
+        : fieldVal
+    return regex.test(fieldTransform(squiggled.toLowerCase()))
   }
 
-  return card.card_faces.filter((face) => {
+  for (const face of card.card_faces) {
     const fieldVal = face[field];
     if (fieldVal) {
-      return regex.test(fieldTransform(fieldVal.toString().toLowerCase()))
+      const squiggled = squiggleMode
+          ? fieldVal.toString().replace(new RegExp(escapeRegex(face.name), "g"), "~")
+          : fieldVal
+      if (regex.test(fieldTransform(squiggled.toLowerCase()))) {
+        return true;
+      }
     }
-    return false;
-  }).length > 0
+  }
+  return false;
 }
 
-
+// shamelessly stolen from https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions#escaping
+function escapeRegex(text: string): string {
+  return text.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")
+}
 export const noReminderText = (text: string): string =>
   text.replace(/\(.*\)/gi, '')

@@ -137,7 +137,7 @@ export class SortFunctions {
   }
 
   static byEdhrecRank(card: Card) {
-    return card.edhrec_rank ?? 0
+    return card.edhrec_rank ?? Number.MAX_VALUE
   }
 
   static byUsd(card: Card) {

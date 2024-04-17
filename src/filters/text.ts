@@ -1,6 +1,14 @@
-import { NormedCard, OracleKeys, PrintingFilterTuple } from '../types/normedCard'
+import {
+    NormedCard,
+    OracleKeys,
+    PrintingFilterTuple,
+    anyFaceContains,
+    anyFaceRegexMatch,
+    noReminderText,
+    RegexableField,
+    replaceNamePlaceholder
+} from '../types'
 import { defaultCompare, Filter, Operator } from './base'
-import {anyFaceContains, anyFaceRegexMatch, noReminderText, RegexableField, replaceNamePlaceholder} from '../types/card'
 
 export const textMatch =
   (field: OracleKeys, value: string): Filter<NormedCard> =>
@@ -99,7 +107,7 @@ export const regexMatch =
         anyFaceRegexMatch(
           card,
           field,
-          new RegExp(replaceNamePlaceholder(baseRegex, card.name))
+          new RegExp(baseRegex)
         )
   }
 
@@ -111,7 +119,7 @@ export const noReminderRegexMatch =
         anyFaceRegexMatch(
           card,
           field,
-          new RegExp(replaceNamePlaceholder(baseRegex, card.name)),
+          new RegExp(baseRegex),
           noReminderText
         )
   }

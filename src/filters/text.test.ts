@@ -10,6 +10,9 @@ import { ramunapRuins } from './testData/ramunapRuins'
 import { seasideHaven } from './testData/seasideHaven'
 import { asymmetrySage } from './testData/asymmetrySage'
 import { phyrexianWalker } from './testData/phyrexianWalker'
+import {merfolkSpy} from "./testData/merfolkSpy";
+import {merfolkWindrobber} from "./testData/merfolkWindrobber";
+import {coralhelmCommander} from "./testData/coralhelmCommander";
 
 describe('text filters', function() {
   const queryRunner = new QueryRunner({ corpus: [
@@ -93,6 +96,16 @@ describe('text filters', function() {
       const result = names(await queryRunner.search("o:/sacrifice a.*:/"))
 
       expect(result).toEqual([ramunapRuins.name, seasideHaven.name])
+    })
+    it("handles ~ substitution like scryfall does", async function() {
+      const runnerd = new QueryRunner({ corpus: [
+          merfolkSpy,
+          merfolkWindrobber,
+          coralhelmCommander,
+        ], defaultOptions, dataProvider: defaultDataProvider })
+      const result = names(await runnerd.search("fo:/~*merfolk/"))
+
+      expect(result).toEqual([coralhelmCommander.name])
     })
   })
   describe("oracle text count", function () {
