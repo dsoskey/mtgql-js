@@ -100,26 +100,24 @@ export const substituteScryfallRegex = (value: string): string => {
     .replace(/\\ss/g, "(?:\\{[/0123456789ABCEGHKOPQRSTUWXYZ½∞]+\\})")
 }
 
-export const regexMatch =
-  (field: RegexableField, value: string): Filter<NormedCard> => {
-      const baseRegex = substituteScryfallRegex(value)
-      return (card: NormedCard) =>
-        anyFaceRegexMatch(
-          card,
-          field,
-          new RegExp(baseRegex)
-        )
-  }
+export const regexMatch = (field: RegexableField, value: string): Filter<NormedCard> => {
+  const baseRegex = substituteScryfallRegex(value)
+  return (card: NormedCard) =>
+    anyFaceRegexMatch(
+      card,
+      field,
+      new RegExp(baseRegex.toLowerCase())
+    )
+}
 
 
-export const noReminderRegexMatch =
-  (field: RegexableField, value: string): Filter<NormedCard> => {
-      const baseRegex = substituteScryfallRegex(value)
-      return (card: NormedCard) =>
-        anyFaceRegexMatch(
-          card,
-          field,
-          new RegExp(baseRegex),
-          noReminderText
-        )
-  }
+export const noReminderRegexMatch = (field: RegexableField, value: string): Filter<NormedCard> => {
+  const baseRegex = substituteScryfallRegex(value)
+  return (card: NormedCard) =>
+    anyFaceRegexMatch(
+      card,
+      field,
+      new RegExp(baseRegex.toLowerCase()),
+      noReminderText
+    )
+}

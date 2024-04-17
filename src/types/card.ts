@@ -406,7 +406,7 @@ export const anyFaceRegexMatch = (
   if (fieldVal) {
     const squiggled = squiggleMode
         ? fieldVal.toString().replace(new RegExp(escapeRegex(card.name), "g"), "~")
-        : fieldVal
+        : fieldVal.toString()
     return regex.test(fieldTransform(squiggled.toLowerCase()))
   }
 
@@ -415,7 +415,7 @@ export const anyFaceRegexMatch = (
     if (fieldVal) {
       const squiggled = squiggleMode
           ? fieldVal.toString().replace(new RegExp(escapeRegex(face.name), "g"), "~")
-          : fieldVal
+          : fieldVal.toString()
       if (regex.test(fieldTransform(squiggled.toLowerCase()))) {
         return true;
       }
