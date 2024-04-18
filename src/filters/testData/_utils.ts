@@ -15,3 +15,8 @@ export const defaultRunner = (corpus: Card[]) =>
 
 export const names = (result: Result<Card[], SearchError>) =>
   result._unsafeUnwrap().map(it => it.name)
+
+export async function searchNames(runner: QueryRunner, query: string) {
+  const result = await runner.search(query);
+  return names(result);
+}

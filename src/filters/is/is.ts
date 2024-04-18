@@ -9,14 +9,24 @@ import {
   parsePowTou,
   SHOCKLAND_REGEX,
   DEFAULT_CARD_BACK_ID,
-  NormedCard, PrintingFilterTuple } from '../types'
-import { FilterNode } from './base'
-import { oracleNode } from './oracle'
-import { textMatch } from './text'
-import { printNode } from './print'
-import { CardFinish, CardSecurityStamp, FrameEffect } from "../generated";
+  NormedCard, PrintingFilterTuple } from '../../types'
+import { FilterNode } from '../base'
+import { oracleNode } from '../oracle'
+import {textMatch} from '../text'
+import { printNode } from '../print'
+import { CardFinish, CardSecurityStamp, FrameEffect } from "../../generated";
 
 export const isPrintPrefix = `is-print:`
+
+// optimization: predefined, reusable textMatch funcs save allocation on the hot loop
+const partyFilters = ['cleric', 'rogue', 'warrior', 'wizard']
+    .map(type => textMatch('type_line', type))
+const outlawFilters = ['assassin', 'mercenary', 'pirate', 'rogue', 'warlock']
+    .map(type => textMatch('type_line', type))
+const permanentFilters = ['creature', 'enchantment', 'artifact', 'land', 'battle', 'planeswalker']
+    .map(type => textMatch('type_line', type))
+const historicFilters = ['legendary', 'artifact', 'saga']
+    .map(type => textMatch('type_line', type))
 
 const printMattersFields = new Set<IsValue>([
   'old',
@@ -336,7 +346,7 @@ export const isOracleVal = (value: IsValue) => (card: NormedCard): boolean => {
     case 'spellbook': // check oracle text for draft from spellbook text
       return anyFaceRegexMatch(card, 'oracle_text', /(conjure the power nine|(conjure|draft).* from .* spellbook)/)
     case 'etb':
-      return textMatch('oracle_text', 'enters the battlefield')(card)
+      return anyFaceContains(card, 'oracle_text', 'enters the battlefield')
     case 'bear':
       return card.cmc === 2 && [
         card,
@@ -417,28 +427,50 @@ export const isOracleVal = (value: IsValue) => (card: NormedCard): boolean => {
           card.type_line.toLowerCase().includes(type)
         ).length === 0
       )
-    case 'party':
-      return ['cleric', 'rogue', 'warrior', 'wizard'].filter((type) =>
-        textMatch('type_line', type)(card)
-        || textMatch("oracle_text", "changeling")
-      ).length > 0
-    case 'permanent':
-      return (
-        ['instant', 'sorcery'].filter((type) =>
-          textMatch('type_line', type)(card)
-        ).length === 0
-      )
-    case 'historic':
-      return (
-        ['legendary', 'artifact', 'saga'].filter((type) =>
-          textMatch('type_line', type)(card)
-        ).length > 0
-      )
-    case 'vanilla':
-      return (
-        oracle_text.length === 0 ||
-        card.card_faces.filter((i) => i.oracle_text?.length === 0).length > 0
-      )
+    case 'party': {
+      for (const filter of partyFilters) {
+        if (filter(card)) {
+          return true;
+        }
+      }
+      if (card.keywords.includes("Changeling"))
+        return true;
+      return anyFaceRegexMatch(card, "oracle_text", /is also a .*(rogue|warrior|wizard|cleric)/);
+    }
+    case 'outlaw': {
+      for (const filter of outlawFilters) {
+        if (filter(card)) {
+          return true;
+        }
+      }
+      if (card.keywords.includes("Changeling"))
+        return true;
+      return anyFaceRegexMatch(card, "oracle_text", /is also a .*(assassin|mercenary|pirate|rogue|warlock)/);
+    }
+    case 'permanent': {
+      for (const filter of permanentFilters) {
+        if (filter(card)) {
+          return true;
+        }
+      }
+      return false
+    }
+    case 'historic': {
+      for (const filter of historicFilters) {
+        if (filter(card)) {
+          return true;
+        }
+      }
+      return false;
+    }
+    case 'vanilla': {
+      if (card.type_line === "Card" || card.type_line === "Card // Card") return false;
+      if (card.oracle_text?.length === 0 && card.card_faces?.length === 0) return true;
+      for (const face of card.card_faces ?? []) {
+        if (face.oracle_text?.length === 0) return true;
+      }
+      return false;
+    }
     case 'modal':
       return /chooses? (\S* or \S*|(up to )?(one|two|three|four|five))( or (more|both)| that hasn't been chosen)?( —|\.)/
           .test(oracle_text.toLowerCase())

@@ -214,6 +214,7 @@ export const IS_VALUE_MAP = {
   jpwalker: "jpwalker",
   prerelease: "prerelease",
   planeswalkerdeck: "planeswalkerdeck",
+  outlaw: "outlaw",
   // not in scryfall, only in mtgql
   star: 'star',
   custom: 'custom',
@@ -386,13 +387,17 @@ export const anyFaceContains = (
   field: OracleKeys,
   value: string,
   fieldTransform: (a: string) => string = (it) => it
-): boolean =>
-  //   @ts-ignore
-  fieldTransform(card[field]?.toString().toLowerCase() ?? '').includes(value) ||
-  card.card_faces?.filter((face) => {
-    //   @ts-ignore
-    return fieldTransform(face[field]?.toString().toLowerCase() ?? '').includes(value)
-  }).length > 0
+): boolean => {
+  if (card[field]) {
+    return fieldTransform(card[field].toString().toLowerCase()).includes(value)
+  }
+  for (const face of card.card_faces ?? []) {
+    if (fieldTransform(face[field]?.toString().toLowerCase() ?? '').includes(value)) {
+      return true;
+    }
+  }
+  return false
+}
 
 export type RegexableField = 'name' | 'mana_cost' | 'type_line' | 'oracle_text'
 export const anyFaceRegexMatch = (
