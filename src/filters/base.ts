@@ -1,5 +1,5 @@
 import { ObjectValues } from '../types/common'
-import { NormedCard, OracleKeys, PrintingFilterTuple } from '../types/normedCard'
+import { NormedCard, OracleKeys, PrintingFilterTuple } from '../types'
 export const EQ_OPERATORS = {
   ':': ':',
   '=': '=',

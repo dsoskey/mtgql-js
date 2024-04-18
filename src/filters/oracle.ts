@@ -1,5 +1,5 @@
 import { FilterNode, Filter, identity } from './base'
-import { NormedCard } from '../types/normedCard'
+import { NormedCard } from '../types'
 
 export interface OracleFilter {
   filtersUsed: string[]
