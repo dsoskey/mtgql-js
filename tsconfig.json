@@ -16,7 +16,7 @@
   "exclude": [
     "node_modules",
     "build",
-    "src/filters/testData/*",
+    "src/filters/_testData/*",
     "src/**/*.test.ts",
   ]
 }
