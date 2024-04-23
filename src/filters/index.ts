@@ -47,6 +47,7 @@ import {
   noReminderText, Block
 } from '../types'
 import { Legality } from "../generated";
+import { oracleIdNode, scryfallIdNode } from "./id";
 
 
 export interface FilterProvider {
@@ -409,6 +410,10 @@ export class CachingFilterProvider implements FilterProvider {
             filtersUsed: [`collection`],
             filterFunc: (card) => card.collectionId === leaf.value,
           }))
+        case FilterType.ScryfallId:
+          return okAsync(scryfallIdNode(leaf.value))
+        case FilterType.OracleId:
+          return okAsync(oracleIdNode(leaf.value))
       }
     } catch (e) {
       return errAsync({

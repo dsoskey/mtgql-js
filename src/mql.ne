@@ -94,7 +94,9 @@ condition -> (
     exactNameCondition |
     newCondition |
     preferCondition |
-    collectionCondition
+    collectionCondition |
+    scryfallIdCondition |
+    oracleIdCondition
 ) {% ([[condition]]) => condition %}
 
 cmcCondition ->
@@ -332,6 +334,12 @@ artTagCondition -> ("art" | "arttag" | "atag") onlyEqualOperator stringValue
 
 collectionCondition -> "collection" onlyEqualOperator stringValue
     {% ([{offset}, _, {value}]) => ({ filter: FilterType.Collection, value, offset }) %}
+
+scryfallIdCondition -> "scryfallid" onlyEqualOperator stringValue
+    {% ([{offset}, _, {value}]) => ({ filter: FilterType.ScryfallId, value, offset }) %}
+
+oracleIdCondition -> "oracleid" onlyEqualOperator stringValue
+    {% ([{offset}, _, {value}]) => ({ filter: FilterType.OracleId, value, offset }) %}
 
 # Values
 stringValue -> (noQuoteStringValue | %dqstring | %sqstring) {% ([[token]]) => {

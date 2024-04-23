@@ -59,6 +59,8 @@ export const FILTER_KEYWORDS = {
   // Requires set data
   b: 'b', block: 'block',
   paperprints: 'paperprints',
+  scryfallid: "scryfallid",
+  oracleid: "oracleid",
   // mtgql exclusive
   collection: "collection",
 } as const
@@ -141,4 +143,6 @@ export enum FilterType {
   Prefer,
   Block,
   Collection,
+  ScryfallId,
+  OracleId,
 }
