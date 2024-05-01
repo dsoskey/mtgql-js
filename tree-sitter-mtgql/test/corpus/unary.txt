@@ -1,0 +1,38 @@
+===================
+simple unary
+===================
+
+mv=3
+
+-------------------
+
+(query
+  (unary_statement
+    (cmc_condition
+      (cmc_filter)
+      (equal_operator)
+      (number))))
+
+===================
+unary with operator
+===================
+
+-mv:3
+
+----
+
+(query
+  (unary_statement
+    (cmc_condition
+      (cmc_filter)
+      (equal_operator)
+      (number))))
+
+===================
+double unary
+:error
+===================
+
+--mv:3
+
+-------------------

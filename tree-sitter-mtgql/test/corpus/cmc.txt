@@ -1,0 +1,21 @@
+==================
+cmc queries
+==================
+
+mv>=4 or manavalue:odd
+
+---
+
+(query
+  (bool_statement
+    (unary_statement
+      (cmc_condition
+        (cmc_filter)
+        (number_operator)
+        (number)))
+    (bool_operator)
+    (unary_statement
+      (cmc_condition
+        (cmc_filter)
+        (equal_operator)
+        (odd_even)))))

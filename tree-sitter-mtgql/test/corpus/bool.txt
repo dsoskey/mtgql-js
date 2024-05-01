@@ -1,0 +1,145 @@
+===================
+simple and
+===================
+
+mv!=1 cmc:1
+
+-------------------
+
+(query
+  (bool_statement
+    (unary_statement
+      (cmc_condition
+        (cmc_filter)
+        (number_operator)
+        (number)))
+    (bool_operator)
+    (unary_statement
+      (cmc_condition
+        (cmc_filter)
+        (equal_operator)
+        (number)))))
+
+===================
+simple or
+===================
+
+mv<>2 or manavalue:odd
+
+-------------------
+
+(query
+  (bool_statement
+    (unary_statement
+      (cmc_condition
+        (cmc_filter)
+        (number_operator)
+        (number)))
+    (bool_operator)
+    (unary_statement
+      (cmc_condition
+        (cmc_filter)
+        (equal_operator)
+        (odd_even)))))
+
+===================
+combining bools with unaries
+===================
+
+-(-mv>=4 manavalue:odd)
+
+-------------------
+
+(query
+  (unary_statement
+    (parentheses
+      (bool_statement
+        (unary_statement
+          (cmc_condition
+            (cmc_filter)
+            (number_operator)
+            (number)))
+        (bool_operator)
+        (unary_statement
+          (cmc_condition
+            (cmc_filter)
+            (equal_operator)
+            (odd_even)))))))
+
+===================
+associativity & parentheses
+===================
+
+mv=1 (mv:2 or mv<3) or mv!=4
+
+-------------------
+
+(query
+  (bool_statement
+    (bool_statement
+      (unary_statement
+        (cmc_condition
+          (cmc_filter)
+          (equal_operator)
+          (number)))
+      (bool_operator)
+      (unary_statement
+        (parentheses
+          (bool_statement
+            (unary_statement
+              (cmc_condition
+                (cmc_filter)
+                (equal_operator)
+                (number)))
+            (bool_operator)
+            (unary_statement
+              (cmc_condition
+                (cmc_filter)
+                (number_operator)
+                (number)))))))
+    (bool_operator)
+    (unary_statement
+      (cmc_condition
+        (cmc_filter)
+        (number_operator)
+        (number)))))
+
+===================
+more parentheses!
+===================
+
+(mv:2 or mv<3) or (mv!=4 mv=5)
+
+-------------------
+
+(query
+  (bool_statement
+    (unary_statement
+      (parentheses
+        (bool_statement
+          (unary_statement
+            (cmc_condition
+              (cmc_filter)
+              (equal_operator)
+              (number)))
+          (bool_operator)
+          (unary_statement
+            (cmc_condition
+              (cmc_filter)
+              (number_operator)
+              (number))))))
+    (bool_operator)
+    (unary_statement
+      (parentheses
+        (bool_statement
+          (unary_statement
+            (cmc_condition
+              (cmc_filter)
+              (number_operator)
+              (number)))
+          (bool_operator)
+          (unary_statement
+            (cmc_condition
+              (cmc_filter)
+              (equal_operator)
+              (number))))))))
