@@ -1,5 +1,6 @@
 {
   "name": "mtgql",
+  "word": "no_quote_string",
   "rules": {
     "query": {
       "type": "SYMBOL",
@@ -91,10 +92,26 @@
       "members": [
         {
           "type": "PREC",
-          "value": 1,
+          "value": 2,
           "content": {
             "type": "SYMBOL",
             "name": "cmc_condition"
+          }
+        },
+        {
+          "type": "PREC",
+          "value": 2,
+          "content": {
+            "type": "SYMBOL",
+            "name": "name_condition"
+          }
+        },
+        {
+          "type": "PREC",
+          "value": 1,
+          "content": {
+            "type": "SYMBOL",
+            "name": "exact_name_condition"
           }
         }
       ]
@@ -161,6 +178,61 @@
         {
           "type": "STRING",
           "value": "manavalue"
+        }
+      ]
+    },
+    "exact_name_condition": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "FIELD",
+              "name": "exact_match",
+              "content": {
+                "type": "STRING",
+                "value": "!"
+              }
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_stringish_value"
+        }
+      ]
+    },
+    "name_condition": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "name_filter"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "equal_operator"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_stringish_value"
+        }
+      ]
+    },
+    "name_filter": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "name"
+        },
+        {
+          "type": "STRING",
+          "value": "n"
         }
       ]
     },
@@ -278,6 +350,55 @@
             "value": "even"
           }
         ]
+      }
+    },
+    "_stringish_value": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "no_quote_string"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "single_quote_string"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "double_quote_string"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "regex"
+        }
+      ]
+    },
+    "no_quote_string": {
+      "type": "IMMEDIATE_TOKEN",
+      "content": {
+        "type": "PATTERN",
+        "value": "\\w[\\w-]*"
+      }
+    },
+    "single_quote_string": {
+      "type": "IMMEDIATE_TOKEN",
+      "content": {
+        "type": "PATTERN",
+        "value": "'(?:\\\\['\\\\]|[^\\n'\\\\])*'"
+      }
+    },
+    "double_quote_string": {
+      "type": "IMMEDIATE_TOKEN",
+      "content": {
+        "type": "PATTERN",
+        "value": "\"(?:\\\\[\"\\\\]|[^\\n\"\\\\])*\""
+      }
+    },
+    "regex": {
+      "type": "IMMEDIATE_TOKEN",
+      "content": {
+        "type": "PATTERN",
+        "value": "\\/(?:\\\\[\\/\\\\a-zA-Z]|[^\\n\\/\\\\])*\\/"
       }
     }
   },

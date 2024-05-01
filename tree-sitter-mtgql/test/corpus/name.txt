@@ -1,0 +1,116 @@
+====================
+exact name single quotes
+====================
+'terror of the peaks'
+
+--------------------
+
+(query
+  (unary_statement
+    (exact_name_condition
+      (single_quote_string))))
+
+====================
+exact name double quotes
+====================
+"terror or the peaks"
+
+--------------------
+
+(query
+  (unary_statement
+    (exact_name_condition
+      (double_quote_string))))
+
+====================
+double quotes with single quotes
+====================
+"Bingus 'madingus' cringus"
+
+--------------------
+
+(query
+  (unary_statement
+    (exact_name_condition
+      (double_quote_string))))
+
+====================
+handles or as operator
+====================
+terror or the peaks
+
+--------------------
+
+(query
+  (bool_statement
+    (bool_statement
+      (unary_statement
+        (exact_name_condition
+          (no_quote_string)))
+      (bool_operator)
+      (unary_statement
+        (exact_name_condition
+          (no_quote_string))))
+    (bool_operator)
+    (unary_statement
+      (exact_name_condition
+        (no_quote_string)))))
+
+====================
+handles and as operator
+====================
+terror and the peaks
+
+--------------------
+
+(query
+  (bool_statement
+    (bool_statement
+      (unary_statement
+        (exact_name_condition
+          (no_quote_string)))
+      (bool_operator)
+      (unary_statement
+        (exact_name_condition
+          (no_quote_string))))
+    (bool_operator)
+    (unary_statement
+      (exact_name_condition
+        (no_quote_string)))))
+
+====================
+first - is used by unary
+====================
+
+-whud
+
+--------------------
+
+(query
+  (unary_statement
+    (exact_name_condition
+      (no_quote_string))))
+
+====================
+exact name regex
+====================
+!/ornithop\//
+
+--------------------
+(query
+  (unary_statement
+    (exact_name_condition
+      (regex))))
+
+====================
+name:regex
+====================
+name=/^A-/
+
+--------------------
+(query
+  (unary_statement
+    (name_condition
+      (name_filter)
+      (equal_operator)
+      (regex))))

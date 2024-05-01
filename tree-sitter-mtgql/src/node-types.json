@@ -59,6 +59,84 @@
     "fields": {}
   },
   {
+    "type": "exact_name_condition",
+    "named": true,
+    "fields": {
+      "exact_match": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "!",
+            "named": false
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "double_quote_string",
+          "named": true
+        },
+        {
+          "type": "no_quote_string",
+          "named": true
+        },
+        {
+          "type": "regex",
+          "named": true
+        },
+        {
+          "type": "single_quote_string",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "name_condition",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "double_quote_string",
+          "named": true
+        },
+        {
+          "type": "equal_operator",
+          "named": true
+        },
+        {
+          "type": "name_filter",
+          "named": true
+        },
+        {
+          "type": "no_quote_string",
+          "named": true
+        },
+        {
+          "type": "regex",
+          "named": true
+        },
+        {
+          "type": "single_quote_string",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "name_filter",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "parentheses",
     "named": true,
     "fields": {},
@@ -109,11 +187,23 @@
           "named": true
         },
         {
+          "type": "exact_name_condition",
+          "named": true
+        },
+        {
+          "type": "name_condition",
+          "named": true
+        },
+        {
           "type": "parentheses",
           "named": true
         }
       ]
     }
+  },
+  {
+    "type": "!",
+    "named": false
   },
   {
     "type": "(",
@@ -136,6 +226,10 @@
     "named": false
   },
   {
+    "type": "double_quote_string",
+    "named": true
+  },
+  {
     "type": "equal_operator",
     "named": true
   },
@@ -148,6 +242,18 @@
     "named": false
   },
   {
+    "type": "n",
+    "named": false
+  },
+  {
+    "type": "name",
+    "named": false
+  },
+  {
+    "type": "no_quote_string",
+    "named": true
+  },
+  {
     "type": "number",
     "named": true
   },
@@ -157,6 +263,14 @@
   },
   {
     "type": "odd_even",
+    "named": true
+  },
+  {
+    "type": "regex",
+    "named": true
+  },
+  {
+    "type": "single_quote_string",
     "named": true
   }
 ]
