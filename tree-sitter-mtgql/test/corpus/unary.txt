@@ -11,7 +11,7 @@ mv=3
     (cmc_condition
       (cmc_filter)
       (equal_operator)
-      (number))))
+      (natural_number))))
 
 ===================
 unary with operator
@@ -26,7 +26,7 @@ unary with operator
     (cmc_condition
       (cmc_filter)
       (equal_operator)
-      (number))))
+      (natural_number))))
 
 ===================
 double unary

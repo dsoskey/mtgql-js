@@ -39,7 +39,7 @@
           "named": true
         },
         {
-          "type": "number",
+          "type": "natural_number",
           "named": true
         },
         {
@@ -49,6 +49,10 @@
         {
           "type": "odd_even",
           "named": true
+        },
+        {
+          "type": "positive_float",
+          "named": true
         }
       ]
     }
@@ -57,6 +61,48 @@
     "type": "cmc_filter",
     "named": true,
     "fields": {}
+  },
+  {
+    "type": "color_condition",
+    "named": true,
+    "fields": {
+      "color_filter": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "c",
+            "named": false
+          },
+          {
+            "type": "color",
+            "named": false
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "color_combination",
+          "named": true
+        },
+        {
+          "type": "color_count",
+          "named": true
+        },
+        {
+          "type": "equal_operator",
+          "named": true
+        },
+        {
+          "type": "number_operator",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "exact_name_condition",
@@ -187,6 +233,10 @@
           "named": true
         },
         {
+          "type": "color_condition",
+          "named": true
+        },
+        {
           "type": "exact_name_condition",
           "named": true
         },
@@ -222,8 +272,24 @@
     "named": true
   },
   {
+    "type": "c",
+    "named": false
+  },
+  {
     "type": "cmc",
     "named": false
+  },
+  {
+    "type": "color",
+    "named": false
+  },
+  {
+    "type": "color_combination",
+    "named": true
+  },
+  {
+    "type": "color_count",
+    "named": true
   },
   {
     "type": "double_quote_string",
@@ -250,11 +316,11 @@
     "named": false
   },
   {
-    "type": "no_quote_string",
+    "type": "natural_number",
     "named": true
   },
   {
-    "type": "number",
+    "type": "no_quote_string",
     "named": true
   },
   {
@@ -263,6 +329,10 @@
   },
   {
     "type": "odd_even",
+    "named": true
+  },
+  {
+    "type": "positive_float",
     "named": true
   },
   {

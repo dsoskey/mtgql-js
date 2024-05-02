@@ -95,6 +95,14 @@
           "value": 2,
           "content": {
             "type": "SYMBOL",
+            "name": "color_condition"
+          }
+        },
+        {
+          "type": "PREC",
+          "value": 2,
+          "content": {
+            "type": "SYMBOL",
             "name": "cmc_condition"
           }
         },
@@ -115,6 +123,74 @@
           }
         }
       ]
+    },
+    "color_condition": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "color_filter",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "STRING",
+                "value": "c"
+              },
+              {
+                "type": "STRING",
+                "value": "color"
+              }
+            ]
+          }
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "PREC",
+              "value": 2,
+              "content": {
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "SYMBOL",
+                    "name": "_num_or_equal_operator"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "color_count"
+                  }
+                ]
+              }
+            },
+            {
+              "type": "PREC",
+              "value": 1,
+              "content": {
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "SYMBOL",
+                    "name": "equal_operator"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "color_combination"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "color_count": {
+      "type": "IMMEDIATE_TOKEN",
+      "content": {
+        "type": "PATTERN",
+        "value": "[0-5]"
+      }
     },
     "cmc_condition": {
       "type": "SEQ",
@@ -138,7 +214,7 @@
                   },
                   {
                     "type": "SYMBOL",
-                    "name": "number"
+                    "name": "_number"
                   }
                 ]
               }
@@ -329,7 +405,27 @@
         ]
       }
     },
-    "number": {
+    "_number": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "natural_number"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "positive_float"
+        }
+      ]
+    },
+    "positive_float": {
+      "type": "IMMEDIATE_TOKEN",
+      "content": {
+        "type": "PATTERN",
+        "value": "\\d+\\.\\d+"
+      }
+    },
+    "natural_number": {
       "type": "IMMEDIATE_TOKEN",
       "content": {
         "type": "PATTERN",
@@ -399,6 +495,242 @@
       "content": {
         "type": "PATTERN",
         "value": "\\/(?:\\\\[\\/\\\\a-zA-Z]|[^\\n\\/\\\\])*\\/"
+      }
+    },
+    "color_combination": {
+      "type": "IMMEDIATE_TOKEN",
+      "content": {
+        "type": "CHOICE",
+        "members": [
+          {
+            "type": "STRING",
+            "value": "c"
+          },
+          {
+            "type": "STRING",
+            "value": "C"
+          },
+          {
+            "type": "STRING",
+            "value": "brown"
+          },
+          {
+            "type": "STRING",
+            "value": "colorless"
+          },
+          {
+            "type": "STRING",
+            "value": "white"
+          },
+          {
+            "type": "STRING",
+            "value": "blue"
+          },
+          {
+            "type": "STRING",
+            "value": "black"
+          },
+          {
+            "type": "STRING",
+            "value": "red"
+          },
+          {
+            "type": "STRING",
+            "value": "green"
+          },
+          {
+            "type": "STRING",
+            "value": "azorius"
+          },
+          {
+            "type": "STRING",
+            "value": "dimir"
+          },
+          {
+            "type": "STRING",
+            "value": "rakdos"
+          },
+          {
+            "type": "STRING",
+            "value": "gruul"
+          },
+          {
+            "type": "STRING",
+            "value": "selesnya"
+          },
+          {
+            "type": "STRING",
+            "value": "silverquill"
+          },
+          {
+            "type": "STRING",
+            "value": "orzhov"
+          },
+          {
+            "type": "STRING",
+            "value": "prismari"
+          },
+          {
+            "type": "STRING",
+            "value": "izzet"
+          },
+          {
+            "type": "STRING",
+            "value": "witherbloom"
+          },
+          {
+            "type": "STRING",
+            "value": "golgari"
+          },
+          {
+            "type": "STRING",
+            "value": "lorehold"
+          },
+          {
+            "type": "STRING",
+            "value": "boros"
+          },
+          {
+            "type": "STRING",
+            "value": "quandrix"
+          },
+          {
+            "type": "STRING",
+            "value": "simic"
+          },
+          {
+            "type": "STRING",
+            "value": "brokers"
+          },
+          {
+            "type": "STRING",
+            "value": "bant"
+          },
+          {
+            "type": "STRING",
+            "value": "obscura"
+          },
+          {
+            "type": "STRING",
+            "value": "esper"
+          },
+          {
+            "type": "STRING",
+            "value": "maestros"
+          },
+          {
+            "type": "STRING",
+            "value": "grixis"
+          },
+          {
+            "type": "STRING",
+            "value": "riveteers"
+          },
+          {
+            "type": "STRING",
+            "value": "jund"
+          },
+          {
+            "type": "STRING",
+            "value": "cabaretti"
+          },
+          {
+            "type": "STRING",
+            "value": "naya"
+          },
+          {
+            "type": "STRING",
+            "value": "savai"
+          },
+          {
+            "type": "STRING",
+            "value": "dega"
+          },
+          {
+            "type": "STRING",
+            "value": "mardu"
+          },
+          {
+            "type": "STRING",
+            "value": "ketria"
+          },
+          {
+            "type": "STRING",
+            "value": "ceta"
+          },
+          {
+            "type": "STRING",
+            "value": "temur"
+          },
+          {
+            "type": "STRING",
+            "value": "indatha"
+          },
+          {
+            "type": "STRING",
+            "value": "necra"
+          },
+          {
+            "type": "STRING",
+            "value": "abzan"
+          },
+          {
+            "type": "STRING",
+            "value": "raugrin"
+          },
+          {
+            "type": "STRING",
+            "value": "raka"
+          },
+          {
+            "type": "STRING",
+            "value": "jeskai"
+          },
+          {
+            "type": "STRING",
+            "value": "zagoth"
+          },
+          {
+            "type": "STRING",
+            "value": "ana"
+          },
+          {
+            "type": "STRING",
+            "value": "sultai"
+          },
+          {
+            "type": "STRING",
+            "value": "chaos"
+          },
+          {
+            "type": "STRING",
+            "value": "aggression"
+          },
+          {
+            "type": "STRING",
+            "value": "altruism"
+          },
+          {
+            "type": "STRING",
+            "value": "growth"
+          },
+          {
+            "type": "STRING",
+            "value": "artifice"
+          },
+          {
+            "type": "STRING",
+            "value": "rainbow"
+          },
+          {
+            "type": "STRING",
+            "value": "fivecolor"
+          },
+          {
+            "type": "PATTERN",
+            "value": "[wWuUbBrRgG]{1,5}"
+          }
+        ]
       }
     }
   },

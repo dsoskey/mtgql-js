@@ -1,0 +1,76 @@
+====================
+wubrg
+====================
+
+c=wubgr
+
+--------------------
+
+(query
+  (unary_statement
+    (color_condition
+      (equal_operator)
+      (color_combination))))
+
+====================
+colorless
+====================
+
+color=c
+
+--------------------
+
+(query
+  (unary_statement
+    (color_condition
+      (equal_operator)
+      (color_combination))))
+
+====================
+color count
+====================
+
+c<5
+
+--------------------
+
+(query
+  (unary_statement
+    (color_condition
+      (number_operator)
+      (color_count))))
+
+====================
+invalid color count
+:error
+====================
+
+c>=6
+
+--------------------
+====================
+invalid color name
+:error
+====================
+
+color:melon
+
+--------------------
+====================
+invalid spacing
+:error
+====================
+
+c :3
+
+--------------------
+
+====================
+invalid term spacing
+:error
+====================
+
+c: 3
+
+--------------------
+

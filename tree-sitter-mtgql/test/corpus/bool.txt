@@ -12,13 +12,13 @@ mv!=1 cmc:1
       (cmc_condition
         (cmc_filter)
         (number_operator)
-        (number)))
+        (natural_number)))
     (bool_operator)
     (unary_statement
       (cmc_condition
         (cmc_filter)
         (equal_operator)
-        (number)))))
+        (natural_number)))))
 
 ===================
 simple or
@@ -34,7 +34,7 @@ mv<>2 or manavalue:odd
       (cmc_condition
         (cmc_filter)
         (number_operator)
-        (number)))
+        (natural_number)))
     (bool_operator)
     (unary_statement
       (cmc_condition
@@ -58,7 +58,7 @@ combining bools with unaries
           (cmc_condition
             (cmc_filter)
             (number_operator)
-            (number)))
+            (natural_number)))
         (bool_operator)
         (unary_statement
           (cmc_condition
@@ -81,7 +81,7 @@ mv=1 (mv:2 or mv<3) or mv!=4
         (cmc_condition
           (cmc_filter)
           (equal_operator)
-          (number)))
+          (natural_number)))
       (bool_operator)
       (unary_statement
         (parentheses
@@ -90,19 +90,19 @@ mv=1 (mv:2 or mv<3) or mv!=4
               (cmc_condition
                 (cmc_filter)
                 (equal_operator)
-                (number)))
+                (natural_number)))
             (bool_operator)
             (unary_statement
               (cmc_condition
                 (cmc_filter)
                 (number_operator)
-                (number)))))))
+                (natural_number)))))))
     (bool_operator)
     (unary_statement
       (cmc_condition
         (cmc_filter)
         (number_operator)
-        (number)))))
+        (natural_number)))))
 
 ===================
 more parentheses!
@@ -121,13 +121,13 @@ more parentheses!
             (cmc_condition
               (cmc_filter)
               (equal_operator)
-              (number)))
+              (natural_number)))
           (bool_operator)
           (unary_statement
             (cmc_condition
               (cmc_filter)
               (number_operator)
-              (number))))))
+              (natural_number))))))
     (bool_operator)
     (unary_statement
       (parentheses
@@ -136,10 +136,10 @@ more parentheses!
             (cmc_condition
               (cmc_filter)
               (number_operator)
-              (number)))
+              (natural_number)))
           (bool_operator)
           (unary_statement
             (cmc_condition
               (cmc_filter)
               (equal_operator)
-              (number))))))))
+              (natural_number))))))))

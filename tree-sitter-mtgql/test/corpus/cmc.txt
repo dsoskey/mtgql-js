@@ -12,7 +12,7 @@ mv>=4 or manavalue:odd
       (cmc_condition
         (cmc_filter)
         (number_operator)
-        (number)))
+        (natural_number)))
     (bool_operator)
     (unary_statement
       (cmc_condition
