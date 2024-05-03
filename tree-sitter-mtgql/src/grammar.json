@@ -103,6 +103,22 @@
           "value": 2,
           "content": {
             "type": "SYMBOL",
+            "name": "color_identity_condition"
+          }
+        },
+        {
+          "type": "PREC",
+          "value": 2,
+          "content": {
+            "type": "SYMBOL",
+            "name": "mana_condition"
+          }
+        },
+        {
+          "type": "PREC",
+          "value": 2,
+          "content": {
+            "type": "SYMBOL",
             "name": "cmc_condition"
           }
         },
@@ -128,21 +144,8 @@
       "type": "SEQ",
       "members": [
         {
-          "type": "FIELD",
-          "name": "color_filter",
-          "content": {
-            "type": "CHOICE",
-            "members": [
-              {
-                "type": "STRING",
-                "value": "c"
-              },
-              {
-                "type": "STRING",
-                "value": "color"
-              }
-            ]
-          }
+          "type": "SYMBOL",
+          "name": "color_filter"
         },
         {
           "type": "CHOICE",
@@ -185,12 +188,148 @@
         }
       ]
     },
-    "color_count": {
-      "type": "IMMEDIATE_TOKEN",
-      "content": {
-        "type": "PATTERN",
-        "value": "[0-5]"
-      }
+    "color_filter": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "c"
+        },
+        {
+          "type": "STRING",
+          "value": "color"
+        }
+      ]
+    },
+    "color_identity_condition": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "identity_filter"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "PREC",
+              "value": 2,
+              "content": {
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "SYMBOL",
+                    "name": "_num_or_equal_operator"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "color_count"
+                  }
+                ]
+              }
+            },
+            {
+              "type": "PREC",
+              "value": 1,
+              "content": {
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "SYMBOL",
+                    "name": "equal_operator"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "color_combination"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "identity_filter": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "id"
+        },
+        {
+          "type": "STRING",
+          "value": "ci"
+        },
+        {
+          "type": "STRING",
+          "value": "commander"
+        },
+        {
+          "type": "STRING",
+          "value": "identity"
+        }
+      ]
+    },
+    "mana_condition": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "mana_filter"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "PREC",
+              "value": 2,
+              "content": {
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "SYMBOL",
+                    "name": "_num_or_equal_operator"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "mana_cost"
+                  }
+                ]
+              }
+            },
+            {
+              "type": "PREC",
+              "value": 1,
+              "content": {
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "SYMBOL",
+                    "name": "equal_operator"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "regex"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "mana_filter": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "mana"
+        },
+        {
+          "type": "STRING",
+          "value": "m"
+        }
+      ]
     },
     "cmc_condition": {
       "type": "SEQ",
@@ -731,6 +870,47 @@
             "value": "[wWuUbBrRgG]{1,5}"
           }
         ]
+      }
+    },
+    "color_count": {
+      "type": "IMMEDIATE_TOKEN",
+      "content": {
+        "type": "PATTERN",
+        "value": "[0-5]"
+      }
+    },
+    "mana_cost": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "PREC",
+          "value": 2,
+          "content": {
+            "type": "REPEAT1",
+            "content": {
+              "type": "SYMBOL",
+              "name": "mana_symbol"
+            }
+          }
+        },
+        {
+          "type": "PREC",
+          "value": 1,
+          "content": {
+            "type": "IMMEDIATE_TOKEN",
+            "content": {
+              "type": "PATTERN",
+              "value": "[0-9xyzwubrgscXYZWUBRGSC]+"
+            }
+          }
+        }
+      ]
+    },
+    "mana_symbol": {
+      "type": "IMMEDIATE_TOKEN",
+      "content": {
+        "type": "PATTERN",
+        "value": "\\{([0-9]+|[xyz]|[2pwubrgscPWUBRGSC](\\/[2pwubrgscPWUBRGSC]){0,2})}"
       }
     }
   },

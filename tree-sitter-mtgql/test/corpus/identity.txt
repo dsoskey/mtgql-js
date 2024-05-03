@@ -2,14 +2,29 @@
 wubrg
 ====================
 
-c=wubgr
+identity=wubgr
 
 --------------------
 
 (query
   (unary_statement
-    (color_condition
-      (color_filter)
+    (color_identity_condition
+      (identity_filter)
+      (equal_operator)
+      (color_combination))))
+
+====================
+named color word
+====================
+
+ci:raugrin
+
+--------------------
+
+(query
+  (unary_statement
+    (color_identity_condition
+      (identity_filter)
       (equal_operator)
       (color_combination))))
 
@@ -17,14 +32,14 @@ c=wubgr
 colorless
 ====================
 
-color=c
+id=c
 
 --------------------
 
 (query
   (unary_statement
-    (color_condition
-      (color_filter)
+    (color_identity_condition
+      (identity_filter)
       (equal_operator)
       (color_combination))))
 
@@ -32,14 +47,14 @@ color=c
 color count
 ====================
 
-c<5
+commander<5
 
 --------------------
 
 (query
   (unary_statement
-    (color_condition
-      (color_filter)
+    (color_identity_condition
+      (identity_filter)
       (number_operator)
       (color_count))))
 
@@ -48,7 +63,7 @@ invalid color count
 :error
 ====================
 
-c>=6
+commander>=6
 
 --------------------
 ====================
@@ -56,15 +71,15 @@ invalid color name
 :error
 ====================
 
-color:melon
+id:melon
 
 --------------------
 ====================
-invalid spacing
+invalid operator spacing
 :error
 ====================
 
-c :3
+identity :3
 
 --------------------
 
@@ -73,7 +88,7 @@ invalid term spacing
 :error
 ====================
 
-c: 3
+id: 3
 
 --------------------
 

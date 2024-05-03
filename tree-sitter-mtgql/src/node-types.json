@@ -65,22 +65,43 @@
   {
     "type": "color_condition",
     "named": true,
-    "fields": {
-      "color_filter": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "c",
-            "named": false
-          },
-          {
-            "type": "color",
-            "named": false
-          }
-        ]
-      }
-    },
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "color_combination",
+          "named": true
+        },
+        {
+          "type": "color_count",
+          "named": true
+        },
+        {
+          "type": "color_filter",
+          "named": true
+        },
+        {
+          "type": "equal_operator",
+          "named": true
+        },
+        {
+          "type": "number_operator",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "color_filter",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "color_identity_condition",
+    "named": true,
+    "fields": {},
     "children": {
       "multiple": true,
       "required": true,
@@ -95,6 +116,10 @@
         },
         {
           "type": "equal_operator",
+          "named": true
+        },
+        {
+          "type": "identity_filter",
           "named": true
         },
         {
@@ -141,6 +166,62 @@
         }
       ]
     }
+  },
+  {
+    "type": "identity_filter",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "mana_condition",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "equal_operator",
+          "named": true
+        },
+        {
+          "type": "mana_cost",
+          "named": true
+        },
+        {
+          "type": "mana_filter",
+          "named": true
+        },
+        {
+          "type": "number_operator",
+          "named": true
+        },
+        {
+          "type": "regex",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "mana_cost",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "mana_symbol",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "mana_filter",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "name_condition",
@@ -237,7 +318,15 @@
           "named": true
         },
         {
+          "type": "color_identity_condition",
+          "named": true
+        },
+        {
           "type": "exact_name_condition",
+          "named": true
+        },
+        {
+          "type": "mana_condition",
           "named": true
         },
         {
@@ -276,6 +365,10 @@
     "named": false
   },
   {
+    "type": "ci",
+    "named": false
+  },
+  {
     "type": "cmc",
     "named": false
   },
@@ -292,11 +385,35 @@
     "named": true
   },
   {
+    "type": "commander",
+    "named": false
+  },
+  {
     "type": "double_quote_string",
     "named": true
   },
   {
     "type": "equal_operator",
+    "named": true
+  },
+  {
+    "type": "id",
+    "named": false
+  },
+  {
+    "type": "identity",
+    "named": false
+  },
+  {
+    "type": "m",
+    "named": false
+  },
+  {
+    "type": "mana",
+    "named": false
+  },
+  {
+    "type": "mana_symbol",
     "named": true
   },
   {

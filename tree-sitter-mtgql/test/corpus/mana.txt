@@ -1,0 +1,155 @@
+====================
+simple cost
+====================
+
+mana>1uu
+
+--------------------
+
+(query
+  (unary_statement
+    (mana_condition
+      (mana_filter)
+      (number_operator)
+      (mana_cost))))
+
+====================
+regex
+====================
+
+m=/u{2,3}/
+
+--------------------
+
+(query
+  (unary_statement
+    (mana_condition
+      (mana_filter)
+      (equal_operator)
+      (regex))))
+
+====================
+single pip
+====================
+
+m!={u/r}
+
+--------------------
+
+(query
+  (unary_statement
+    (mana_condition
+      (mana_filter)
+      (number_operator)
+      (mana_cost
+        (mana_symbol)))))
+
+====================
+tribrid pip
+====================
+
+mana:{w/r/p}
+
+--------------------
+
+(query
+  (unary_statement
+    (mana_condition
+      (mana_filter)
+      (equal_operator)
+      (mana_cost
+        (mana_symbol)))))
+
+====================
+big number
+====================
+
+m<{200}
+
+--------------------
+
+(query
+  (unary_statement
+    (mana_condition
+      (mana_filter)
+      (number_operator)
+      (mana_cost
+        (mana_symbol)))))
+
+====================
+multiple pip
+====================
+
+m>{r}{R/s}
+
+--------------------
+
+(query
+  (unary_statement
+    (mana_condition
+      (mana_filter)
+      (number_operator)
+      (mana_cost
+        (mana_symbol)
+        (mana_symbol)))))
+
+====================
+raw mana
+====================
+
+mana>=2gu
+
+--------------------
+
+(query
+  (unary_statement
+    (mana_condition
+      (mana_filter)
+      (number_operator)
+      (mana_cost))))
+
+====================
+quadbrid
+:error
+====================
+
+m={w/u/b/r}
+
+--------------------
+
+====================
+unrecognized mana type
+:error
+====================
+
+m={1/j}
+
+--------------------
+
+====================
+unrecognized mana string
+:error
+====================
+
+m:2iii
+
+--------------------
+
+====================
+invalid operator spacing
+:error
+====================
+
+m :200
+
+--------------------
+
+====================
+invalid term spacing
+:error
+====================
+
+m: 200
+
+--------------------
+

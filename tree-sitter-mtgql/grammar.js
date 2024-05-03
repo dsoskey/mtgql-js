@@ -57,6 +57,8 @@ module.exports = grammar({
     ),
     _condition: $ => choice(
       prec(2, $.color_condition),
+      prec(2, $.color_identity_condition),
+      prec(2, $.mana_condition),
       prec(2, $.cmc_condition),
       prec(2, $.name_condition),
       prec(1, $.exact_name_condition),
@@ -64,13 +66,31 @@ module.exports = grammar({
 
     // ~~ conditions ~~
     color_condition: $ => seq(
-      field("color_filter", choice("c", "color")),
+      $.color_filter,
       choice(
         prec(2, seq($._num_or_equal_operator, $.color_count)),
         prec(1, seq($.equal_operator, $.color_combination)),
       ),
     ),
-    color_count: _ => token.immediate(/[0-5]/),
+    color_filter: _ => choice("c", "color"),
+
+    color_identity_condition: $ => seq(
+      $.identity_filter,
+      choice(
+        prec(2, seq($._num_or_equal_operator, $.color_count)),
+        prec(1, seq($.equal_operator, $.color_combination)),
+      ),
+    ),
+    identity_filter: _ => choice("id", "ci", "commander", "identity"),
+
+    mana_condition: $ => seq(
+      $.mana_filter,
+      choice(
+        prec(2, seq($._num_or_equal_operator, $.mana_cost,)),
+        prec(1, seq($.equal_operator, $.regex,)),
+      ),
+    ),
+    mana_filter: _ => choice("mana", "m"),
 
     cmc_condition: $ => seq(
       $.cmc_filter,
@@ -129,5 +149,12 @@ module.exports = grammar({
       ...colorWords,
       /[wWuUbBrRgG]{1,5}/,
     )),
+    color_count: _ => token.immediate(/[0-5]/),
+
+    mana_cost: $ => choice(
+      prec(2, repeat1($.mana_symbol)),
+      prec(1, token.immediate(/[0-9xyzwubrgscXYZWUBRGSC]+/)),
+    ),
+    mana_symbol: _ => token.immediate(/\{([0-9]+|[xyz]|[2pwubrgscPWUBRGSC](\/[2pwubrgscPWUBRGSC]){0,2})}/),
   }
 });
