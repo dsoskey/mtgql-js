@@ -1,0 +1,48 @@
+====================
+number comparison
+====================
+
+loy<4
+
+--------------------
+
+(query
+  (unary_statement
+    (loyalty_condition
+      (loyalty_filter)
+      (number_operator)
+      (natural_number))))
+
+====================
+alias with equal op
+====================
+
+loyalty=40
+
+--------------------
+
+(query
+  (unary_statement
+    (loyalty_condition
+      (loyalty_filter)
+      (equal_operator)
+      (natural_number))))
+
+====================
+invalid operator spacing
+:error
+====================
+
+loy :3
+
+--------------------
+
+====================
+invalid term spacing
+:error
+====================
+
+loy: 3
+
+--------------------
+

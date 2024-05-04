@@ -1,0 +1,48 @@
+====================
+number comparison
+====================
+
+pt<4
+
+--------------------
+
+(query
+  (unary_statement
+    (pow_tou_condition
+      (pow_tou_filter)
+      (number_operator)
+      (natural_number))))
+
+====================
+alias with equal op
+====================
+
+powtou=40
+
+--------------------
+
+(query
+  (unary_statement
+    (pow_tou_condition
+      (pow_tou_filter)
+      (equal_operator)
+      (natural_number))))
+
+====================
+invalid operator spacing
+:error
+====================
+
+pt :3
+
+--------------------
+
+====================
+invalid term spacing
+:error
+====================
+
+pt: 3
+
+--------------------
+

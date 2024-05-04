@@ -1,0 +1,63 @@
+====================
+number comparison
+====================
+
+tou<4
+
+--------------------
+
+(query
+  (unary_statement
+    (toughness_condition
+      (toughness_filter)
+      (number_operator)
+      (natural_number))))
+
+====================
+alias with equal op
+====================
+
+toughness=40
+
+--------------------
+
+(query
+  (unary_statement
+    (toughness_condition
+      (toughness_filter)
+      (equal_operator)
+      (natural_number))))
+
+====================
+compared to power
+====================
+
+tou=pow
+
+--------------------
+
+(query
+  (unary_statement
+    (toughness_condition
+      (toughness_filter)
+      (equal_operator)
+      (power_value))))
+
+====================
+invalid operator spacing
+:error
+====================
+
+tou :3
+
+--------------------
+
+====================
+invalid term spacing
+:error
+====================
+
+tou: 3
+
+--------------------
+

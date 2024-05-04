@@ -130,6 +130,38 @@
     }
   },
   {
+    "type": "defense_condition",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "defense_filter",
+          "named": true
+        },
+        {
+          "type": "equal_operator",
+          "named": true
+        },
+        {
+          "type": "natural_number",
+          "named": true
+        },
+        {
+          "type": "number_operator",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "defense_filter",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "exact_name_condition",
     "named": true,
     "fields": {
@@ -168,7 +200,123 @@
     }
   },
   {
+    "type": "full_oracle_condition",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "double_quote_string",
+          "named": true
+        },
+        {
+          "type": "equal_operator",
+          "named": true
+        },
+        {
+          "type": "full_oracle_filter",
+          "named": true
+        },
+        {
+          "type": "natural_number",
+          "named": true
+        },
+        {
+          "type": "no_quote_string",
+          "named": true
+        },
+        {
+          "type": "number_operator",
+          "named": true
+        },
+        {
+          "type": "regex",
+          "named": true
+        },
+        {
+          "type": "single_quote_string",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "full_oracle_filter",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "identity_filter",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "keyword_condition",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "double_quote_string",
+          "named": true
+        },
+        {
+          "type": "equal_operator",
+          "named": true
+        },
+        {
+          "type": "keyword_filter",
+          "named": true
+        },
+        {
+          "type": "no_quote_string",
+          "named": true
+        },
+        {
+          "type": "single_quote_string",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "keyword_filter",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "loyalty_condition",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "equal_operator",
+          "named": true
+        },
+        {
+          "type": "loyalty_filter",
+          "named": true
+        },
+        {
+          "type": "natural_number",
+          "named": true
+        },
+        {
+          "type": "number_operator",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "loyalty_filter",
     "named": true,
     "fields": {}
   },
@@ -264,6 +412,54 @@
     "fields": {}
   },
   {
+    "type": "oracle_condition",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "double_quote_string",
+          "named": true
+        },
+        {
+          "type": "equal_operator",
+          "named": true
+        },
+        {
+          "type": "natural_number",
+          "named": true
+        },
+        {
+          "type": "no_quote_string",
+          "named": true
+        },
+        {
+          "type": "number_operator",
+          "named": true
+        },
+        {
+          "type": "oracle_filter",
+          "named": true
+        },
+        {
+          "type": "regex",
+          "named": true
+        },
+        {
+          "type": "single_quote_string",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "oracle_filter",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "parentheses",
     "named": true,
     "fields": {},
@@ -283,6 +479,74 @@
     }
   },
   {
+    "type": "pow_tou_condition",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "equal_operator",
+          "named": true
+        },
+        {
+          "type": "natural_number",
+          "named": true
+        },
+        {
+          "type": "number_operator",
+          "named": true
+        },
+        {
+          "type": "pow_tou_filter",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "pow_tou_filter",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "power_condition",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "equal_operator",
+          "named": true
+        },
+        {
+          "type": "natural_number",
+          "named": true
+        },
+        {
+          "type": "number_operator",
+          "named": true
+        },
+        {
+          "type": "power_filter",
+          "named": true
+        },
+        {
+          "type": "toughness_value",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "power_filter",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "query",
     "named": true,
     "fields": {},
@@ -300,6 +564,82 @@
         }
       ]
     }
+  },
+  {
+    "type": "toughness_condition",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "equal_operator",
+          "named": true
+        },
+        {
+          "type": "natural_number",
+          "named": true
+        },
+        {
+          "type": "number_operator",
+          "named": true
+        },
+        {
+          "type": "power_value",
+          "named": true
+        },
+        {
+          "type": "toughness_filter",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "toughness_filter",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "type_condition",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "double_quote_string",
+          "named": true
+        },
+        {
+          "type": "equal_operator",
+          "named": true
+        },
+        {
+          "type": "no_quote_string",
+          "named": true
+        },
+        {
+          "type": "regex",
+          "named": true
+        },
+        {
+          "type": "single_quote_string",
+          "named": true
+        },
+        {
+          "type": "type_filter",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "type_filter",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "unary_statement",
@@ -322,7 +662,23 @@
           "named": true
         },
         {
+          "type": "defense_condition",
+          "named": true
+        },
+        {
           "type": "exact_name_condition",
+          "named": true
+        },
+        {
+          "type": "full_oracle_condition",
+          "named": true
+        },
+        {
+          "type": "keyword_condition",
+          "named": true
+        },
+        {
+          "type": "loyalty_condition",
           "named": true
         },
         {
@@ -334,7 +690,27 @@
           "named": true
         },
         {
+          "type": "oracle_condition",
+          "named": true
+        },
+        {
           "type": "parentheses",
+          "named": true
+        },
+        {
+          "type": "pow_tou_condition",
+          "named": true
+        },
+        {
+          "type": "power_condition",
+          "named": true
+        },
+        {
+          "type": "toughness_condition",
+          "named": true
+        },
+        {
+          "type": "type_condition",
           "named": true
         }
       ]
@@ -389,6 +765,14 @@
     "named": false
   },
   {
+    "type": "def",
+    "named": false
+  },
+  {
+    "type": "defense",
+    "named": false
+  },
+  {
     "type": "double_quote_string",
     "named": true
   },
@@ -397,11 +781,31 @@
     "named": true
   },
   {
+    "type": "fo",
+    "named": false
+  },
+  {
     "type": "id",
     "named": false
   },
   {
     "type": "identity",
+    "named": false
+  },
+  {
+    "type": "keyword",
+    "named": false
+  },
+  {
+    "type": "kw",
+    "named": false
+  },
+  {
+    "type": "loy",
+    "named": false
+  },
+  {
+    "type": "loyalty",
     "named": false
   },
   {
@@ -445,12 +849,40 @@
     "named": true
   },
   {
+    "type": "o",
+    "named": false
+  },
+  {
     "type": "odd_even",
     "named": true
   },
   {
+    "type": "oracle",
+    "named": false
+  },
+  {
     "type": "positive_float",
     "named": true
+  },
+  {
+    "type": "pow",
+    "named": false
+  },
+  {
+    "type": "power",
+    "named": false
+  },
+  {
+    "type": "power_value",
+    "named": true
+  },
+  {
+    "type": "powtou",
+    "named": false
+  },
+  {
+    "type": "pt",
+    "named": false
   },
   {
     "type": "regex",
@@ -459,5 +891,29 @@
   {
     "type": "single_quote_string",
     "named": true
+  },
+  {
+    "type": "t",
+    "named": false
+  },
+  {
+    "type": "text",
+    "named": false
+  },
+  {
+    "type": "tou",
+    "named": false
+  },
+  {
+    "type": "toughness",
+    "named": false
+  },
+  {
+    "type": "toughness_value",
+    "named": true
+  },
+  {
+    "type": "type",
+    "named": false
   }
 ]

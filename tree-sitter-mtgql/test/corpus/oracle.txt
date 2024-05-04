@@ -1,0 +1,92 @@
+====================
+single quote string
+====================
+
+oracle:'fishes you control'
+
+--------------------
+
+(query
+  (unary_statement
+    (oracle_condition
+      (oracle_filter)
+      (equal_operator)
+      (single_quote_string))))
+
+====================
+double quote string
+====================
+
+oracle:"fishes you control"
+
+--------------------
+
+(query
+  (unary_statement
+    (oracle_condition
+      (oracle_filter)
+      (equal_operator)
+      (double_quote_string))))
+
+====================
+no quote string
+====================
+
+o:kevin
+
+--------------------
+
+(query
+  (unary_statement
+    (oracle_condition
+      (oracle_filter)
+      (equal_operator)
+      (no_quote_string))))
+
+====================
+regex
+====================
+
+text:/costs \{\d+} less/
+
+--------------------
+
+(query
+  (unary_statement
+    (oracle_condition
+      (oracle_filter)
+      (equal_operator)
+      (regex))))
+
+====================
+oracle count
+====================
+
+text>710
+
+--------------------
+
+(query
+  (unary_statement
+    (oracle_condition
+      (oracle_filter)
+      (number_operator)
+      (natural_number))))
+
+====================
+invalid spacing
+:error
+====================
+
+o :3
+
+--------------------
+
+====================
+invalid term spacing
+:error
+====================
+
+o: 3
+
+--------------------

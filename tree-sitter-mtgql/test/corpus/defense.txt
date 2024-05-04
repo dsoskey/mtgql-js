@@ -1,0 +1,48 @@
+====================
+number comparison
+====================
+
+def<4
+
+--------------------
+
+(query
+  (unary_statement
+    (defense_condition
+      (defense_filter)
+      (number_operator)
+      (natural_number))))
+
+====================
+alias with equal op
+====================
+
+defense=40
+
+--------------------
+
+(query
+  (unary_statement
+    (defense_condition
+      (defense_filter)
+      (equal_operator)
+      (natural_number))))
+
+====================
+invalid operator spacing
+:error
+====================
+
+def :3
+
+--------------------
+
+====================
+invalid term spacing
+:error
+====================
+
+def: 3
+
+--------------------
+

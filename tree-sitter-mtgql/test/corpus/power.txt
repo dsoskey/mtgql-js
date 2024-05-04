@@ -1,70 +1,54 @@
 ====================
-wubrg
+number comparison
 ====================
 
-c=wubgr
+pow<4
 
 --------------------
 
 (query
   (unary_statement
-    (color_condition
-      (color_filter)
-      (equal_operator)
-      (color_combination))))
-
-====================
-colorless
-====================
-
-color=c
-
---------------------
-
-(query
-  (unary_statement
-    (color_condition
-      (color_filter)
-      (equal_operator)
-      (color_combination))))
-
-====================
-color count
-====================
-
-c<5
-
---------------------
-
-(query
-  (unary_statement
-    (color_condition
-      (color_filter)
+    (power_condition
+      (power_filter)
       (number_operator)
-      (color_count))))
+      (natural_number))))
 
 ====================
-invalid color count
-:error
+alias with equal op
 ====================
 
-c>=6
+power=40
 
 --------------------
+
+(query
+  (unary_statement
+    (power_condition
+      (power_filter)
+      (equal_operator)
+      (natural_number))))
+
 ====================
-invalid color name
-:error
+compared to toughness
 ====================
 
-color:melon
+pow!=tou
 
 --------------------
+
+(query
+  (unary_statement
+    (power_condition
+      (power_filter)
+      (number_operator)
+      (toughness_value))))
+
 ====================
 invalid operator spacing
 :error
 ====================
 
-c :3
+pow :3
 
 --------------------
 
@@ -73,7 +57,7 @@ invalid term spacing
 :error
 ====================
 
-c: 3
+pow: 3
 
 --------------------
 
