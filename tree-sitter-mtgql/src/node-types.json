@@ -1,5 +1,136 @@
 [
   {
+    "type": "art_tag_condition",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "art_tag_filter",
+          "named": true
+        },
+        {
+          "type": "double_quote_string",
+          "named": true
+        },
+        {
+          "type": "equal_operator",
+          "named": true
+        },
+        {
+          "type": "no_quote_string",
+          "named": true
+        },
+        {
+          "type": "single_quote_string",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "art_tag_filter",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "artist_condition",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "artist_filter",
+          "named": true
+        },
+        {
+          "type": "double_quote_string",
+          "named": true
+        },
+        {
+          "type": "equal_operator",
+          "named": true
+        },
+        {
+          "type": "no_quote_string",
+          "named": true
+        },
+        {
+          "type": "single_quote_string",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "artist_filter",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "banned_condition",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "banned_filter",
+          "named": true
+        },
+        {
+          "type": "equal_operator",
+          "named": true
+        },
+        {
+          "type": "format_value",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "block_condition",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "block_filter",
+          "named": true
+        },
+        {
+          "type": "double_quote_string",
+          "named": true
+        },
+        {
+          "type": "equal_operator",
+          "named": true
+        },
+        {
+          "type": "no_quote_string",
+          "named": true
+        },
+        {
+          "type": "single_quote_string",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "block_filter",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "bool_statement",
     "named": true,
     "fields": {},
@@ -17,6 +148,37 @@
         },
         {
           "type": "unary_statement",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "border_condition",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "border_filter",
+          "named": true
+        },
+        {
+          "type": "double_quote_string",
+          "named": true
+        },
+        {
+          "type": "equal_operator",
+          "named": true
+        },
+        {
+          "type": "no_quote_string",
+          "named": true
+        },
+        {
+          "type": "single_quote_string",
           "named": true
         }
       ]
@@ -59,6 +221,81 @@
   },
   {
     "type": "cmc_filter",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "collection_condition",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "collection_filter",
+          "named": true
+        },
+        {
+          "type": "double_quote_string",
+          "named": true
+        },
+        {
+          "type": "equal_operator",
+          "named": true
+        },
+        {
+          "type": "no_quote_string",
+          "named": true
+        },
+        {
+          "type": "single_quote_string",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "collector_number_condition",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "collector_number_filter",
+          "named": true
+        },
+        {
+          "type": "double_quote_string",
+          "named": true
+        },
+        {
+          "type": "equal_operator",
+          "named": true
+        },
+        {
+          "type": "natural_number",
+          "named": true
+        },
+        {
+          "type": "no_quote_string",
+          "named": true
+        },
+        {
+          "type": "number_operator",
+          "named": true
+        },
+        {
+          "type": "single_quote_string",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "collector_number_filter",
     "named": true,
     "fields": {}
   },
@@ -130,6 +367,114 @@
     }
   },
   {
+    "type": "cube_oracle_condition",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "cube_oracle_filter",
+          "named": true
+        },
+        {
+          "type": "double_quote_string",
+          "named": true
+        },
+        {
+          "type": "equal_operator",
+          "named": true
+        },
+        {
+          "type": "no_quote_string",
+          "named": true
+        },
+        {
+          "type": "single_quote_string",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "cube_oracle_filter",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "cube_print_condition",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "cube_print_filter",
+          "named": true
+        },
+        {
+          "type": "double_quote_string",
+          "named": true
+        },
+        {
+          "type": "equal_operator",
+          "named": true
+        },
+        {
+          "type": "no_quote_string",
+          "named": true
+        },
+        {
+          "type": "single_quote_string",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "cube_print_filter",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "date_condition",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "date_filter",
+          "named": true
+        },
+        {
+          "type": "double_quote_string",
+          "named": true
+        },
+        {
+          "type": "equal_operator",
+          "named": true
+        },
+        {
+          "type": "no_quote_string",
+          "named": true
+        },
+        {
+          "type": "single_quote_string",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "date_filter",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "defense_condition",
     "named": true,
     "fields": {},
@@ -162,6 +507,56 @@
     "fields": {}
   },
   {
+    "type": "devotion_condition",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "devotion_filter",
+          "named": true
+        },
+        {
+          "type": "equal_operator",
+          "named": true
+        },
+        {
+          "type": "mana_cost",
+          "named": true
+        },
+        {
+          "type": "number_operator",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "direction_condition",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "direction_filter",
+          "named": true
+        },
+        {
+          "type": "direction_value",
+          "named": true
+        },
+        {
+          "type": "equal_operator",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "exact_name_condition",
     "named": true,
     "fields": {
@@ -190,6 +585,113 @@
         },
         {
           "type": "regex",
+          "named": true
+        },
+        {
+          "type": "single_quote_string",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "flavor_condition",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "double_quote_string",
+          "named": true
+        },
+        {
+          "type": "equal_operator",
+          "named": true
+        },
+        {
+          "type": "flavor_filter",
+          "named": true
+        },
+        {
+          "type": "natural_number",
+          "named": true
+        },
+        {
+          "type": "no_quote_string",
+          "named": true
+        },
+        {
+          "type": "number_operator",
+          "named": true
+        },
+        {
+          "type": "regex",
+          "named": true
+        },
+        {
+          "type": "single_quote_string",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "flavor_filter",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "format_condition",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "equal_operator",
+          "named": true
+        },
+        {
+          "type": "format_filter",
+          "named": true
+        },
+        {
+          "type": "format_value",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "format_filter",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "frame_condition",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "double_quote_string",
+          "named": true
+        },
+        {
+          "type": "equal_operator",
+          "named": true
+        },
+        {
+          "type": "frame_filter",
+          "named": true
+        },
+        {
+          "type": "no_quote_string",
           "named": true
         },
         {
@@ -248,7 +750,97 @@
     "fields": {}
   },
   {
+    "type": "game_condition",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "double_quote_string",
+          "named": true
+        },
+        {
+          "type": "equal_operator",
+          "named": true
+        },
+        {
+          "type": "game_filter",
+          "named": true
+        },
+        {
+          "type": "no_quote_string",
+          "named": true
+        },
+        {
+          "type": "single_quote_string",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "identity_filter",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "in_condition",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "double_quote_string",
+          "named": true
+        },
+        {
+          "type": "equal_operator",
+          "named": true
+        },
+        {
+          "type": "in_filter",
+          "named": true
+        },
+        {
+          "type": "no_quote_string",
+          "named": true
+        },
+        {
+          "type": "single_quote_string",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "is_condition",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "equal_operator",
+          "named": true
+        },
+        {
+          "type": "is_filter",
+          "named": true
+        },
+        {
+          "type": "is_value",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "is_filter",
     "named": true,
     "fields": {}
   },
@@ -287,6 +879,73 @@
     "type": "keyword_filter",
     "named": true,
     "fields": {}
+  },
+  {
+    "type": "language_condition",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "double_quote_string",
+          "named": true
+        },
+        {
+          "type": "equal_operator",
+          "named": true
+        },
+        {
+          "type": "language_filter",
+          "named": true
+        },
+        {
+          "type": "no_quote_string",
+          "named": true
+        },
+        {
+          "type": "single_quote_string",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "language_filter",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "layout_condition",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "double_quote_string",
+          "named": true
+        },
+        {
+          "type": "equal_operator",
+          "named": true
+        },
+        {
+          "type": "layout_filter",
+          "named": true
+        },
+        {
+          "type": "no_quote_string",
+          "named": true
+        },
+        {
+          "type": "single_quote_string",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "loyalty_condition",
@@ -412,6 +1071,52 @@
     "fields": {}
   },
   {
+    "type": "new_condition",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "equal_operator",
+          "named": true
+        },
+        {
+          "type": "new_filter",
+          "named": true
+        },
+        {
+          "type": "new_value",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "not_condition",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "equal_operator",
+          "named": true
+        },
+        {
+          "type": "is_value",
+          "named": true
+        },
+        {
+          "type": "not_filter",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "oracle_condition",
     "named": true,
     "fields": {},
@@ -458,6 +1163,115 @@
     "type": "oracle_filter",
     "named": true,
     "fields": {}
+  },
+  {
+    "type": "oracle_id_condition",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "equal_operator",
+          "named": true
+        },
+        {
+          "type": "oracle_id_filter",
+          "named": true
+        },
+        {
+          "type": "uuid",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "oracle_tag_condition",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "double_quote_string",
+          "named": true
+        },
+        {
+          "type": "equal_operator",
+          "named": true
+        },
+        {
+          "type": "no_quote_string",
+          "named": true
+        },
+        {
+          "type": "oracle_tag_filter",
+          "named": true
+        },
+        {
+          "type": "single_quote_string",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "oracle_tag_filter",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "order_condition",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "equal_operator",
+          "named": true
+        },
+        {
+          "type": "order_filter",
+          "named": true
+        },
+        {
+          "type": "order_value",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "paper_print_count_condition",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "equal_operator",
+          "named": true
+        },
+        {
+          "type": "natural_number",
+          "named": true
+        },
+        {
+          "type": "number_operator",
+          "named": true
+        },
+        {
+          "type": "paper_print_count_filter",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "parentheses",
@@ -547,6 +1361,118 @@
     "fields": {}
   },
   {
+    "type": "prefer_condition",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "equal_operator",
+          "named": true
+        },
+        {
+          "type": "prefer_filter",
+          "named": true
+        },
+        {
+          "type": "prefer_value",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "price_condition",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "equal_operator",
+          "named": true
+        },
+        {
+          "type": "natural_number",
+          "named": true
+        },
+        {
+          "type": "number_operator",
+          "named": true
+        },
+        {
+          "type": "positive_float",
+          "named": true
+        },
+        {
+          "type": "price_condition",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "print_count_condition",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "equal_operator",
+          "named": true
+        },
+        {
+          "type": "natural_number",
+          "named": true
+        },
+        {
+          "type": "number_operator",
+          "named": true
+        },
+        {
+          "type": "print_count_filter",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "produces_condition",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "equal_operator",
+          "named": true
+        },
+        {
+          "type": "number_operator",
+          "named": true
+        },
+        {
+          "type": "produces_combination",
+          "named": true
+        },
+        {
+          "type": "produces_count",
+          "named": true
+        },
+        {
+          "type": "produces_filter",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "query",
     "named": true,
     "fields": {},
@@ -560,6 +1486,182 @@
         },
         {
           "type": "unary_statement",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "rarity_condition",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "equal_operator",
+          "named": true
+        },
+        {
+          "type": "number_operator",
+          "named": true
+        },
+        {
+          "type": "rarity_filter",
+          "named": true
+        },
+        {
+          "type": "rarity_value",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "rarity_filter",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "restricted_condition",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "equal_operator",
+          "named": true
+        },
+        {
+          "type": "format_value",
+          "named": true
+        },
+        {
+          "type": "restricted_filter",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "scryfall_id_condition",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "equal_operator",
+          "named": true
+        },
+        {
+          "type": "scryfall_id_filter",
+          "named": true
+        },
+        {
+          "type": "uuid",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "set_condition",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "double_quote_string",
+          "named": true
+        },
+        {
+          "type": "equal_operator",
+          "named": true
+        },
+        {
+          "type": "no_quote_string",
+          "named": true
+        },
+        {
+          "type": "set_filter",
+          "named": true
+        },
+        {
+          "type": "single_quote_string",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "set_filter",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "set_type_condition",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "double_quote_string",
+          "named": true
+        },
+        {
+          "type": "equal_operator",
+          "named": true
+        },
+        {
+          "type": "no_quote_string",
+          "named": true
+        },
+        {
+          "type": "set_type_filter",
+          "named": true
+        },
+        {
+          "type": "single_quote_string",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "stamp_condition",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "double_quote_string",
+          "named": true
+        },
+        {
+          "type": "equal_operator",
+          "named": true
+        },
+        {
+          "type": "no_quote_string",
+          "named": true
+        },
+        {
+          "type": "single_quote_string",
+          "named": true
+        },
+        {
+          "type": "stamp_filter",
           "named": true
         }
       ]
@@ -650,7 +1752,35 @@
       "required": true,
       "types": [
         {
+          "type": "art_tag_condition",
+          "named": true
+        },
+        {
+          "type": "artist_condition",
+          "named": true
+        },
+        {
+          "type": "banned_condition",
+          "named": true
+        },
+        {
+          "type": "block_condition",
+          "named": true
+        },
+        {
+          "type": "border_condition",
+          "named": true
+        },
+        {
           "type": "cmc_condition",
+          "named": true
+        },
+        {
+          "type": "collection_condition",
+          "named": true
+        },
+        {
+          "type": "collector_number_condition",
           "named": true
         },
         {
@@ -662,7 +1792,27 @@
           "named": true
         },
         {
+          "type": "cube_oracle_condition",
+          "named": true
+        },
+        {
+          "type": "cube_print_condition",
+          "named": true
+        },
+        {
+          "type": "date_condition",
+          "named": true
+        },
+        {
           "type": "defense_condition",
+          "named": true
+        },
+        {
+          "type": "devotion_condition",
+          "named": true
+        },
+        {
+          "type": "direction_condition",
           "named": true
         },
         {
@@ -670,11 +1820,43 @@
           "named": true
         },
         {
+          "type": "flavor_condition",
+          "named": true
+        },
+        {
+          "type": "format_condition",
+          "named": true
+        },
+        {
+          "type": "frame_condition",
+          "named": true
+        },
+        {
           "type": "full_oracle_condition",
           "named": true
         },
         {
+          "type": "game_condition",
+          "named": true
+        },
+        {
+          "type": "in_condition",
+          "named": true
+        },
+        {
+          "type": "is_condition",
+          "named": true
+        },
+        {
           "type": "keyword_condition",
+          "named": true
+        },
+        {
+          "type": "language_condition",
+          "named": true
+        },
+        {
+          "type": "layout_condition",
           "named": true
         },
         {
@@ -690,7 +1872,31 @@
           "named": true
         },
         {
+          "type": "new_condition",
+          "named": true
+        },
+        {
+          "type": "not_condition",
+          "named": true
+        },
+        {
           "type": "oracle_condition",
+          "named": true
+        },
+        {
+          "type": "oracle_id_condition",
+          "named": true
+        },
+        {
+          "type": "oracle_tag_condition",
+          "named": true
+        },
+        {
+          "type": "order_condition",
+          "named": true
+        },
+        {
+          "type": "paper_print_count_condition",
           "named": true
         },
         {
@@ -706,15 +1912,131 @@
           "named": true
         },
         {
+          "type": "prefer_condition",
+          "named": true
+        },
+        {
+          "type": "price_condition",
+          "named": true
+        },
+        {
+          "type": "print_count_condition",
+          "named": true
+        },
+        {
+          "type": "produces_condition",
+          "named": true
+        },
+        {
+          "type": "rarity_condition",
+          "named": true
+        },
+        {
+          "type": "restricted_condition",
+          "named": true
+        },
+        {
+          "type": "scryfall_id_condition",
+          "named": true
+        },
+        {
+          "type": "set_condition",
+          "named": true
+        },
+        {
+          "type": "set_type_condition",
+          "named": true
+        },
+        {
+          "type": "stamp_condition",
+          "named": true
+        },
+        {
           "type": "toughness_condition",
           "named": true
         },
         {
           "type": "type_condition",
           "named": true
+        },
+        {
+          "type": "unique_condition",
+          "named": true
+        },
+        {
+          "type": "watermark_condition",
+          "named": true
         }
       ]
     }
+  },
+  {
+    "type": "unique_condition",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "equal_operator",
+          "named": true
+        },
+        {
+          "type": "unique_filter",
+          "named": true
+        },
+        {
+          "type": "unique_symbol",
+          "named": true
+        },
+        {
+          "type": "unique_value",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "unique_symbol",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "watermark_condition",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "double_quote_string",
+          "named": true
+        },
+        {
+          "type": "equal_operator",
+          "named": true
+        },
+        {
+          "type": "no_quote_string",
+          "named": true
+        },
+        {
+          "type": "single_quote_string",
+          "named": true
+        },
+        {
+          "type": "watermark_filter",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "watermark_filter",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "!",
@@ -729,11 +2051,55 @@
     "named": false
   },
   {
+    "type": "++",
+    "named": false
+  },
+  {
     "type": "-",
     "named": false
   },
   {
+    "type": "@@",
+    "named": false
+  },
+  {
+    "type": "a",
+    "named": false
+  },
+  {
+    "type": "art",
+    "named": false
+  },
+  {
+    "type": "artist",
+    "named": false
+  },
+  {
+    "type": "arttag",
+    "named": false
+  },
+  {
+    "type": "atag",
+    "named": false
+  },
+  {
+    "type": "b",
+    "named": false
+  },
+  {
+    "type": "banned_filter",
+    "named": true
+  },
+  {
+    "type": "block",
+    "named": false
+  },
+  {
     "type": "bool_operator",
+    "named": true
+  },
+  {
+    "type": "border_filter",
     "named": true
   },
   {
@@ -747,6 +2113,14 @@
   {
     "type": "cmc",
     "named": false
+  },
+  {
+    "type": "cn",
+    "named": false
+  },
+  {
+    "type": "collection_filter",
+    "named": true
   },
   {
     "type": "color",
@@ -765,6 +2139,26 @@
     "named": false
   },
   {
+    "type": "ctag",
+    "named": false
+  },
+  {
+    "type": "ctag+",
+    "named": false
+  },
+  {
+    "type": "cube",
+    "named": false
+  },
+  {
+    "type": "cube+",
+    "named": false
+  },
+  {
+    "type": "date",
+    "named": false
+  },
+  {
     "type": "def",
     "named": false
   },
@@ -773,15 +2167,71 @@
     "named": false
   },
   {
+    "type": "devotion_filter",
+    "named": true
+  },
+  {
+    "type": "direction_filter",
+    "named": true
+  },
+  {
+    "type": "direction_value",
+    "named": true
+  },
+  {
     "type": "double_quote_string",
     "named": true
+  },
+  {
+    "type": "e",
+    "named": false
+  },
+  {
+    "type": "edition",
+    "named": false
   },
   {
     "type": "equal_operator",
     "named": true
   },
   {
+    "type": "f",
+    "named": false
+  },
+  {
+    "type": "flavor",
+    "named": false
+  },
+  {
     "type": "fo",
+    "named": false
+  },
+  {
+    "type": "format",
+    "named": false
+  },
+  {
+    "type": "format_value",
+    "named": true
+  },
+  {
+    "type": "frame_filter",
+    "named": true
+  },
+  {
+    "type": "ft",
+    "named": false
+  },
+  {
+    "type": "function",
+    "named": false
+  },
+  {
+    "type": "game_filter",
+    "named": true
+  },
+  {
+    "type": "has",
     "named": false
   },
   {
@@ -793,12 +2243,36 @@
     "named": false
   },
   {
+    "type": "in_filter",
+    "named": true
+  },
+  {
+    "type": "is",
+    "named": false
+  },
+  {
+    "type": "is_value",
+    "named": true
+  },
+  {
     "type": "keyword",
     "named": false
   },
   {
     "type": "kw",
     "named": false
+  },
+  {
+    "type": "lang",
+    "named": false
+  },
+  {
+    "type": "language",
+    "named": false
+  },
+  {
+    "type": "layout_filter",
+    "named": true
   },
   {
     "type": "loy",
@@ -841,8 +2315,24 @@
     "named": true
   },
   {
+    "type": "new_filter",
+    "named": true
+  },
+  {
+    "type": "new_value",
+    "named": true
+  },
+  {
     "type": "no_quote_string",
     "named": true
+  },
+  {
+    "type": "not_filter",
+    "named": true
+  },
+  {
+    "type": "number",
+    "named": false
   },
   {
     "type": "number_operator",
@@ -859,6 +2349,30 @@
   {
     "type": "oracle",
     "named": false
+  },
+  {
+    "type": "oracle_id_filter",
+    "named": true
+  },
+  {
+    "type": "oracletag",
+    "named": false
+  },
+  {
+    "type": "order_filter",
+    "named": true
+  },
+  {
+    "type": "order_value",
+    "named": true
+  },
+  {
+    "type": "otag",
+    "named": false
+  },
+  {
+    "type": "paper_print_count_filter",
+    "named": true
   },
   {
     "type": "positive_float",
@@ -881,11 +2395,67 @@
     "named": false
   },
   {
+    "type": "prefer_filter",
+    "named": true
+  },
+  {
+    "type": "prefer_value",
+    "named": true
+  },
+  {
+    "type": "print_count_filter",
+    "named": true
+  },
+  {
+    "type": "produces_combination",
+    "named": true
+  },
+  {
+    "type": "produces_count",
+    "named": true
+  },
+  {
+    "type": "produces_filter",
+    "named": true
+  },
+  {
     "type": "pt",
     "named": false
   },
   {
+    "type": "r",
+    "named": false
+  },
+  {
+    "type": "rarity",
+    "named": false
+  },
+  {
+    "type": "rarity_value",
+    "named": true
+  },
+  {
     "type": "regex",
+    "named": true
+  },
+  {
+    "type": "restricted_filter",
+    "named": true
+  },
+  {
+    "type": "s",
+    "named": false
+  },
+  {
+    "type": "scryfall_id_filter",
+    "named": true
+  },
+  {
+    "type": "set",
+    "named": false
+  },
+  {
+    "type": "set_type_filter",
     "named": true
   },
   {
@@ -893,7 +2463,19 @@
     "named": true
   },
   {
+    "type": "stamp_filter",
+    "named": true
+  },
+  {
     "type": "t",
+    "named": false
+  },
+  {
+    "type": "tag",
+    "named": false
+  },
+  {
+    "type": "tag+",
     "named": false
   },
   {
@@ -914,6 +2496,30 @@
   },
   {
     "type": "type",
+    "named": false
+  },
+  {
+    "type": "unique_filter",
+    "named": true
+  },
+  {
+    "type": "unique_value",
+    "named": true
+  },
+  {
+    "type": "uuid",
+    "named": true
+  },
+  {
+    "type": "watermark",
+    "named": false
+  },
+  {
+    "type": "wm",
+    "named": false
+  },
+  {
+    "type": "year",
     "named": false
   }
 ]

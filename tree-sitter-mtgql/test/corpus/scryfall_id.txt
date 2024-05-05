@@ -1,0 +1,14 @@
+====================
+uuid
+====================
+
+scryfallid=e413a405-11da-4400-8b5d-64b2ce4a3119
+
+--------------------
+
+(query
+  (unary_statement
+    (scryfall_id_condition
+      (scryfall_id_filter)
+      (equal_operator)
+      (uuid))))

@@ -1,0 +1,29 @@
+====================
+number
+====================
+
+cn=69
+
+--------------------
+
+(query
+  (unary_statement
+    (collector_number_condition
+      (collector_number_filter)
+      (equal_operator)
+      (natural_number))))
+
+====================
+no quote string
+====================
+
+cn=69f
+
+--------------------
+
+(query
+  (unary_statement
+    (collector_number_condition
+      (collector_number_filter)
+      (equal_operator)
+      (no_quote_string))))

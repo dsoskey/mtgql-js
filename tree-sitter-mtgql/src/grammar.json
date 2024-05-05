@@ -199,6 +199,302 @@
           "value": 2,
           "content": {
             "type": "SYMBOL",
+            "name": "layout_condition"
+          }
+        },
+        {
+          "type": "PREC",
+          "value": 2,
+          "content": {
+            "type": "SYMBOL",
+            "name": "format_condition"
+          }
+        },
+        {
+          "type": "PREC",
+          "value": 2,
+          "content": {
+            "type": "SYMBOL",
+            "name": "banned_condition"
+          }
+        },
+        {
+          "type": "PREC",
+          "value": 2,
+          "content": {
+            "type": "SYMBOL",
+            "name": "restricted_condition"
+          }
+        },
+        {
+          "type": "PREC",
+          "value": 2,
+          "content": {
+            "type": "SYMBOL",
+            "name": "is_condition"
+          }
+        },
+        {
+          "type": "PREC",
+          "value": 2,
+          "content": {
+            "type": "SYMBOL",
+            "name": "not_condition"
+          }
+        },
+        {
+          "type": "PREC",
+          "value": 2,
+          "content": {
+            "type": "SYMBOL",
+            "name": "print_count_condition"
+          }
+        },
+        {
+          "type": "PREC",
+          "value": 2,
+          "content": {
+            "type": "SYMBOL",
+            "name": "paper_print_count_condition"
+          }
+        },
+        {
+          "type": "PREC",
+          "value": 2,
+          "content": {
+            "type": "SYMBOL",
+            "name": "in_condition"
+          }
+        },
+        {
+          "type": "PREC",
+          "value": 2,
+          "content": {
+            "type": "SYMBOL",
+            "name": "rarity_condition"
+          }
+        },
+        {
+          "type": "PREC",
+          "value": 2,
+          "content": {
+            "type": "SYMBOL",
+            "name": "set_condition"
+          }
+        },
+        {
+          "type": "PREC",
+          "value": 2,
+          "content": {
+            "type": "SYMBOL",
+            "name": "set_type_condition"
+          }
+        },
+        {
+          "type": "PREC",
+          "value": 2,
+          "content": {
+            "type": "SYMBOL",
+            "name": "block_condition"
+          }
+        },
+        {
+          "type": "PREC",
+          "value": 2,
+          "content": {
+            "type": "SYMBOL",
+            "name": "artist_condition"
+          }
+        },
+        {
+          "type": "PREC",
+          "value": 2,
+          "content": {
+            "type": "SYMBOL",
+            "name": "collector_number_condition"
+          }
+        },
+        {
+          "type": "PREC",
+          "value": 2,
+          "content": {
+            "type": "SYMBOL",
+            "name": "border_condition"
+          }
+        },
+        {
+          "type": "PREC",
+          "value": 2,
+          "content": {
+            "type": "SYMBOL",
+            "name": "date_condition"
+          }
+        },
+        {
+          "type": "PREC",
+          "value": 2,
+          "content": {
+            "type": "SYMBOL",
+            "name": "frame_condition"
+          }
+        },
+        {
+          "type": "PREC",
+          "value": 2,
+          "content": {
+            "type": "SYMBOL",
+            "name": "flavor_condition"
+          }
+        },
+        {
+          "type": "PREC",
+          "value": 2,
+          "content": {
+            "type": "SYMBOL",
+            "name": "game_condition"
+          }
+        },
+        {
+          "type": "PREC",
+          "value": 2,
+          "content": {
+            "type": "SYMBOL",
+            "name": "language_condition"
+          }
+        },
+        {
+          "type": "PREC",
+          "value": 2,
+          "content": {
+            "type": "SYMBOL",
+            "name": "price_condition"
+          }
+        },
+        {
+          "type": "PREC",
+          "value": 2,
+          "content": {
+            "type": "SYMBOL",
+            "name": "stamp_condition"
+          }
+        },
+        {
+          "type": "PREC",
+          "value": 2,
+          "content": {
+            "type": "SYMBOL",
+            "name": "watermark_condition"
+          }
+        },
+        {
+          "type": "PREC",
+          "value": 2,
+          "content": {
+            "type": "SYMBOL",
+            "name": "cube_oracle_condition"
+          }
+        },
+        {
+          "type": "PREC",
+          "value": 2,
+          "content": {
+            "type": "SYMBOL",
+            "name": "cube_print_condition"
+          }
+        },
+        {
+          "type": "PREC",
+          "value": 2,
+          "content": {
+            "type": "SYMBOL",
+            "name": "produces_condition"
+          }
+        },
+        {
+          "type": "PREC",
+          "value": 2,
+          "content": {
+            "type": "SYMBOL",
+            "name": "unique_condition"
+          }
+        },
+        {
+          "type": "PREC",
+          "value": 2,
+          "content": {
+            "type": "SYMBOL",
+            "name": "order_condition"
+          }
+        },
+        {
+          "type": "PREC",
+          "value": 2,
+          "content": {
+            "type": "SYMBOL",
+            "name": "direction_condition"
+          }
+        },
+        {
+          "type": "PREC",
+          "value": 2,
+          "content": {
+            "type": "SYMBOL",
+            "name": "devotion_condition"
+          }
+        },
+        {
+          "type": "PREC",
+          "value": 2,
+          "content": {
+            "type": "SYMBOL",
+            "name": "oracle_tag_condition"
+          }
+        },
+        {
+          "type": "PREC",
+          "value": 2,
+          "content": {
+            "type": "SYMBOL",
+            "name": "art_tag_condition"
+          }
+        },
+        {
+          "type": "PREC",
+          "value": 2,
+          "content": {
+            "type": "SYMBOL",
+            "name": "new_condition"
+          }
+        },
+        {
+          "type": "PREC",
+          "value": 2,
+          "content": {
+            "type": "SYMBOL",
+            "name": "prefer_condition"
+          }
+        },
+        {
+          "type": "PREC",
+          "value": 2,
+          "content": {
+            "type": "SYMBOL",
+            "name": "scryfall_id_condition"
+          }
+        },
+        {
+          "type": "PREC",
+          "value": 2,
+          "content": {
+            "type": "SYMBOL",
+            "name": "oracle_id_condition"
+          }
+        },
+        {
+          "type": "PREC",
+          "value": 2,
+          "content": {
+            "type": "SYMBOL",
             "name": "name_condition"
           }
         },
@@ -208,6 +504,14 @@
           "content": {
             "type": "SYMBOL",
             "name": "exact_name_condition"
+          }
+        },
+        {
+          "type": "PREC",
+          "value": 2,
+          "content": {
+            "type": "SYMBOL",
+            "name": "collection_condition"
           }
         }
       ]
@@ -850,6 +1154,1108 @@
         }
       ]
     },
+    "layout_condition": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "layout_filter"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "equal_operator"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_string_value"
+        }
+      ]
+    },
+    "layout_filter": {
+      "type": "STRING",
+      "value": "layout"
+    },
+    "format_condition": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "format_filter"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "equal_operator"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "format_value"
+        }
+      ]
+    },
+    "format_filter": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "format"
+        },
+        {
+          "type": "STRING",
+          "value": "f"
+        }
+      ]
+    },
+    "banned_condition": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "banned_filter"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "equal_operator"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "format_value"
+        }
+      ]
+    },
+    "banned_filter": {
+      "type": "STRING",
+      "value": "banned"
+    },
+    "restricted_condition": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "restricted_filter"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "equal_operator"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "format_value"
+        }
+      ]
+    },
+    "restricted_filter": {
+      "type": "STRING",
+      "value": "restricted"
+    },
+    "is_condition": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "is_filter"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "equal_operator"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "is_value"
+        }
+      ]
+    },
+    "is_filter": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "is"
+        },
+        {
+          "type": "STRING",
+          "value": "has"
+        }
+      ]
+    },
+    "not_condition": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "not_filter"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "equal_operator"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "is_value"
+        }
+      ]
+    },
+    "not_filter": {
+      "type": "STRING",
+      "value": "not"
+    },
+    "print_count_condition": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "print_count_filter"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_num_or_equal_operator"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "natural_number"
+        }
+      ]
+    },
+    "print_count_filter": {
+      "type": "STRING",
+      "value": "prints"
+    },
+    "paper_print_count_condition": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "paper_print_count_filter"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_num_or_equal_operator"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "natural_number"
+        }
+      ]
+    },
+    "paper_print_count_filter": {
+      "type": "STRING",
+      "value": "paperprints"
+    },
+    "in_condition": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "in_filter"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "equal_operator"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_string_value"
+        }
+      ]
+    },
+    "in_filter": {
+      "type": "STRING",
+      "value": "in"
+    },
+    "produces_condition": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "produces_filter"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_num_or_equal_operator"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "PREC",
+              "value": 2,
+              "content": {
+                "type": "SYMBOL",
+                "name": "produces_count"
+              }
+            },
+            {
+              "type": "PREC",
+              "value": 1,
+              "content": {
+                "type": "SYMBOL",
+                "name": "produces_combination"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "produces_filter": {
+      "type": "STRING",
+      "value": "produces"
+    },
+    "devotion_condition": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "devotion_filter"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_num_or_equal_operator"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "mana_cost"
+        }
+      ]
+    },
+    "devotion_filter": {
+      "type": "STRING",
+      "value": "devotion"
+    },
+    "unique_condition": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "unique_symbol"
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "unique_filter"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "equal_operator"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "unique_value"
+            }
+          ]
+        }
+      ]
+    },
+    "unique_symbol": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "++"
+        },
+        {
+          "type": "STRING",
+          "value": "@@"
+        }
+      ]
+    },
+    "unique_filter": {
+      "type": "STRING",
+      "value": "unique"
+    },
+    "unique_value": {
+      "type": "IMMEDIATE_TOKEN",
+      "content": {
+        "type": "PATTERN",
+        "value": "(cards|prints|art)",
+        "flags": "i"
+      }
+    },
+    "order_condition": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "order_filter"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "equal_operator"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "order_value"
+        }
+      ]
+    },
+    "order_filter": {
+      "type": "STRING",
+      "value": "order"
+    },
+    "order_value": {
+      "type": "IMMEDIATE_TOKEN",
+      "content": {
+        "type": "PATTERN",
+        "value": "(artist|cmc|mv|power|toughness|set|name|usd|tix|eur|rarity|color|released|spoiled|edhrec|penny|review)",
+        "flags": "i"
+      }
+    },
+    "direction_condition": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "direction_filter"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "equal_operator"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "direction_value"
+        }
+      ]
+    },
+    "direction_filter": {
+      "type": "STRING",
+      "value": "direction"
+    },
+    "direction_value": {
+      "type": "IMMEDIATE_TOKEN",
+      "content": {
+        "type": "PATTERN",
+        "value": "(asc|desc)",
+        "flags": "i"
+      }
+    },
+    "rarity_condition": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "rarity_filter"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_num_or_equal_operator"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "rarity_value"
+        }
+      ]
+    },
+    "rarity_filter": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "r"
+        },
+        {
+          "type": "STRING",
+          "value": "rarity"
+        }
+      ]
+    },
+    "rarity_value": {
+      "type": "IMMEDIATE_TOKEN",
+      "content": {
+        "type": "PATTERN",
+        "value": "(b|bonus|m|mythic|s|special|r|rare|u|uncommon|c|common)",
+        "flags": "i"
+      }
+    },
+    "set_condition": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "set_filter"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "equal_operator"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_string_value"
+        }
+      ]
+    },
+    "set_filter": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "s"
+        },
+        {
+          "type": "STRING",
+          "value": "set"
+        },
+        {
+          "type": "STRING",
+          "value": "e"
+        },
+        {
+          "type": "STRING",
+          "value": "edition"
+        }
+      ]
+    },
+    "set_type_condition": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "set_type_filter"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "equal_operator"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_string_value"
+        }
+      ]
+    },
+    "set_type_filter": {
+      "type": "STRING",
+      "value": "st"
+    },
+    "block_condition": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "block_filter"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "equal_operator"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_string_value"
+        }
+      ]
+    },
+    "block_filter": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "b"
+        },
+        {
+          "type": "STRING",
+          "value": "block"
+        }
+      ]
+    },
+    "artist_condition": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "artist_filter"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "equal_operator"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_string_value"
+        }
+      ]
+    },
+    "artist_filter": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "a"
+        },
+        {
+          "type": "STRING",
+          "value": "artist"
+        }
+      ]
+    },
+    "collector_number_condition": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "collector_number_filter"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "PREC",
+              "value": 2,
+              "content": {
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "SYMBOL",
+                    "name": "_num_or_equal_operator"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "natural_number"
+                  }
+                ]
+              }
+            },
+            {
+              "type": "PREC",
+              "value": 1,
+              "content": {
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "SYMBOL",
+                    "name": "equal_operator"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "_string_value"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "collector_number_filter": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "cn"
+        },
+        {
+          "type": "STRING",
+          "value": "number"
+        }
+      ]
+    },
+    "border_condition": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "border_filter"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "equal_operator"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_string_value"
+        }
+      ]
+    },
+    "border_filter": {
+      "type": "STRING",
+      "value": "border"
+    },
+    "date_condition": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "date_filter"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "equal_operator"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_string_value"
+        }
+      ]
+    },
+    "date_filter": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "year"
+        },
+        {
+          "type": "STRING",
+          "value": "date"
+        }
+      ]
+    },
+    "price_condition": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "price_condition"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_num_or_equal_operator"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_number"
+        }
+      ]
+    },
+    "frame_condition": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "frame_filter"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "equal_operator"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_string_value"
+        }
+      ]
+    },
+    "frame_filter": {
+      "type": "STRING",
+      "value": "frame"
+    },
+    "flavor_condition": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "flavor_filter"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "PREC",
+              "value": 2,
+              "content": {
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "SYMBOL",
+                    "name": "_num_or_equal_operator"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "natural_number"
+                  }
+                ]
+              }
+            },
+            {
+              "type": "PREC",
+              "value": 1,
+              "content": {
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "SYMBOL",
+                    "name": "equal_operator"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "_stringish_value"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "flavor_filter": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "ft"
+        },
+        {
+          "type": "STRING",
+          "value": "flavor"
+        }
+      ]
+    },
+    "game_condition": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "game_filter"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "equal_operator"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_string_value"
+        }
+      ]
+    },
+    "game_filter": {
+      "type": "STRING",
+      "value": "game"
+    },
+    "language_condition": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "language_filter"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "equal_operator"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_string_value"
+        }
+      ]
+    },
+    "language_filter": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "lang"
+        },
+        {
+          "type": "STRING",
+          "value": "language"
+        }
+      ]
+    },
+    "stamp_condition": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "stamp_filter"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "equal_operator"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_string_value"
+        }
+      ]
+    },
+    "stamp_filter": {
+      "type": "STRING",
+      "value": "stamp"
+    },
+    "watermark_condition": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "watermark_filter"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "equal_operator"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_string_value"
+        }
+      ]
+    },
+    "watermark_filter": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "wm"
+        },
+        {
+          "type": "STRING",
+          "value": "watermark"
+        }
+      ]
+    },
+    "new_condition": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "new_filter"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "equal_operator"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "new_value"
+        }
+      ]
+    },
+    "new_filter": {
+      "type": "STRING",
+      "value": "new"
+    },
+    "new_value": {
+      "type": "IMMEDIATE_TOKEN",
+      "content": {
+        "type": "PATTERN",
+        "value": "(rarity|flavor|art|artist|frame|language|game|paper|mtgo|arena|nonfoil|foil)",
+        "flags": "i"
+      }
+    },
+    "prefer_condition": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "prefer_filter"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "equal_operator"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "prefer_value"
+        }
+      ]
+    },
+    "prefer_filter": {
+      "type": "STRING",
+      "value": "prefer"
+    },
+    "prefer_value": {
+      "type": "IMMEDIATE_TOKEN",
+      "content": {
+        "type": "PATTERN",
+        "value": "(oldest|newest|usd-low|usd-high|eur-low|eur-high|tix-low|tix-high)",
+        "flags": "i"
+      }
+    },
+    "cube_oracle_condition": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "cube_oracle_filter"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "equal_operator"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_string_value"
+        }
+      ]
+    },
+    "cube_oracle_filter": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "cube"
+        },
+        {
+          "type": "STRING",
+          "value": "ctag"
+        },
+        {
+          "type": "STRING",
+          "value": "tag"
+        }
+      ]
+    },
+    "cube_print_condition": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "cube_print_filter"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "equal_operator"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_string_value"
+        }
+      ]
+    },
+    "cube_print_filter": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "cube+"
+        },
+        {
+          "type": "STRING",
+          "value": "ctag+"
+        },
+        {
+          "type": "STRING",
+          "value": "tag+"
+        }
+      ]
+    },
+    "oracle_tag_condition": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "oracle_tag_filter"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "equal_operator"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_string_value"
+        }
+      ]
+    },
+    "oracle_tag_filter": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "otag"
+        },
+        {
+          "type": "STRING",
+          "value": "function"
+        },
+        {
+          "type": "STRING",
+          "value": "oracletag"
+        }
+      ]
+    },
+    "art_tag_condition": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "art_tag_filter"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "equal_operator"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_string_value"
+        }
+      ]
+    },
+    "art_tag_filter": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "atag"
+        },
+        {
+          "type": "STRING",
+          "value": "arttag"
+        },
+        {
+          "type": "STRING",
+          "value": "art"
+        }
+      ]
+    },
+    "collection_condition": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "collection_filter"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "equal_operator"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_string_value"
+        }
+      ]
+    },
+    "collection_filter": {
+      "type": "STRING",
+      "value": "collection"
+    },
+    "scryfall_id_condition": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "scryfall_id_filter"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "equal_operator"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "uuid"
+        }
+      ]
+    },
+    "scryfall_id_filter": {
+      "type": "STRING",
+      "value": "scryfallid"
+    },
+    "oracle_id_condition": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "oracle_id_filter"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "equal_operator"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "uuid"
+        }
+      ]
+    },
+    "oracle_id_filter": {
+      "type": "STRING",
+      "value": "oracleid"
+    },
     "exact_name_condition": {
       "type": "SEQ",
       "members": [
@@ -998,6 +2404,96 @@
         ]
       }
     },
+    "color_combination": {
+      "type": "IMMEDIATE_TOKEN",
+      "content": {
+        "type": "PATTERN",
+        "value": "(white|blue|black|red|green|azorius|dimir|rakdos|gruul|selesnya|silverquill|orzhov|prismari|izzet|witherbloom|golgari|lorehold|boros|quandrix|simic|brokers|bant|obscura|esper|maestros|grixis|riveteers|jund|cabaretti|naya|savai|dega|mardu|ketria|ceta|temur|indatha|necra|abzan|raugrin|raka|jeskai|zagoth|ana|sultai|chaos|aggression|altruism|growth|artifice|rainbow|fivecolor|colorless|c|brown|[wubrg]+)",
+        "flags": "i"
+      }
+    },
+    "color_count": {
+      "type": "IMMEDIATE_TOKEN",
+      "content": {
+        "type": "PATTERN",
+        "value": "[0-5]"
+      }
+    },
+    "produces_combination": {
+      "type": "IMMEDIATE_TOKEN",
+      "content": {
+        "type": "PATTERN",
+        "value": "(white|blue|black|red|green|azorius|dimir|rakdos|gruul|selesnya|silverquill|orzhov|prismari|izzet|witherbloom|golgari|lorehold|boros|quandrix|simic|brokers|bant|obscura|esper|maestros|grixis|riveteers|jund|cabaretti|naya|savai|dega|mardu|ketria|ceta|temur|indatha|necra|abzan|raugrin|raka|jeskai|zagoth|ana|sultai|chaos|aggression|altruism|growth|artifice|rainbow|fivecolor|brown|colorless|[wubrgc]+)",
+        "flags": "i"
+      }
+    },
+    "produces_count": {
+      "type": "IMMEDIATE_TOKEN",
+      "content": {
+        "type": "PATTERN",
+        "value": "[0-6]"
+      }
+    },
+    "mana_cost": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "PREC",
+          "value": 2,
+          "content": {
+            "type": "REPEAT1",
+            "content": {
+              "type": "SYMBOL",
+              "name": "mana_symbol"
+            }
+          }
+        },
+        {
+          "type": "PREC",
+          "value": 1,
+          "content": {
+            "type": "IMMEDIATE_TOKEN",
+            "content": {
+              "type": "PATTERN",
+              "value": "[0-9xyzwubrgsc]+",
+              "flags": "i"
+            }
+          }
+        }
+      ]
+    },
+    "mana_symbol": {
+      "type": "IMMEDIATE_TOKEN",
+      "content": {
+        "type": "PATTERN",
+        "value": "\\{([0-9]+|[xyz]|[2pwubrgsc](\\/[2pwubrgsc]){0,2})}",
+        "flags": "i"
+      }
+    },
+    "format_value": {
+      "type": "IMMEDIATE_TOKEN",
+      "content": {
+        "type": "PATTERN",
+        "value": "(standard|future|historic|pioneer|modern|legacy|paupercommander|pauper|vintage|penny|commander|brawl|duel|oldschool|timeless)",
+        "flags": "i"
+      }
+    },
+    "is_value": {
+      "type": "IMMEDIATE_TOKEN",
+      "content": {
+        "type": "PATTERN",
+        "value": "(gold|twobrid|hybrid|phyrexian|promo|reprint|firstprint|firstprinting|digital|dfc|mdfc|tdfc|extra|meld|transform|split|flip|leveler|commander|spell|permanent|historic|vanilla|modal|fullart|foil|nonfoil|etched|token|bikeland|cycleland|bicycleland|bounceland|karoo|canopyland|canland|fetchland|checkland|dual|fastland|filterland|gainland|painland|scryland|shadowland|snarl|slowland|shockland|storageland|creatureland|manland|triland|triome|trikeland|tricycleland|tangoland|battleland|bondland|outlaw|adventure|arenaid|artseries|artist|artistmisprint|belzenlok|lights|augmentation|back|bear|booster|brawlcommander|buyabox|cardmarket|class|ci|colorshifted|companion|contentwarning|covered|doublesided|duelcommander|etb|englishart|etch|extended|flavorname|flavor|fbb|fwb|frenchvanilla|funny|future|hires|splitmana|llustration|ntropack|nvitational|setextension|localizedname|mtgoid|masterpiece|modern|multiverse|new|oathbreaker|old|oversized|paperart|party|phyrexia|planar|printedtext|related|reserved|reversible|stamp|showcase|serialized|spellbook|spikey|stamped|story|tcgplayer|textless|tombstone|onlyprint|variation|watermark|ub|unique|placeholderimage|halo|poster|scroll|boosterfun|brawldeck|rebalanced|duels|embossed|moonlitland|openhouse|boxtopper|promopack|gilded|playpromo|setpromo|fnm|mediainsert|wizardsplaynetwork|bundle|concept|halofoil|godzillaseries|neonink|instore|arenaleague|starterdeck|confettifoil|textured|convention|themepack|commanderparty|bringafriend|plastic|alchemy|gameday|intropack|draculaseries|silverfoil|datestamped|league|doublerainbow|release|draftweekend|event|surgefoil|schinesealtart|playerrewards|storechampionship|giftbox|galaxyfoil|glossy|stepandcompleat|oilslick|tourney|premiereshop|judgegift|thick|jpwalker|prerelease|planeswalkerdeck|star|custom)",
+        "flags": "i"
+      }
+    },
+    "odd_even": {
+      "type": "IMMEDIATE_TOKEN",
+      "content": {
+        "type": "PATTERN",
+        "value": "(odd|even)",
+        "flags": "i"
+      }
+    },
     "_number": {
       "type": "CHOICE",
       "members": [
@@ -1023,22 +2519,6 @@
       "content": {
         "type": "PATTERN",
         "value": "\\d+"
-      }
-    },
-    "odd_even": {
-      "type": "IMMEDIATE_TOKEN",
-      "content": {
-        "type": "CHOICE",
-        "members": [
-          {
-            "type": "STRING",
-            "value": "odd"
-          },
-          {
-            "type": "STRING",
-            "value": "even"
-          }
-        ]
       }
     },
     "_string_value": {
@@ -1079,6 +2559,13 @@
         }
       ]
     },
+    "uuid": {
+      "type": "IMMEDIATE_TOKEN",
+      "content": {
+        "type": "PATTERN",
+        "value": "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"
+      }
+    },
     "no_quote_string": {
       "type": "IMMEDIATE_TOKEN",
       "content": {
@@ -1105,283 +2592,6 @@
       "content": {
         "type": "PATTERN",
         "value": "\\/(?:\\\\[\\/\\\\{a-zA-Z]|[^\\n\\/\\\\])*\\/"
-      }
-    },
-    "color_combination": {
-      "type": "IMMEDIATE_TOKEN",
-      "content": {
-        "type": "CHOICE",
-        "members": [
-          {
-            "type": "STRING",
-            "value": "c"
-          },
-          {
-            "type": "STRING",
-            "value": "C"
-          },
-          {
-            "type": "STRING",
-            "value": "brown"
-          },
-          {
-            "type": "STRING",
-            "value": "colorless"
-          },
-          {
-            "type": "STRING",
-            "value": "white"
-          },
-          {
-            "type": "STRING",
-            "value": "blue"
-          },
-          {
-            "type": "STRING",
-            "value": "black"
-          },
-          {
-            "type": "STRING",
-            "value": "red"
-          },
-          {
-            "type": "STRING",
-            "value": "green"
-          },
-          {
-            "type": "STRING",
-            "value": "azorius"
-          },
-          {
-            "type": "STRING",
-            "value": "dimir"
-          },
-          {
-            "type": "STRING",
-            "value": "rakdos"
-          },
-          {
-            "type": "STRING",
-            "value": "gruul"
-          },
-          {
-            "type": "STRING",
-            "value": "selesnya"
-          },
-          {
-            "type": "STRING",
-            "value": "silverquill"
-          },
-          {
-            "type": "STRING",
-            "value": "orzhov"
-          },
-          {
-            "type": "STRING",
-            "value": "prismari"
-          },
-          {
-            "type": "STRING",
-            "value": "izzet"
-          },
-          {
-            "type": "STRING",
-            "value": "witherbloom"
-          },
-          {
-            "type": "STRING",
-            "value": "golgari"
-          },
-          {
-            "type": "STRING",
-            "value": "lorehold"
-          },
-          {
-            "type": "STRING",
-            "value": "boros"
-          },
-          {
-            "type": "STRING",
-            "value": "quandrix"
-          },
-          {
-            "type": "STRING",
-            "value": "simic"
-          },
-          {
-            "type": "STRING",
-            "value": "brokers"
-          },
-          {
-            "type": "STRING",
-            "value": "bant"
-          },
-          {
-            "type": "STRING",
-            "value": "obscura"
-          },
-          {
-            "type": "STRING",
-            "value": "esper"
-          },
-          {
-            "type": "STRING",
-            "value": "maestros"
-          },
-          {
-            "type": "STRING",
-            "value": "grixis"
-          },
-          {
-            "type": "STRING",
-            "value": "riveteers"
-          },
-          {
-            "type": "STRING",
-            "value": "jund"
-          },
-          {
-            "type": "STRING",
-            "value": "cabaretti"
-          },
-          {
-            "type": "STRING",
-            "value": "naya"
-          },
-          {
-            "type": "STRING",
-            "value": "savai"
-          },
-          {
-            "type": "STRING",
-            "value": "dega"
-          },
-          {
-            "type": "STRING",
-            "value": "mardu"
-          },
-          {
-            "type": "STRING",
-            "value": "ketria"
-          },
-          {
-            "type": "STRING",
-            "value": "ceta"
-          },
-          {
-            "type": "STRING",
-            "value": "temur"
-          },
-          {
-            "type": "STRING",
-            "value": "indatha"
-          },
-          {
-            "type": "STRING",
-            "value": "necra"
-          },
-          {
-            "type": "STRING",
-            "value": "abzan"
-          },
-          {
-            "type": "STRING",
-            "value": "raugrin"
-          },
-          {
-            "type": "STRING",
-            "value": "raka"
-          },
-          {
-            "type": "STRING",
-            "value": "jeskai"
-          },
-          {
-            "type": "STRING",
-            "value": "zagoth"
-          },
-          {
-            "type": "STRING",
-            "value": "ana"
-          },
-          {
-            "type": "STRING",
-            "value": "sultai"
-          },
-          {
-            "type": "STRING",
-            "value": "chaos"
-          },
-          {
-            "type": "STRING",
-            "value": "aggression"
-          },
-          {
-            "type": "STRING",
-            "value": "altruism"
-          },
-          {
-            "type": "STRING",
-            "value": "growth"
-          },
-          {
-            "type": "STRING",
-            "value": "artifice"
-          },
-          {
-            "type": "STRING",
-            "value": "rainbow"
-          },
-          {
-            "type": "STRING",
-            "value": "fivecolor"
-          },
-          {
-            "type": "PATTERN",
-            "value": "[wWuUbBrRgG]+"
-          }
-        ]
-      }
-    },
-    "color_count": {
-      "type": "IMMEDIATE_TOKEN",
-      "content": {
-        "type": "PATTERN",
-        "value": "[0-5]"
-      }
-    },
-    "mana_cost": {
-      "type": "CHOICE",
-      "members": [
-        {
-          "type": "PREC",
-          "value": 2,
-          "content": {
-            "type": "REPEAT1",
-            "content": {
-              "type": "SYMBOL",
-              "name": "mana_symbol"
-            }
-          }
-        },
-        {
-          "type": "PREC",
-          "value": 1,
-          "content": {
-            "type": "IMMEDIATE_TOKEN",
-            "content": {
-              "type": "PATTERN",
-              "value": "[0-9xyzwubrgscXYZWUBRGSC]+"
-            }
-          }
-        }
-      ]
-    },
-    "mana_symbol": {
-      "type": "IMMEDIATE_TOKEN",
-      "content": {
-        "type": "PATTERN",
-        "value": "\\{([0-9]+|[xyz]|[2pwubrgscPWUBRGSC](\\/[2pwubrgscPWUBRGSC]){0,2})}"
       }
     }
   },
