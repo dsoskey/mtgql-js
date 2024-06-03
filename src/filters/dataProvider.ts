@@ -1,21 +1,21 @@
-import { Block, CubeDefinition, IllustrationTag, OracleTag } from '../types'
+import { Block, Cube, IllustrationTag, OracleTag } from '../types'
 
 export interface DataProvider {
-  getCube: (key: string) => Promise<CubeDefinition>
+  getCube: (key: string) => Promise<Cube>
   getOtag: (key: string) => Promise<OracleTag>
   getAtag: (key: string) => Promise<IllustrationTag>
   getBlock: (key: string) => Promise<Block>
 }
 
 interface MemoryDataProviderParams {
-  cubes: CubeDefinition[]
+  cubes: Cube[]
   otags: OracleTag[]
   atags: IllustrationTag[]
   blocks: Block[]
 }
 export class MemoryDataProvider implements DataProvider {
-  private readonly cubes: { [key: string]: CubeDefinition }
-  getCube(key: string): Promise<CubeDefinition> {
+  private readonly cubes: { [key: string]: Cube }
+  getCube(key: string): Promise<Cube> {
     return Promise.resolve(this.cubes[key])
   }
 
