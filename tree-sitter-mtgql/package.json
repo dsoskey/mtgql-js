@@ -2,7 +2,7 @@
   "name": "tree-sitter-mtgql",
   "version": "0.0.1",
   "description": "",
-  "main": "index.js",
+  "main": "grammar.js",
   "types": "bindings/node",
   "scripts": {
     "install": "node-gyp-build",
