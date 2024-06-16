@@ -434,4 +434,4 @@ function escapeRegex(text: string): string {
   return text.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")
 }
 export const noReminderText = (text: string): string =>
-  text.replace(/\(.*\)/gi, '')
+  text.replace(/\(.*\)/gi, '').trim();

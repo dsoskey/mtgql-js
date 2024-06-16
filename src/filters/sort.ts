@@ -1,5 +1,5 @@
 import { ObjectValues } from '../types/common'
-import { parsePowTou } from '../types'
+import {noReminderText, parsePowTou} from '../types'
 import { Card, Rarity } from '../generated'
 
 const SORT_ORDERS = {
@@ -20,6 +20,8 @@ const SORT_ORDERS = {
   toughness: 'toughness',
   usd: 'usd',
   cube: 'cube',
+  wc: "wc",
+  fwc: "fwc",
 } as const
 export type SortOrder = ObjectValues<typeof SORT_ORDERS>
 
@@ -93,6 +95,10 @@ export class SortFunctions {
         return [SortFunctions.byColor, 'cmc']
       case "cube":
         return [SortFunctions.byColorId, SortFunctions.byColor, 'cmc', 'type']
+      case "wc":
+        return [SortFunctions.byWordCount]
+      case "fwc":
+        return [SortFunctions.byFullWordCount]
     }
   }
 
@@ -151,4 +157,31 @@ export class SortFunctions {
   static byEur(card: Card) {
     return Number.parseFloat(card.prices.eur ?? card.prices.eur_foil ?? '0')
   }
+
+  static byWordCount(card: Card) {
+    const getCount = (it: string | null | undefined) => {
+      const transed = it??""
+      return transed.length ? noReminderText(transed).split(/\s+/).length : 0
+    }
+    return countHelper(card, getCount)
+  }
+
+  static byFullWordCount(card: Card) {
+    const getCount = (it: string | null | undefined) => {
+      const transed = it??""
+      return transed.length ? transed.split(/\s+/).length : 0
+    }
+    return countHelper(card, getCount)
+  }
+
+}
+
+function countHelper(card:Card, getCount: (it?: string) => number) {
+  let wordCount: number;
+  if (card.oracle_text !== undefined) {
+    wordCount = getCount(card.oracle_text)
+  } else {
+    wordCount = card.card_faces?.map(it => getCount(it.oracle_text)).reduce((l,r) => l+r)
+  }
+  return wordCount;
 }

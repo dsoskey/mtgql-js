@@ -519,7 +519,9 @@ rarityValue ->
     ("u" | "uncommon")  {% () => "uncommon" %} |
     ("c" | "common")  {% () => "common" %}
 
-orderValue -> ("artist" | orderMv | "power" | "toughness" | "set" | "name" | "usd" | "tix" | "eur" | "rarity" | "color" | "released" | "spoiled" | "edhrec" | "penny" | "review")
+orderValue -> ("artist" | orderMv | "power" | "toughness" | "set" | "name" | "usd" | "tix" | "eur" | "rarity" | "color" | "released" | "spoiled" | "edhrec" | "penny" | "review"
+# non-scryfall
+| "wc" | "fwc")
     {% id %}
 
 orderMv -> ("cmc" | "mv") {% ([token]) => {
