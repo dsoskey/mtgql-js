@@ -7,7 +7,7 @@ import { SearchError, SearchOptions } from '../../types'
 export const defaultOptions: SearchOptions = { order: 'name' }
 
 export const defaultDataProvider = new MemoryDataProvider({
-  cubes: [], atags: [], otags: [], blocks: [],
+  cubes: [], atags: [], otags: [], blocks: [], sets: []
 })
 
 export const defaultRunner = (corpus: Card[]) =>

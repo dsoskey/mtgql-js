@@ -1,9 +1,10 @@
 import { QueryRunner } from '../../queryRunner'
-import { defaultDataProvider, defaultOptions, names } from '../_testData/_utils'
+import {defaultDataProvider, defaultOptions, names, searchNames} from '../_testData/_utils'
 import { preordain } from '../_testData/preordain'
 import { animateLand } from '../_testData/animateLand'
+import {delverOfSecrets} from "../_testData/delverOfSecrets";
 
-const corpus = [preordain, animateLand]
+const corpus = [preordain, animateLand, delverOfSecrets]
 const queryRunner = new QueryRunner({ corpus, defaultOptions, dataProvider: defaultDataProvider })
 
 describe('set filter', function() {
@@ -18,6 +19,11 @@ describe('set filter', function() {
     const result = names(await queryRunner.search('set:"Magic 2011"'))
 
     expect(result).toEqual([preordain.name])
+  })
+  it('should match multiple comma separated set codes', async function() {
+    const result = await searchNames(queryRunner, "set:m11,isd");
+
+    expect(result).toEqual([delverOfSecrets.name, preordain.name]);
   })
 })
 

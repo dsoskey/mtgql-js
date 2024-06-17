@@ -260,7 +260,13 @@ rarityCondition -> ("r" | "rarity") anyOperator rarityValue
     {% ([[{offset}], operator, value]) => ({ filter: FilterType.Rarity, operator: operator.value, value, offset }) %}
 
 setCondition -> ("s" | "set"| "e" | "edition") onlyEqualOperator stringValue
-    {% ([[{offset}], _, {value}]) => ({ filter: FilterType.Set, value, offset }) %}
+    {% ([[{offset}], _, {value, type}]) => {
+        if (type === "nqstring" && value.includes(",")) {
+            return ({ filter: FilterType.Set, value: value.split(","), offset });
+        }
+
+        return ({ filter: FilterType.Set, value: [value], offset })
+     } %}
 
 setTypeCondition -> "st" onlyEqualOperator stringValue
     {% ([{offset}, _, {value}]) => ({ filter: FilterType.SetType, value, offset }) %}

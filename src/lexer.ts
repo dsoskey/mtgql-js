@@ -21,6 +21,7 @@ export const buildLexer = () => moo.states({
     rparen: ")",
     lbrace: { match: "{", push: "manasymbol" },
     bang: "!",
+    comma: ",",
     regex: { match: /\/(?:\\[\/\\a-zA-Z]|[^\n\/\\])*\//, value: s =>s.slice(1, -1) },
     dqstring: { match: /"(?:\\["\\]|[^\n"\\])*"/, value: s => s.slice(1, -1) },
     sqstring: { match: /'(?:\\['\\]|[^\n'\\])*'/, value: s => s.slice(1, -1) },

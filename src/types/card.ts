@@ -5,7 +5,6 @@ import { NormedCard, OracleKeys } from './normedCard'
 export const DOUBLE_FACED_LAYOUTS = [
   'transform',
   'modal_dfc',
-  'meld',
   'double_sided',
   'double_faced_token',
   'art_series'
