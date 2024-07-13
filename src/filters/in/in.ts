@@ -18,7 +18,7 @@ const ignoreSetCode = new Set([
 ])
 
 export const inFilter = (value: string): FilterNode => {
-  const _set = setFilter(value);
+  const _set = setFilter([value]);
   const _setType = setTypeFilter(value);
   const _game = gameFilter(value);
   const _lang = languageFilter(value);

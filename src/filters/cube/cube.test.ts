@@ -23,7 +23,7 @@ const cube: Cube = {
   last_updated:new Date()
 }
 const dataProvider = new MemoryDataProvider({
-  cubes: [oldcube, cube], atags: [], otags: [], blocks: [],
+  cubes: [oldcube, cube], atags: [], otags: [], blocks: [], sets: [],
 })
 describe('cube filter', function() {
   const queryRunner = new QueryRunner({ corpus, dataProvider, defaultOptions })

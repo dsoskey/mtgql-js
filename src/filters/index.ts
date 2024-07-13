@@ -46,7 +46,7 @@ import {
   FilterError,
   noReminderText, Block
 } from '../types'
-import { Legality } from "../generated";
+import {CardSet, Legality} from "../generated";
 import { oracleIdNode, scryfallIdNode } from "./id";
 
 
@@ -132,6 +132,16 @@ export class CachingFilterProvider implements FilterProvider {
         }
         return block
       }), (it: FilterError) => it)
+  }
+
+  private getSet = (key:string): ResultAsync<CardSet, FilterError> => {
+    return fromPromise(this.provider.getSet(key)
+        .then(set => {
+          if (set === undefined) {
+            return Promise.reject({ message: `Couldn't find set ${key}`, errorOffset: 0 })
+          }
+          return set
+        }), (it: FilterError) => it)
   }
 
   constructor(provider: DataProvider) {
@@ -363,8 +373,23 @@ export class CachingFilterProvider implements FilterProvider {
           return okAsync(collectorNumberNode(leaf.operator!, leaf.value))
         case FilterType.Border:
           return okAsync(borderNode(leaf.value))
-        case FilterType.Date:
+        case FilterType.Date: {
+          const valueDate = new Date(leaf.value)
+          if (isNaN(valueDate.getTime())) {
+            return this.getSet(leaf.value)
+                .andThen(set => {
+                  if (set.released_at === undefined)
+                    return errAsync({
+                      errorOffset: leaf.offset,
+                      message: `Set ${set.code} doesn't have a release date.\n\n${JSON.stringify(set, undefined, 2)}`
+                    })
+                  return okAsync(set)
+                })
+                .map(set => dateNode(leaf.operator!, set.released_at))
+                .mapErr(it => ({ ...it, message: `${leaf.value} must fit date format yyyy or yyyy-MM-dd` }))
+          }
           return okAsync(dateNode(leaf.operator!, leaf.value))
+        }
         case FilterType.Price:
           return okAsync(priceNode(leaf.unit!, leaf.operator!, leaf.value))
         case FilterType.Frame:

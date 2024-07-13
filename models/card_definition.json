@@ -4,6 +4,9 @@
     "title": "Magic Card Types",
     "version": "0.0.1"
   },
+  "servers": [
+    { "url": "https://api.scryfall.com" }
+  ],
   "paths": {
     "/cards/search": {
       "get": {
@@ -20,13 +23,38 @@
           "default": { "$ref": "#/components/responses/UnexpectedError" }
         }
       }
+    },
+    "/migrations": {
+      "get": {
+        "summary": "get a page of card migrations",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "page",
+            "schema": { "type":"integer", "minimum": 1, "default": 1 },
+            "required": "true",
+            "description": "the page to get"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "have a page, love!",
+            "content": {
+              "application/json": {
+                "schema": { "$ref":  "#/components/schemas/MigrationResponse" }
+              }
+            }
+          },
+          "default": { "$ref": "#/components/responses/UnexpectedError" }
+        }
+      }
     }
   },
   "components": {
     "schemas": {
       "Card": {
         "type": "object",
-        "required": ["object", "id", "lang", "oracle_id", "layout", "prints_search_uri", "rulings_uri", "scryfall_uri", "uri", "card_faces", "cmc", "color_identity", "keywords", "legalities", "name", "reserved", "booster", "border_color", "card_back_id", "collector_number", "digital", "finishes", "frame", "full_art", "games", "highres_image", "image_status", "oversized", "prices", "promo", "rarity", "related_uris", "released_at", "reprint", "scryfall_set_uri", "set_name", "set_search_uri", "set_type", "set_uri", "set", "set_id", "story_spotlight", "textless", "variation"],
+        "required": ["object", "id", "lang", "layout", "prints_search_uri", "rulings_uri", "scryfall_uri", "uri", "color_identity", "keywords", "legalities", "name", "reserved", "booster", "border_color", "collector_number", "digital", "finishes", "frame", "full_art", "games", "highres_image", "image_status", "oversized", "prices", "promo", "rarity", "related_uris", "released_at", "reprint", "scryfall_set_uri", "set_name", "set_search_uri", "set_type", "set_uri", "set", "set_id", "story_spotlight", "textless", "variation"],
         "properties": {
           "object": { "type": "string", "enum": ["card"] },
           "id": { "type": "string" },
@@ -84,7 +112,7 @@
           "power": { "type": "string" },
           "produced_mana": {
             "type": "array",
-            "items": { "$ref": "#/components/schemas/Color" }
+            "items": { "$ref": "#/components/schemas/ProducedColor" }
           },
           "reserved": { "type": "boolean" },
           "toughness": { "type": "string" },
@@ -93,7 +121,7 @@
           "artist_ids": { "type": "array", "items": { "type":  "string"} },
           "attraction_lights": {
             "type": "array",
-            "items": { "$ref": "#/components/schemas/AttractionLight" }
+            "items": { "type": "integer" }
           },
           "booster": { "type": "boolean" },
           "border_color": { "$ref": "#/components/schemas/Border" },
@@ -147,9 +175,8 @@
           "textless": { "type": "boolean" },
           "variation": { "type": "boolean" },
           "variation_of": { "type": "string" },
-          "security_stamp":  {
-            "type": "array",
-            "items": { "$ref": "#/components/schemas/CardSecurityStamp" }
+          "security_stamp": {
+            "$ref": "#/components/schemas/CardSecurityStamp"
           },
           "watermark": { "type": "string" },
           "preview":  { "$ref": "#/components/schemas/Preview" }
@@ -157,8 +184,32 @@
         "additionalProperties": false
       },
       "Layout": {
-        "type": "string",
-        "enum": ["normal", "split", "flip", "transform", "modal_dfc", "meld", "leveler", "saga", "adventure", "planar", "scheme", "vanguard", "token", "double_faced_token", "emblem", "augment", "host", "art_series", "double_sided"]
+        "enum": [
+          "prototype",
+          "emblem",
+          "planar",
+          "vanguard",
+          "augment",
+          "art_series",
+          "token",
+          "adventure",
+          "double_faced_token",
+          "case",
+          "host",
+          "normal",
+          "transform",
+          "split",
+          "modal_dfc",
+          "meld",
+          "scheme",
+          "saga",
+          "mutate",
+          "class",
+          "reversible_card",
+          "leveler",
+          "flip"
+        ],
+        "type": "string"
       },
       "RelatedCard": {
         "type": "object",
@@ -211,6 +262,7 @@
         }
       },
       "Color": { "type": "string", "enum": ["W", "U", "B", "R", "G"] },
+      "ProducedColor": { "type": "string", "enum": ["W", "U", "B", "R", "G", "C", "T"] },
       "Modifier": {
         "type": "string",
         "pattern": "^[+-]\\d+$"
@@ -236,16 +288,43 @@
         "enum": ["foil", "nonfoil", "etched", "glossy"]
       },
       "FrameEffect": {
-        "type": "string",
-        "enum": ["legendary", "miracle", "nyxtouched", "draft", "devoid", "tombstone", "colorshifted", "inverted", "sunmoondfc", "compasslanddfc", "originpwdfc", "mooneldrazidfc", "moonreversemoondfc", "showcase", "extendedart", "companion", "etched", "snow", "lesson", "shatteredglass", "convertdfc", "fandfc", "upsidedowndfc"]
+        "enum": [
+          "originpwdfc",
+          "showcase",
+          "inverted",
+          "devoid",
+          "extendedart",
+          "lesson",
+          "tombstone",
+          "miracle",
+          "mooneldrazidfc",
+          "companion",
+          "sunmoondfc",
+          "nyxtouched",
+          "fullart",
+          "fandfc",
+          "etched",
+          "colorshifted",
+          "shatteredglass",
+          "borderless",
+          "upsidedowndfc",
+          "draft",
+          "snow",
+          "waxingandwaningmoondfc",
+          "convertdfc",
+          "legendary",
+          "spree",
+          "compasslanddfc"
+        ],
+        "type": "string"
       },
       "CardFrame": {
         "type": "string",
-        "enum": ["1993", "1997", "2003", "2015", "Future"]
+        "enum": ["1993", "1997", "2003", "2015", "Future", "future"]
       },
       "Game": {
         "type": "string",
-        "enum": ["paper", "arena", "mtgo"]
+        "enum": ["paper", "arena", "mtgo", "sega", "astral"]
       },
       "CardStatus": {
         "type": "string",
@@ -275,8 +354,84 @@
         }
       },
       "PromoType": {
-        "type": "string",
-        "enum": ["tourney", "prerelease", "datestamped", "planeswalkerdeck", "buyabox", "judgegift", "event", "convention", "starterdeck", "instore", "setpromo", "fnm", "openhouse", "league", "draftweekend", "gameday", "release", "intropack", "giftbox", "duels", "wizardsplaynetwork", "premiereshop", "playerrewards", "gateway", "arenaleague"]
+        "enum": [
+          "bringafriend",
+          "datestamped",
+          "storechampionship",
+          "glossy",
+          "boosterfun",
+          "playpromo",
+          "embossed",
+          "setextension",
+          "fracturefoil",
+          "starterdeck",
+          "gameday",
+          "stepandcompleat",
+          "judgegift",
+          "tourney",
+          "silverfoil",
+          "mediainsert",
+          "event",
+          "confettifoil",
+          "draftweekend",
+          "commanderparty",
+          "wizardsplaynetwork",
+          "scroll",
+          "planeswalkerdeck",
+          "plastic",
+          "godzillaseries",
+          "rebalanced",
+          "themepack",
+          "brawldeck",
+          "neonink",
+          "alchemy",
+          "arenaleague",
+          "raisedfoil",
+          "concept",
+          "doubleexposure",
+          "ripplefoil",
+          "serialized",
+          "thick",
+          "premiereshop",
+          "oilslick",
+          "openhouse",
+          "giftbox",
+          "poster",
+          "duels",
+          "stamped",
+          "gilded",
+          "buyabox",
+          "league",
+          "ravnicacity",
+          "prerelease",
+          "schinesealtart",
+          "convention",
+          "moonlitland",
+          "boxtopper",
+          "rainbowfoil",
+          "portrait",
+          "setpromo",
+          "promopack",
+          "playerrewards",
+          "magnified",
+          "intropack",
+          "jpwalker",
+          "surgefoil",
+          "doublerainbow",
+          "fnm",
+          "invisibleink",
+          "release",
+          "instore",
+          "bundle",
+          "vault",
+          "textured",
+          "draculaseries",
+          "galaxyfoil",
+          "dossier",
+          "imagine",
+          "halofoil"
+        ],
+        "type": "string"
       },
       "PurchaseUris": {
         "type": "object",
@@ -315,9 +470,73 @@
           "source": { "type": "string" }
         }
       },
+      "CardSet": {
+        "type": "object",
+        "required": ["object", "id", "code","name", "set_type", "card_count", "digital", "foil_only", "nonfoil_only", "scryfall_uri", "uri", "icon_svg_uri", "search_uri"],
+        "properties": {
+          "object": { "type": "string", "enum": ["set"] },
+          "id": { "type": "string" },
+          "code": { "type": "string" },
+          "mtgo_code": { "type": "string" },
+          "arena_code": { "type": "string" },
+          "tcgplayer_id": { "type": "number"},
+          "name": { "type": "string" },
+          "set_type": { "$ref": "#/components/schemas/SetType"},
+          "released_at": { "type": "string" },
+          "block_code": { "type": "string" },
+          "block": { "type": "string" },
+          "parent_set_code": { "type": "string" },
+          "card_count": { "type": "integer" },
+          "printed_size": { "type": "integer" },
+          "digital": { "type": "boolean" },
+          "foil_only": { "type": "boolean" },
+          "nonfoil_only": { "type": "boolean" },
+          "scryfall_uri": { "type": "string" },
+          "uri": { "type": "string" },
+          "icon_svg_uri": { "type": "string" },
+          "search_uri": { "type": "string" }
+        }
+      },
       "SetType": {
         "type": "string",
         "enum": ["core", "expansion", "masters", "alchemy", "masterpiece", "arsenal", "from_the_vault", "spellbook", "premium_deck", "duel_deck", "draft_innovation", "treasure_chest", "commander", "planechase", "archenemy", "vanguard", "funny", "starter", "box", "promo", "token", "memorabilia", "minigame"]
+      },
+      "MigrationResponse": {
+        "type": "object",
+        "required": ["object", "has_more", "data"],
+        "properties": {
+          "object": { "type": "string", "enum": ["list"] },
+          "has_more": { "type": "boolean" },
+          "next_page": { "type": "string" },
+          "data": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/Migration"}
+          }
+        }
+      },
+      "Migration": {
+        "type": "object",
+        "required": ["object", "uri", "id", "performed_at", "migration_strategy", "old_scryfall_id"],
+        "properties": {
+          "object": { "type": "string", "enum": ["migration"] },
+          "uri": { "type": "string" },
+          "id":  { "type": "string" },
+          "performed_at": {
+            "type": "string"
+          },
+          "migration_strategy": { "type": "string", "enum": ["delete", "merge"] },
+          "old_scryfall_id": { "type": "string" },
+          "new_scryfall_id": { "type": "string" },
+          "note":  { "type": "string" },
+          "metadata": {
+            "type": "object",
+            "required": ["name"],
+            "properties": {
+              "name": { "type": "string" }
+            },
+            "additionalProperties": true
+          }
+        }
       }
     }
   }

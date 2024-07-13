@@ -5,7 +5,6 @@ import { NormedCard, OracleKeys } from './normedCard'
 export const DOUBLE_FACED_LAYOUTS = [
   'transform',
   'modal_dfc',
-  'meld',
   'double_sided',
   'double_faced_token',
   'art_series'
@@ -434,4 +433,4 @@ function escapeRegex(text: string): string {
   return text.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")
 }
 export const noReminderText = (text: string): string =>
-  text.replace(/\(.*\)/gi, '')
+  text.replace(/\(.*\)/gi, '').trim();
