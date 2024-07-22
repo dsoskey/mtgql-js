@@ -25,6 +25,7 @@ export const FILTER_KEYWORDS = {
   is: 'is', has: 'has',
   in: 'in',
   keyword: 'keyword', kw: 'kw',
+  keywords: 'keywords',
   lang: 'lang', language: 'language',
   layout: 'layout',
   loy: 'loy', loyalty: 'loyalty',
@@ -97,6 +98,7 @@ export enum FilterType {
   FullOracleRegex,
   FullOracleCount,
   Keyword,
+  KeywordCount,
   Type,
   TypeRegex,
   Power,
@@ -145,4 +147,5 @@ export enum FilterType {
   Collection,
   ScryfallId,
   OracleId,
+  Identity
 }

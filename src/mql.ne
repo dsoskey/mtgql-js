@@ -35,6 +35,7 @@ boolOperator ->
     | "or" __           {% () => "or" %}
 
 condition -> (
+    identityCondition |
     cmcCondition |
     colorCondition |
     colorIdentityCondition |
@@ -49,6 +50,7 @@ condition -> (
     fullOracleRegexCondition |
     fullOracleCountCondition |
     keywordCondition |
+    keywordCountCondition |
     typeCondition |
     typeRegexCondition |
     powerCondition |
@@ -98,6 +100,8 @@ condition -> (
     scryfallIdCondition |
     oracleIdCondition
 ) {% ([[condition]]) => condition %}
+
+identityCondition -> %identity {% ([{offset}]) => ({ filter: FilterType.Identity, offset }) %}
 
 cmcCondition ->
     cmcFilter %operator integerValue {% ([{offset}, op, {value}]) =>
@@ -175,6 +179,8 @@ fullOracleFilter -> "fo" {% id %}
 
 keywordCondition -> ("kw" | "keyword") onlyEqualOperator stringValue
     {% ([[{offset}], _, {value}]) => ({ filter: FilterType.Keyword, value, offset }) %}
+keywordCountCondition -> "keywords" anyOperator integerValue
+    {% ([{offset}, op, {value}]) => ({ filter: FilterType.KeywordCount, value, operator: op.value, offset }) %}
 
 typeCondition -> ("t" | "type") onlyEqualOperator stringValue
     {% ([[{offset}], _, {value}]) => ({ filter: FilterType.Type, value, offset }) %}
@@ -425,7 +431,7 @@ noQuoteStringValue ->
     // hack: The lexer causes "or" to get picked up as a name search
     // todo: rework noQuoteString to play more nicely with lexer
     const allChars = startChars.concat(chars)
-    const rejectTypes = ["bool", "regex", "operator", "dqstring", "rparen", "lparen"]
+    const rejectTypes = ["bool", "regex", "operator", "dqstring", "rparen", "lparen", "identity"]
     if (allChars.find(it => rejectTypes.includes(it.type))) {
         return reject;
     }
