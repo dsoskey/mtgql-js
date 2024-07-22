@@ -876,6 +876,33 @@
     }
   },
   {
+    "type": "keyword_count_condition",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "equal_operator",
+          "named": true
+        },
+        {
+          "type": "keyword_count_filter",
+          "named": true
+        },
+        {
+          "type": "natural_number",
+          "named": true
+        },
+        {
+          "type": "number_operator",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "keyword_filter",
     "named": true,
     "fields": {}
@@ -1840,6 +1867,10 @@
           "named": true
         },
         {
+          "type": "identity_condition",
+          "named": true
+        },
+        {
           "type": "in_condition",
           "named": true
         },
@@ -1849,6 +1880,10 @@
         },
         {
           "type": "keyword_condition",
+          "named": true
+        },
+        {
+          "type": "keyword_count_condition",
           "named": true
         },
         {
@@ -2243,6 +2278,10 @@
     "named": false
   },
   {
+    "type": "identity_condition",
+    "named": true
+  },
+  {
     "type": "in_filter",
     "named": true
   },
@@ -2257,6 +2296,10 @@
   {
     "type": "keyword",
     "named": false
+  },
+  {
+    "type": "keyword_count_filter",
+    "named": true
   },
   {
     "type": "kw",

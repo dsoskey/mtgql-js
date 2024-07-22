@@ -58,6 +58,7 @@ module.exports = grammar({
       "(", $._filter, ")"
     ),
     _condition: $ => choice(
+      prec(2, $.identity_condition),
       prec(2, $.color_condition),
       prec(2, $.color_identity_condition),
       prec(2, $.mana_condition),
@@ -65,6 +66,7 @@ module.exports = grammar({
       prec(2, $.oracle_condition),
       prec(2, $.full_oracle_condition),
       prec(2, $.keyword_condition),
+      prec(2, $.keyword_count_condition),
       prec(2, $.type_condition),
       prec(2, $.power_condition),
       prec(2, $.toughness_condition),
@@ -115,6 +117,8 @@ module.exports = grammar({
     ),
 
     // ~~ conditions ~~
+    identity_condition: _ => "*",
+
     color_condition: $ => seq(
       $.color_filter,
       choice(
@@ -171,6 +175,9 @@ module.exports = grammar({
 
     keyword_condition: $ => stringCondition($, $.keyword_filter),
     keyword_filter: _ => choice("kw", "keyword"),
+
+    keyword_count_condition: $ => simpleNumberCondition($, $.keyword_count_filter),
+    keyword_count_filter: _ => "keywords",
 
     type_condition: $ => seq(
       $.type_filter, $.equal_operator, $._stringish_value,

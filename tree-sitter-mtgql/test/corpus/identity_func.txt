@@ -1,0 +1,12 @@
+====================
+identity function
+====================
+
+*
+
+--------------------
+
+(query
+  (unary_statement
+    (identity_condition)))
+

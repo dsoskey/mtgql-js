@@ -95,6 +95,14 @@
           "value": 2,
           "content": {
             "type": "SYMBOL",
+            "name": "identity_condition"
+          }
+        },
+        {
+          "type": "PREC",
+          "value": 2,
+          "content": {
+            "type": "SYMBOL",
             "name": "color_condition"
           }
         },
@@ -144,6 +152,14 @@
           "content": {
             "type": "SYMBOL",
             "name": "keyword_condition"
+          }
+        },
+        {
+          "type": "PREC",
+          "value": 2,
+          "content": {
+            "type": "SYMBOL",
+            "name": "keyword_count_condition"
           }
         },
         {
@@ -515,6 +531,10 @@
           }
         }
       ]
+    },
+    "identity_condition": {
+      "type": "STRING",
+      "value": "*"
     },
     "color_condition": {
       "type": "SEQ",
@@ -923,6 +943,27 @@
           "value": "keyword"
         }
       ]
+    },
+    "keyword_count_condition": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "keyword_count_filter"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_num_or_equal_operator"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "natural_number"
+        }
+      ]
+    },
+    "keyword_count_filter": {
+      "type": "STRING",
+      "value": "keywords"
     },
     "type_condition": {
       "type": "SEQ",
