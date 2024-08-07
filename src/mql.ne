@@ -332,10 +332,10 @@ newCondition -> "new" onlyEqualOperator newValue
 preferCondition -> "prefer" onlyEqualOperator preferValue
     {% ([{offset}, _, {value}]) => ({ filter: FilterType.Prefer, value, offset }) %}
 
-cubeOracleCondition -> "cubeo" onlyEqualOperator cubeValue
-    {% ([{offset}, _, {value}]) => ({ filter: FilterType.CubeOracle, value, offset }) %}
+cubeOracleCondition -> ("cube" | "ctag" | "tag") ":" cubeValue
+    {% ([[{offset}], _, {value}]) => ({ filter: FilterType.CubeOracle, value, offset }) %}
 
-cubePrintCondition -> ("cube" | "ctag" | "tag") onlyEqualOperator cubeValue
+cubePrintCondition -> ("cube" | "ctag" | "tag") "=" cubeValue
     {% ([[{offset}], _, {value}]) => ({ filter: FilterType.CubePrints, value, offset }) %}
 
 oracleTagCondition -> ("function" | "oracletag" | "otag") onlyEqualOperator stringValue
@@ -415,7 +415,7 @@ isValue -> (
   | "tourney" | "premiereshop" | "judgegift" | "thick" | "jpwalker" | "prerelease" | "planeswalkerdeck"
   | "outlaw"
   # non-scryfall filters
-  | "star" | "custom"
+  | "star" | "custom" | "deciduous"
 ) {% ([[category]]) => category %}
 
 # This somehow picks up restricted!=vintage

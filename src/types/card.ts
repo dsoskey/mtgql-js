@@ -217,6 +217,7 @@ export const IS_VALUE_MAP = {
   // not in scryfall, only in mtgql
   star: 'star',
   custom: 'custom',
+  deciduous: "deciduous",
 } as const
 export type IsValue = ObjectValues<typeof IS_VALUE_MAP>
 

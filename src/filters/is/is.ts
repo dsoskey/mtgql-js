@@ -28,6 +28,30 @@ const permanentFilters = ['creature', 'enchantment', 'artifact', 'land', 'battle
 const historicFilters = ['legendary', 'artifact', 'saga']
     .map(type => textMatch('type_line', type))
 
+const EVERGREEN_KEYWORDS: Set<string> = new Set([
+  "Deathtouch",
+  "Defender",
+  "Double strike",
+  "Enchant",
+  "Equip",
+  "First strike",
+  "Flash",
+  "Flying",
+  "Haste",
+  "Hexproof",
+  "Indestructible",
+  "Lifelink",
+  "Menace",
+  "Protection",
+  "Reach",
+  "Trample",
+  "Vigilance",
+  // actions
+  "Scry",
+  "Mill",
+  "Fight",
+])
+
 const printMattersFields = new Set<IsValue>([
   'old',
   'modern',
@@ -593,6 +617,10 @@ export const isOracleVal = (value: IsValue) => (card: NormedCard): boolean => {
       return card.power?.includes("*") || card.toughness?.includes("*");
     case 'custom':
       return card.collectionId?.length > 0
+    case "deciduous": {
+      const withoutEvergreen = card.keywords.filter(it => !EVERGREEN_KEYWORDS.has(it));
+      return withoutEvergreen.length > 0;
+    }
     case 'extra':
        /*
        these aren't accounted for
