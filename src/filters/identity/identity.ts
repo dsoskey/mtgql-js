@@ -22,6 +22,7 @@ export const colorIdentityMatch =
           )
         // Scryfall adapts ":" to the context. in this context it acts as <=
         case ':':
+        case "≤":
         case '<=':
           return (
             notMatchedColors.length === 0 && matchedColors.length <= value.size
@@ -30,6 +31,7 @@ export const colorIdentityMatch =
           return (
             notMatchedColors.length > 0 && matchedColors.length === value.size
           )
+        case "≥":
         case '>=':
           return matchedColors.length === value.size
         case '<>':

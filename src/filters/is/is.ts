@@ -643,6 +643,11 @@ export const isOracleVal = (value: IsValue) => (card: NormedCard): boolean => {
     case 'covered':
     case 'invitational':
     case 'belzenlok':
+    case "mb1":
+    case "fmb1":
+    case "pagl":
+    case "phed":
+    case "pctb":
     default:
       return unimplemented(value)
   }

@@ -11,7 +11,7 @@ const caseInsensitiveKeywords = (map: { [kw: string]: string | string[] }) => {
 export const buildLexer = () => moo.states({
   main: {
     ws: /[ \t]+/,
-    operator: [":","=","!=","<>","<=","<",">=",">"],
+    operator: [":","=","!=","<>","<=","<",">=",">", "≤", "≥"],
     negate: "-",
     art: "@@",
     prints: "++",

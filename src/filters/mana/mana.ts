@@ -42,6 +42,7 @@ export const manaCostMatch =
             case '!=':
             case '<>':
               return !isEqual(cost, targetCost)
+            case "≤":
             case '<':
               return (
                 // 1. for all of target's mana counts, cost has less than or equal than target
@@ -67,6 +68,7 @@ export const manaCostMatch =
               )
             case ':':
             case '>=':
+            case "≥":
               return entries.filter(([key, val]) => (cost[key] ?? 0) >= val).length === entries.length
           }
         })

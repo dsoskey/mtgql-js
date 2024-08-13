@@ -366,7 +366,7 @@ regexString -> %regex {% function([token]) {
     return { value: value.toLowerCase(), ...rest }
 } %}
 
-anyOperator -> (":" | "=" | "!=" | "<>" | "<=" | "<" | ">=" | ">") {% ([[token]]) => token %}
+anyOperator -> (":" | "=" | "!=" | "<>" | "<=" | "<" | ">=" | ">" | "≤" | "≥") {% ([[token]]) => token %}
 
 onlyEqualOperator -> (":" | "=") {% ([[token]]) => token %}
 
@@ -413,7 +413,7 @@ isValue -> (
   | "draculaseries" | "silverfoil" | "datestamped" | "league" | "doublerainbow" | "release" | "draftweekend" | "event" | "surgefoil"
   | "schinesealtart" | "playerrewards" | "storechampionship" | "giftbox" | "galaxyfoil" | "glossy" | "stepandcompleat" | "oilslick"
   | "tourney" | "premiereshop" | "judgegift" | "thick" | "jpwalker" | "prerelease" | "planeswalkerdeck"
-  | "outlaw"
+  | "outlaw" | "mb1" | "fmb1" | "pagl" | "phed" | "pctb"
   # non-scryfall filters
   | "star" | "custom" | "deciduous"
 ) {% ([[category]]) => category %}

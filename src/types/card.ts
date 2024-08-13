@@ -214,6 +214,11 @@ export const IS_VALUE_MAP = {
   prerelease: "prerelease",
   planeswalkerdeck: "planeswalkerdeck",
   outlaw: "outlaw",
+  mb1: "mb1",
+  fmb1: "fmb1",
+  pagl: "pagl",
+  phed: "phed",
+  pctb: "pctb",
   // not in scryfall, only in mtgql
   star: 'star',
   custom: 'custom',

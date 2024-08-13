@@ -12,20 +12,23 @@ export const producesMatch =
       const matchnt = lower.filter(color => !value.has(color))
 
       switch (operator) {
-        case '=':
-          return match.length === value.size && matchnt.length === 0
-        case '!=':
-          return match.length !== value.size || matchnt.length > 0
-        case '<':
-          return matchnt.length === 0 && match.length < value.size
-        case '<=':
-          return matchnt.length === 0 && match.length <= value.size
-        case '>':
-          return matchnt.length > 0 && match.length === value.size
-        // Scryfall adapts ":" to the context. in this context it acts as >=
-        case ':':
-        case '>=':
-          return match.length === value.size
+          case '=':
+              return match.length === value.size && matchnt.length === 0
+          case "<>":
+          case '!=':
+              return match.length !== value.size || matchnt.length > 0
+          case '<':
+              return matchnt.length === 0 && match.length < value.size
+          case "≤":
+          case '<=':
+              return matchnt.length === 0 && match.length <= value.size
+          case '>':
+              return matchnt.length > 0 && match.length === value.size
+          // Scryfall adapts ":" to the context. in this context it acts as >=
+          case ':':
+          case "≥":
+          case '>=':
+              return match.length === value.size
       }
     }
 
