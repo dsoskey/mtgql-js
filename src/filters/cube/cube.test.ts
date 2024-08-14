@@ -28,12 +28,12 @@ const dataProvider = new MemoryDataProvider({
 describe('cube filter', function() {
   const queryRunner = new QueryRunner({ corpus, dataProvider, defaultOptions })
   it("filters cards in an old model cube", async function() {
-    const result = names(await queryRunner.search("cubeo:gy"))
+    const result = names(await queryRunner.search("cube:gy"))
 
     expect(result).toEqual([birdsOfParadise.name, bloodCrypt.name])
   })
   it("filters cards in a new model cube", async function() {
-    const result = names(await queryRunner.search("cubeo:soskgy"))
+    const result = names(await queryRunner.search("cube:soskgy"))
 
     expect(result).toEqual([birdsOfParadise.name, bloodCrypt.name])
   })

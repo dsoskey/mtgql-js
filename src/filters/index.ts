@@ -1,4 +1,4 @@
-import { andNode, defaultOperation, FilterNode, identity, identityNode, notNode, orNode } from './base'
+import {andNode, defaultOperation, FilterNode, identity, identityNode, notNode, orNode} from './base'
 import {
   exactMatch,
   flavorTextCount,
@@ -14,7 +14,7 @@ import { combatToCombatNode, powTouTotalOperation } from './combat'
 import { colorCount, colorMatch } from './color'
 import { colorIdentityCount, colorIdentityMatch } from './identity'
 import { producesMatch, producesMatchCount } from './produces'
-import { keywordMatch } from './keyword'
+import {keywordCountMatch, keywordMatch} from './keyword'
 import { manaCostMatch } from './mana'
 import { formatMatch } from './format'
 import { inFilter } from './in'
@@ -290,6 +290,8 @@ export class CachingFilterProvider implements FilterProvider {
           }))
         case FilterType.Keyword:
           return okAsync(keywordMatch(leaf.value))
+        case FilterType.KeywordCount:
+          return okAsync(keywordCountMatch(leaf.operator, leaf.value))
         case FilterType.Type:
           return okAsync(oracleNode({
             filtersUsed: ["type"],
@@ -439,6 +441,8 @@ export class CachingFilterProvider implements FilterProvider {
           return okAsync(scryfallIdNode(leaf.value))
         case FilterType.OracleId:
           return okAsync(oracleIdNode(leaf.value))
+        case FilterType.Identity:
+          return okAsync(identityNode())
       }
     } catch (e) {
       return errAsync({

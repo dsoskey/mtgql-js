@@ -11,7 +11,6 @@ export const FILTER_KEYWORDS = {
   cmc: 'cmc', mv: 'mv', manavalue: 'manavalue',
   // tag and ctag are custom aliases for cube
   cube: 'cube', tag: 'tag', ctag: 'ctag',
-  cubeo: 'cubeo',
   date: 'date', year: 'year',
   devotion: 'devotion', // !Devotion can only match single color or hybrid mana. No two-brid either
   direction: 'direction',
@@ -25,6 +24,7 @@ export const FILTER_KEYWORDS = {
   is: 'is', has: 'has',
   in: 'in',
   keyword: 'keyword', kw: 'kw',
+  keywords: 'keywords',
   lang: 'lang', language: 'language',
   layout: 'layout',
   loy: 'loy', loyalty: 'loyalty',
@@ -97,6 +97,7 @@ export enum FilterType {
   FullOracleRegex,
   FullOracleCount,
   Keyword,
+  KeywordCount,
   Type,
   TypeRegex,
   Power,
@@ -145,4 +146,5 @@ export enum FilterType {
   Collection,
   ScryfallId,
   OracleId,
+  Identity
 }

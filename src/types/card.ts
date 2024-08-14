@@ -214,9 +214,17 @@ export const IS_VALUE_MAP = {
   prerelease: "prerelease",
   planeswalkerdeck: "planeswalkerdeck",
   outlaw: "outlaw",
+  mb1: "mb1",
+  fmb1: "fmb1",
+  pagl: "pagl",
+  phed: "phed",
+  pctb: "pctb",
+  upsidedown: "upsidedown",
+  upsidedownback: "upsidedownback",
   // not in scryfall, only in mtgql
   star: 'star',
   custom: 'custom',
+  deciduous: "deciduous",
 } as const
 export type IsValue = ObjectValues<typeof IS_VALUE_MAP>
 

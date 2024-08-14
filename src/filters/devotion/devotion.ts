@@ -24,6 +24,7 @@ export const devotionOperation = (operator: Operator, pips: string[]): FilterNod
           const cost = toManaCost(toSplitCost(rawCost))
           const compareValue = cost[pip] ?? 0
           switch (operator) {
+            case "≤":
             case '<=':
               return compareValue <= count
             case '<':
@@ -32,6 +33,7 @@ export const devotionOperation = (operator: Operator, pips: string[]): FilterNod
               return compareValue > count
             case ':':
             case '>=':
+            case "≥":
               return compareValue >= count
             case '=':
               return compareValue === count

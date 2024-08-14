@@ -35,6 +35,7 @@ boolOperator ->
     | "or" __           {% () => "or" %}
 
 condition -> (
+    identityCondition |
     cmcCondition |
     colorCondition |
     colorIdentityCondition |
@@ -49,6 +50,7 @@ condition -> (
     fullOracleRegexCondition |
     fullOracleCountCondition |
     keywordCondition |
+    keywordCountCondition |
     typeCondition |
     typeRegexCondition |
     powerCondition |
@@ -98,6 +100,8 @@ condition -> (
     scryfallIdCondition |
     oracleIdCondition
 ) {% ([[condition]]) => condition %}
+
+identityCondition -> %identity {% ([{offset}]) => ({ filter: FilterType.Identity, offset }) %}
 
 cmcCondition ->
     cmcFilter %operator integerValue {% ([{offset}, op, {value}]) =>
@@ -175,6 +179,8 @@ fullOracleFilter -> "fo" {% id %}
 
 keywordCondition -> ("kw" | "keyword") onlyEqualOperator stringValue
     {% ([[{offset}], _, {value}]) => ({ filter: FilterType.Keyword, value, offset }) %}
+keywordCountCondition -> "keywords" anyOperator integerValue
+    {% ([{offset}, op, {value}]) => ({ filter: FilterType.KeywordCount, value, operator: op.value, offset }) %}
 
 typeCondition -> ("t" | "type") onlyEqualOperator stringValue
     {% ([[{offset}], _, {value}]) => ({ filter: FilterType.Type, value, offset }) %}
@@ -326,10 +332,10 @@ newCondition -> "new" onlyEqualOperator newValue
 preferCondition -> "prefer" onlyEqualOperator preferValue
     {% ([{offset}, _, {value}]) => ({ filter: FilterType.Prefer, value, offset }) %}
 
-cubeOracleCondition -> "cubeo" onlyEqualOperator cubeValue
-    {% ([{offset}, _, {value}]) => ({ filter: FilterType.CubeOracle, value, offset }) %}
+cubeOracleCondition -> ("cube" | "ctag" | "tag") ":" cubeValue
+    {% ([[{offset}], _, {value}]) => ({ filter: FilterType.CubeOracle, value, offset }) %}
 
-cubePrintCondition -> ("cube" | "ctag" | "tag") onlyEqualOperator cubeValue
+cubePrintCondition -> ("cube" | "ctag" | "tag") "=" cubeValue
     {% ([[{offset}], _, {value}]) => ({ filter: FilterType.CubePrints, value, offset }) %}
 
 oracleTagCondition -> ("function" | "oracletag" | "otag") onlyEqualOperator stringValue
@@ -360,7 +366,7 @@ regexString -> %regex {% function([token]) {
     return { value: value.toLowerCase(), ...rest }
 } %}
 
-anyOperator -> (":" | "=" | "!=" | "<>" | "<=" | "<" | ">=" | ">") {% ([[token]]) => token %}
+anyOperator -> (":" | "=" | "!=" | "<>" | "<=" | "<" | ">=" | ">" | "≤" | "≥") {% ([[token]]) => token %}
 
 onlyEqualOperator -> (":" | "=") {% ([[token]]) => token %}
 
@@ -397,6 +403,7 @@ isValue -> (
   | "related" | "reserved" | "reversible" | "stamp" | "showcase" | "serialized"
   | "spellbook" | "spikey" | "stamped" | "story" | "tcgplayer" | "textless"
   | "tombstone" | "onlyprint" | "variation" | "watermark" | "ub" | "unique" | "placeholderimage"
+  | "outlaw" | "mb1" | "fmb1" | "pagl" | "phed" | "pctb"
   # promo_types
   | "halo"
   | "poster" | "scroll" | "boosterfun" | "brawldeck" | "rebalanced"
@@ -407,9 +414,9 @@ isValue -> (
   | "draculaseries" | "silverfoil" | "datestamped" | "league" | "doublerainbow" | "release" | "draftweekend" | "event" | "surgefoil"
   | "schinesealtart" | "playerrewards" | "storechampionship" | "giftbox" | "galaxyfoil" | "glossy" | "stepandcompleat" | "oilslick"
   | "tourney" | "premiereshop" | "judgegift" | "thick" | "jpwalker" | "prerelease" | "planeswalkerdeck"
-  | "outlaw"
+  | "upsidedown" | "upsidedownback"
   # non-scryfall filters
-  | "star" | "custom"
+  | "star" | "custom" | "deciduous"
 ) {% ([[category]]) => category %}
 
 # This somehow picks up restricted!=vintage
@@ -425,7 +432,7 @@ noQuoteStringValue ->
     // hack: The lexer causes "or" to get picked up as a name search
     // todo: rework noQuoteString to play more nicely with lexer
     const allChars = startChars.concat(chars)
-    const rejectTypes = ["bool", "regex", "operator", "dqstring", "rparen", "lparen"]
+    const rejectTypes = ["bool", "regex", "operator", "dqstring", "rparen", "lparen", "identity"]
     if (allChars.find(it => rejectTypes.includes(it.type))) {
         return reject;
     }

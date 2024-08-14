@@ -30,6 +30,7 @@ export const colorMatch = (operator: Operator, value: Set<string>): FilterNode =
               (it) => it.not.length === 0 && it.match.length < value.size
             ).length > 0
           )
+        case "≤":
         case '<=':
           return (
             faceMatchMap.filter(
@@ -50,6 +51,7 @@ export const colorMatch = (operator: Operator, value: Set<string>): FilterNode =
               (it) => it.match.length === value.size && it.not.length === 0
             ).length > 0
           }
+        case "≥":
         case '>=':
           return (
             faceMatchMap.filter((it) => it.match.length === value.size).length > 0

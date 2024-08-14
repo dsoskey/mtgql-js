@@ -28,6 +28,30 @@ const permanentFilters = ['creature', 'enchantment', 'artifact', 'land', 'battle
 const historicFilters = ['legendary', 'artifact', 'saga']
     .map(type => textMatch('type_line', type))
 
+const EVERGREEN_KEYWORDS: Set<string> = new Set([
+  "Deathtouch",
+  "Defender",
+  "Double strike",
+  "Enchant",
+  "Equip",
+  "First strike",
+  "Flash",
+  "Flying",
+  "Haste",
+  "Hexproof",
+  "Indestructible",
+  "Lifelink",
+  "Menace",
+  "Protection",
+  "Reach",
+  "Trample",
+  "Vigilance",
+  // actions
+  "Scry",
+  "Mill",
+  "Fight",
+])
+
 const printMattersFields = new Set<IsValue>([
   'old',
   'modern',
@@ -148,6 +172,8 @@ const printMattersFields = new Set<IsValue>([
   'jpwalker',
   'prerelease',
   'planeswalkerdeck',
+  "upsidedown",
+  "upsidedownback",
 ])
 export function printMatters(value: IsValue): boolean {
   return printMattersFields.has(value)
@@ -288,6 +314,8 @@ export const isPrintVal = (value: IsValue) => ({ printing, card }: PrintingFilte
     case 'jpwalker':
     case 'prerelease':
     case 'planeswalkerdeck':
+    case "upsidedown":
+    case "upsidedownback":
       // @ts-ignore
       return printing.promo_types?.includes(value)
     case 'halo':
@@ -593,6 +621,10 @@ export const isOracleVal = (value: IsValue) => (card: NormedCard): boolean => {
       return card.power?.includes("*") || card.toughness?.includes("*");
     case 'custom':
       return card.collectionId?.length > 0
+    case "deciduous": {
+      const withoutEvergreen = card.keywords.filter(it => !EVERGREEN_KEYWORDS.has(it));
+      return withoutEvergreen.length > 0;
+    }
     case 'extra':
        /*
        these aren't accounted for
@@ -615,6 +647,11 @@ export const isOracleVal = (value: IsValue) => (card: NormedCard): boolean => {
     case 'covered':
     case 'invitational':
     case 'belzenlok':
+    case "mb1":
+    case "fmb1":
+    case "pagl":
+    case "phed":
+    case "pctb":
     default:
       return unimplemented(value)
   }

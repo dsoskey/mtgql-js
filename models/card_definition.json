@@ -32,7 +32,7 @@
             "in": "query",
             "name": "page",
             "schema": { "type":"integer", "minimum": 1, "default": 1 },
-            "required": "true",
+            "required": true,
             "description": "the page to get"
           }
         ],
@@ -429,7 +429,9 @@
           "galaxyfoil",
           "dossier",
           "imagine",
-          "halofoil"
+          "halofoil",
+          "upsidedown",
+          "upsidedownback"
         ],
         "type": "string"
       },

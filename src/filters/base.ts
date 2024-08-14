@@ -14,6 +14,8 @@ export const OPERATORS = {
   '<=': '<=',
   '>': '>',
   '>=': '>=',
+  "≥": "≥",
+  "≤": "≤",
 } as const
 export type Operator = ObjectValues<typeof OPERATORS>
 
@@ -123,10 +125,12 @@ export const defaultCompare = <T>(left: T, operator: Operator, right: T) => {
       return left !== right
     case '>':
       return left > right
+    case "≥":
     case '>=':
       return left >= right
     case '<':
       return left < right
+    case "≤":
     case '<=':
       return left <= right
   }
