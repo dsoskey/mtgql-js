@@ -403,6 +403,7 @@ isValue -> (
   | "related" | "reserved" | "reversible" | "stamp" | "showcase" | "serialized"
   | "spellbook" | "spikey" | "stamped" | "story" | "tcgplayer" | "textless"
   | "tombstone" | "onlyprint" | "variation" | "watermark" | "ub" | "unique" | "placeholderimage"
+  | "outlaw" | "mb1" | "fmb1" | "pagl" | "phed" | "pctb"
   # promo_types
   | "halo"
   | "poster" | "scroll" | "boosterfun" | "brawldeck" | "rebalanced"
@@ -413,7 +414,7 @@ isValue -> (
   | "draculaseries" | "silverfoil" | "datestamped" | "league" | "doublerainbow" | "release" | "draftweekend" | "event" | "surgefoil"
   | "schinesealtart" | "playerrewards" | "storechampionship" | "giftbox" | "galaxyfoil" | "glossy" | "stepandcompleat" | "oilslick"
   | "tourney" | "premiereshop" | "judgegift" | "thick" | "jpwalker" | "prerelease" | "planeswalkerdeck"
-  | "outlaw" | "mb1" | "fmb1" | "pagl" | "phed" | "pctb"
+  | "upsidedown" | "upsidedownback"
   # non-scryfall filters
   | "star" | "custom" | "deciduous"
 ) {% ([[category]]) => category %}
