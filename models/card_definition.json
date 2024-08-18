@@ -51,6 +51,18 @@
     }
   },
   "components": {
+    "responses": {
+      "UnexpectedError": {
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/ErrorMessage"
+            }
+          }
+        },
+        "description": ""
+      }
+    },
     "schemas": {
       "Card": {
         "type": "object",
@@ -431,7 +443,8 @@
           "imagine",
           "halofoil",
           "upsidedown",
-          "upsidedownback"
+          "upsidedownback",
+          "playtest"
         ],
         "type": "string"
       },
@@ -537,6 +550,22 @@
               "name": { "type": "string" }
             },
             "additionalProperties": true
+          }
+        }
+      },
+      "ErrorMessage": {
+        "type": "object",
+        "required": ["object" ,"status", "code", "details"],
+        "properties": {
+          "object": { "type": "string", "enum": ["migration"] },
+          "status": { "type": "integer" },
+          "code": { "type": "string" },
+          "type": { "type": "string" },
+          "warnings": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
           }
         }
       }

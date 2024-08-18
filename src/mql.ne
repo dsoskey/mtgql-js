@@ -414,7 +414,7 @@ isValue -> (
   | "draculaseries" | "silverfoil" | "datestamped" | "league" | "doublerainbow" | "release" | "draftweekend" | "event" | "surgefoil"
   | "schinesealtart" | "playerrewards" | "storechampionship" | "giftbox" | "galaxyfoil" | "glossy" | "stepandcompleat" | "oilslick"
   | "tourney" | "premiereshop" | "judgegift" | "thick" | "jpwalker" | "prerelease" | "planeswalkerdeck"
-  | "upsidedown" | "upsidedownback"
+  | "upsidedown" | "upsidedownback" | "playtest" | "imagine"
   # non-scryfall filters
   | "star" | "custom" | "deciduous"
 ) {% ([[category]]) => category %}

@@ -174,6 +174,8 @@ const printMattersFields = new Set<IsValue>([
   'planeswalkerdeck',
   "upsidedown",
   "upsidedownback",
+  "playtest",
+  "imagine"
 ])
 export function printMatters(value: IsValue): boolean {
   return printMattersFields.has(value)
@@ -316,7 +318,8 @@ export const isPrintVal = (value: IsValue) => ({ printing, card }: PrintingFilte
     case 'planeswalkerdeck':
     case "upsidedown":
     case "upsidedownback":
-      // @ts-ignore
+    case "playtest":
+    case "imagine":
       return printing.promo_types?.includes(value)
     case 'halo':
       // @ts-ignore
