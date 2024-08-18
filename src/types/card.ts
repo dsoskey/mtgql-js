@@ -221,6 +221,8 @@ export const IS_VALUE_MAP = {
   pctb: "pctb",
   upsidedown: "upsidedown",
   upsidedownback: "upsidedownback",
+  playtest: "playtest",
+  imagine: "imagine",
   // not in scryfall, only in mtgql
   star: 'star',
   custom: 'custom',
