@@ -1,0 +1,19 @@
+#! /usr/bin/env bash
+set -e
+
+ROOT="$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )/.."
+PROJECT_ROOT="$ROOT/../cli"
+CLIENT_DIR="$ROOT/clients/rust"
+CUSTOM_TEMPLATE_DIR="$ROOT/customTemplates/rust"
+
+# TODO: handle openapi-generator & npm download
+npx @openapitools/openapi-generator-cli generate \
+  -i "$ROOT/card_definition.json" \
+  -g 'rust' \
+  -o "$CLIENT_DIR" \
+  --additional-properties=supportAsync=false,packageName=mtgql
+#  -t "$CUSTOM_TEMPLATE_DIR" \
+#cp -R "$CLIENT_DIR/src/models" "$PROJECT_ROOT/src"
+#for f in $(ls "$CLIENT_DIR/src"); do
+#  cp -R "$CLIENT_DIR/src/$f" "$PROJECT_ROOT/src/generated"
+#done
