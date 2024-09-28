@@ -22,6 +22,7 @@ const SORT_ORDERS = {
   cube: 'cube',
   wc: "wc",
   fwc: "fwc",
+  random: "random",
 } as const
 export type SortOrder = ObjectValues<typeof SORT_ORDERS>
 
@@ -99,6 +100,8 @@ export class SortFunctions {
         return [SortFunctions.byWordCount]
       case "fwc":
         return [SortFunctions.byFullWordCount]
+      case "random":
+        return [() => Math.random()]
     }
   }
 

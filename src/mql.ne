@@ -534,7 +534,7 @@ rarityValue ->
 
 orderValue -> ("artist" | orderMv | "power" | "toughness" | "set" | "name" | "usd" | "tix" | "eur" | "rarity" | "color" | "released" | "spoiled" | "edhrec" | "penny" | "review"
 # non-scryfall
-| "wc" | "fwc")
+| "wc" | "fwc" | "random")
     {% id %}
 
 orderMv -> ("cmc" | "mv") {% ([token]) => {

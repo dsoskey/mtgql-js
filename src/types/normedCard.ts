@@ -98,7 +98,7 @@ export interface NormedCard extends Omit<Card, PrintKeys> {
 const ignorePaths = [...Object.keys(PRINT_KEYS), ...Object.keys(IGNORE_KEYS)]
 const printPaths = Object.keys(PRINT_KEYS)
 
-export const normCardList = (cardList: Card[], collectionId?: string): NormedCard[] => {
+export function normCardList(cardList: Card[], collectionId?: string): NormedCard[] {
   // grouping by oracle_id flattens cards with multiple different rules text prints like Balloon Stand
   // This makes things like prints behave unexpectedly, since scryfall counts the one printing but coglib counts 4
   const cardsByOracle = _groupBy(cardList, 'oracle_id')
