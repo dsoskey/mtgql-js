@@ -63,6 +63,7 @@ export const FILTER_KEYWORDS = {
   oracleid: "oracleid",
   // mtgql exclusive
   collection: "collection",
+  lim: "lim", limit: "limit"
 } as const
 
 export const KEYWORDS_TO_IMPLEMENT = {
@@ -146,5 +147,6 @@ export enum FilterType {
   Collection,
   ScryfallId,
   OracleId,
-  Identity
+  Identity,
+  Limit
 }

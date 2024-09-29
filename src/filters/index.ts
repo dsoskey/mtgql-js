@@ -443,6 +443,11 @@ export class CachingFilterProvider implements FilterProvider {
           return okAsync(oracleIdNode(leaf.value))
         case FilterType.Identity:
           return okAsync(identityNode())
+        case FilterType.Limit:
+          return okAsync({
+            ...identityNode(),
+            filtersUsed: [`limit:${leaf.value}`]
+          })
       }
     } catch (e) {
       return errAsync({

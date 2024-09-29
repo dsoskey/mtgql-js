@@ -134,6 +134,12 @@ export class QueryRunner {
             sorted.reverse()
           }
 
+          // limit
+          const limit = getLimit(filtersUsed);
+          if (limit >= 0) {
+            return ok(sorted.slice(0, limit));
+          }
+
           return ok(sorted)
         } catch (e) {
           console.error(e)
@@ -261,4 +267,13 @@ function getDirection(filtersUsed: string[], options: SearchOptions) {
     return dirFilter.replace("direction:", "")
   }
   return options.dir ?? 'auto'
+}
+
+function getLimit(filtersUsed: string[]) {
+  const sortFilter = filtersUsed.find(it => it.startsWith('limit:'))
+  if (sortFilter !== undefined) {
+    const result = Math.abs(parseInt(sortFilter.replace("limit:", "")))
+    return isNaN(result) ? -1 : result;
+  }
+  return -1
 }

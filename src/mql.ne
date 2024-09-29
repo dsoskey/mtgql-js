@@ -98,7 +98,8 @@ condition -> (
     preferCondition |
     collectionCondition |
     scryfallIdCondition |
-    oracleIdCondition
+    oracleIdCondition |
+    limitCondition
 ) {% ([[condition]]) => condition %}
 
 identityCondition -> %identity {% ([{offset}]) => ({ filter: FilterType.Identity, offset }) %}
@@ -352,6 +353,9 @@ scryfallIdCondition -> "scryfallid" onlyEqualOperator stringValue
 
 oracleIdCondition -> "oracleid" onlyEqualOperator stringValue
     {% ([{offset}, _, {value}]) => ({ filter: FilterType.OracleId, value, offset }) %}
+
+limitCondition -> ("lim" | "limit")  onlyEqualOperator integerValue
+    {% ([{offset}, _, {value}]) => ({ filter: FilterType.Limit, value, offset }) %}
 
 # Values
 stringValue -> (noQuoteStringValue | %dqstring | %sqstring) {% ([[token]]) => {
