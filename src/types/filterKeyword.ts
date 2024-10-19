@@ -13,7 +13,7 @@ export const FILTER_KEYWORDS = {
   cube: 'cube', tag: 'tag', ctag: 'ctag',
   date: 'date', year: 'year',
   devotion: 'devotion', // !Devotion can only match single color or hybrid mana. No two-brid either
-  direction: 'direction',
+  direction: 'direction', dir: 'dir',
   e: 'e', edition: 'edition', s: 's', set: 'set',
   eur: 'eur',
   f: 'f', format: 'format',

@@ -259,8 +259,10 @@ uniqueCondition -> "unique" onlyEqualOperator ("cards" | "prints" | "art")
 orderCondition -> "order" onlyEqualOperator orderValue
     {% ([{offset}, _, [{value}]]) => ({ filter: FilterType.Order, value, offset }) %}
 
-directionCondition -> "direction" onlyEqualOperator ("asc" | "desc")
-    {% ([{offset}, _, [{value}]]) => ({ filter: FilterType.Direction, value, offset }) %}
+directionCondition -> ("dir"|"direction") onlyEqualOperator (ascendingValue | descendingValue)
+    {% ([[{offset}], _, [value]]) => ({ filter: FilterType.Direction, value, offset }) %}
+ascendingValue -> ("asc" | "ascending") {% () => "asc" %}
+descendingValue -> ("desc" | "descending") {% () => "desc" %}
 
 # print-matters
 rarityCondition -> ("r" | "rarity") anyOperator rarityValue
