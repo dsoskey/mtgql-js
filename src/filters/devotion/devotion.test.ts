@@ -4,12 +4,11 @@ import { davrielsWithering } from '../_testData/davrielsWithering'
 import { crystallineGiant } from '../_testData/crystallineGiant'
 import { necroimpotence } from '../_testData/necroimpotence'
 import { lich } from '../_testData/lich'
-import { QueryRunner } from '../../queryRunner'
-import { defaultDataProvider, defaultOptions, names } from '../_testData/_utils'
+import { defaultRunner, names} from '../_testData/_utils'
 
 describe('devotion filter', function() {
   const corpus = [arrogantBloodlord, aetherbladeAgent, davrielsWithering, crystallineGiant, necroimpotence, lich]
-  const queryRunner = new QueryRunner({ corpus, defaultOptions, dataProvider: defaultDataProvider })
+  const queryRunner = defaultRunner(corpus);
 
   it('ignores non-permanent cards', async () => {
     const result = names(await queryRunner.search("devotion<=b"))

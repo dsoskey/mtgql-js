@@ -1,12 +1,11 @@
 import { preordain } from '../_testData/preordain'
 import { barrysLand } from '../_testData/barrysLand'
-import { QueryRunner } from '../../queryRunner'
-import { defaultDataProvider, defaultOptions, names } from '../_testData/_utils'
+import { defaultRunner, names } from '../_testData/_utils'
 import { okoThiefOfCrowns } from '../_testData/okoThiefOfCrowns'
 
 describe('identity filter', function() {
   const corpus = [barrysLand, preordain, okoThiefOfCrowns]
-  const queryRunner = new QueryRunner({ corpus, defaultOptions, dataProvider: defaultDataProvider })
+  const queryRunner = defaultRunner(corpus);
   it('defaults to and handles <=', async function() {
     const result = names(await queryRunner.search("id<=u"))
     const defaultResult = names(await queryRunner.search("id:u"))

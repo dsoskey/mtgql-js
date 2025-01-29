@@ -1,14 +1,9 @@
 import { barrysLand } from '../_testData/barrysLand'
 import { delverOfSecrets } from '../_testData/delverOfSecrets'
-import { QueryRunner } from '../../queryRunner'
-import { defaultDataProvider, defaultOptions, names } from '../_testData/_utils'
+import { defaultRunner, names } from '../_testData/_utils'
 
 describe('oddEvenFilter', function() {
-  const queryRunner = new QueryRunner({
-    corpus: [barrysLand, delverOfSecrets],
-    defaultOptions,
-    dataProvider: defaultDataProvider,
-  });
+  const queryRunner = defaultRunner([barrysLand, delverOfSecrets]);
   it('should handle filtering for evens', async function() {
     const result = names(await queryRunner.search("mv=even"))
 

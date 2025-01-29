@@ -15,7 +15,7 @@ describe('date filters', function() {
   const dataProvider = new MemoryDataProvider({
     cubes: [], atags: [], otags: [], blocks: [], sets: [set],
   })
-  const queryRunner = new QueryRunner({ corpus, defaultOptions, dataProvider })
+  const queryRunner = QueryRunner.fromCardList({ corpus, defaultOptions, dataProvider })
 
   it("returns an error when the date doesnt fit yyyy-MM-dd", async () => {
     return expect((await queryRunner.search("date<jan1st2021"))._unsafeUnwrapErr()).toBeDefined()

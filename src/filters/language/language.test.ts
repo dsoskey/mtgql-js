@@ -1,11 +1,10 @@
 import { lagoHirvienteDeDarigaaz } from '../_testData/lagoHirvienteDeDarigaaz'
 import { asymmetrySage } from '../_testData/asymmetrySage'
-import { QueryRunner } from '../../queryRunner'
-import { defaultDataProvider, defaultOptions, names } from '../_testData/_utils'
+import { defaultRunner, names } from '../_testData/_utils'
 
 describe('language filter', function() {
   const corpus = [asymmetrySage, lagoHirvienteDeDarigaaz]
-  const queryRunner = new QueryRunner({ corpus, defaultOptions, dataProvider: defaultDataProvider })
+  const queryRunner = defaultRunner(corpus);
   it('should show all cards for language:any', async function() {
     const result = names(await queryRunner.search("language:any"))
 

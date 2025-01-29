@@ -1,11 +1,11 @@
 import { QueryRunner } from '../../queryRunner'
 import { narcomoeba } from '../_testData/narcomoeba'
 import { crystallineGiant } from '../_testData/crystallineGiant'
-import { defaultDataProvider, defaultOptions, names } from '../_testData/_utils'
+import {defaultDataProvider, defaultOptions, defaultRunner, names} from '../_testData/_utils'
 
 describe('frame filter', function() {
   const corpus = [narcomoeba, crystallineGiant]
-  const queryRunner = new QueryRunner({ corpus, defaultOptions, dataProvider: defaultDataProvider })
+  const queryRunner = defaultRunner(corpus);
   it("matches the card's frame exactly", async () => {
     const result = names(await queryRunner.search("frame:future"))
 

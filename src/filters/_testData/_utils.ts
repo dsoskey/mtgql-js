@@ -11,7 +11,7 @@ export const defaultDataProvider = new MemoryDataProvider({
 })
 
 export const defaultRunner = (corpus: Card[]) =>
-  new QueryRunner({ corpus, defaultOptions, dataProvider: defaultDataProvider })
+  QueryRunner.fromCardList({ corpus, defaultOptions, dataProvider: defaultDataProvider })
 
 export const names = (result: Result<Card[], SearchError>) =>
   result._unsafeUnwrap().map(it => it.name)

@@ -1,12 +1,12 @@
 import { gorillaTitan } from '../_testData/gorillaTitan'
 import { birdsOfParadise } from '../_testData/birdsOfParadise'
 import { emberethShieldbreaker } from '../_testData/emberethShieldbreaker'
-import { defaultDataProvider, defaultOptions, names } from '../_testData/_utils'
+import {defaultDataProvider, defaultOptions, defaultRunner, names} from '../_testData/_utils'
 import { QueryRunner } from '../../queryRunner'
 
 describe("flavor filters", () => {
   const corpus = [gorillaTitan, birdsOfParadise, emberethShieldbreaker]
-  const queryRunner = new QueryRunner({ corpus, defaultOptions, dataProvider: defaultDataProvider })
+  const queryRunner = defaultRunner(corpus);
 
   it('should handle string searches', async function() {
     const result = names(await queryRunner.search("flavor:banana"))

@@ -1,5 +1,5 @@
 import { QueryRunner } from '../../queryRunner'
-import { defaultDataProvider, defaultOptions, names } from '../_testData/_utils'
+import {defaultDataProvider, defaultOptions, defaultRunner, names} from '../_testData/_utils'
 import { spinerockKnoll } from '../_testData/spinerockKnoll'
 import { ancientStirrings } from '../_testData/ancientStirrings'
 import { preordain } from '../_testData/preordain'
@@ -15,7 +15,7 @@ import {merfolkWindrobber} from "../_testData/merfolkWindrobber";
 import {coralhelmCommander} from "../_testData/coralhelmCommander";
 
 describe('text filters', function() {
-  const queryRunner = new QueryRunner({ corpus: [
+  const queryRunner = defaultRunner([
     spinerockKnoll,
     ancientStirrings,
     preordain,
@@ -26,7 +26,7 @@ describe('text filters', function() {
     seasideHaven,
     asymmetrySage,
     phyrexianWalker,
-  ], defaultOptions, dataProvider: defaultDataProvider })
+  ])
   describe('name filter', function() {
     it("should do a name search when no keyword is present", async () => {
       const result = names(await queryRunner.search("orda"))
@@ -98,11 +98,11 @@ describe('text filters', function() {
       expect(result).toEqual([ramunapRuins.name, seasideHaven.name])
     })
     it("handles ~ substitution like scryfall does", async function() {
-      const runnerd = new QueryRunner({ corpus: [
-          merfolkSpy,
-          merfolkWindrobber,
-          coralhelmCommander,
-        ], defaultOptions, dataProvider: defaultDataProvider })
+      const runnerd = defaultRunner([
+        merfolkSpy,
+        merfolkWindrobber,
+        coralhelmCommander,
+      ])
       const result = names(await runnerd.search("fo:/~*merfolk/"))
 
       expect(result).toEqual([coralhelmCommander.name])

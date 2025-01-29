@@ -2,7 +2,7 @@ import { QueryRunner } from '../../queryRunner'
 import { phantomBeast } from '../_testData/phantomBeast'
 import { kroxaTitanOfDeathsHunger } from '../_testData/kroxaTitanOfDeathsHunger'
 import { delverOfSecrets } from '../_testData/delverOfSecrets'
-import { defaultDataProvider, defaultOptions, names } from '../_testData/_utils'
+import {defaultDataProvider, defaultOptions, defaultRunner, names} from '../_testData/_utils'
 import { norinTheWary } from '../_testData/norinTheWary'
 import { tarmogoyf } from '../_testData/tarmogoyf'
 import { preordain } from '../_testData/preordain'
@@ -14,12 +14,12 @@ describe('combat filters', function() {
     norinTheWary,
     preordain,
   ]
-  const queryRunner = new QueryRunner({ corpus, defaultOptions, dataProvider: defaultDataProvider })
+  const queryRunner = defaultRunner(corpus)
 
   const dfcCorpus = [
     delverOfSecrets,
   ]
-  const dfcQueryRunner = new QueryRunner({ corpus: dfcCorpus, defaultOptions, dataProvider: defaultDataProvider })
+  const dfcQueryRunner = defaultRunner(dfcCorpus);
   describe('combatToCombatNode', function() {
     it('should handle pow number comparisons and dfcs', async () => {
       const result = names(await dfcQueryRunner.search("pow>2"))
@@ -91,7 +91,7 @@ describe('combat filters', function() {
     })
 
     it("should handle stars", async () => {
-      const goyfQueryRunner = new QueryRunner({ corpus: [tarmogoyf], defaultOptions, dataProvider: defaultDataProvider })
+      const goyfQueryRunner = defaultRunner([tarmogoyf]);
       const result = names(await goyfQueryRunner.search('pow=0 name:tarmogoyf'))
 
       expect(result).toEqual([tarmogoyf.name])

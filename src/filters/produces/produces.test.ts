@@ -1,13 +1,12 @@
-import { QueryRunner } from '../../queryRunner'
 import { bloodCrypt } from '../_testData/bloodCrypt'
 import { birdsOfParadise } from '../_testData/birdsOfParadise'
 import { ramunapRuins } from '../_testData/ramunapRuins'
 import { concordantCrossroads } from '../_testData/concordantCrossroads'
 import { bojukaBog } from '../_testData/bojukaBog'
-import { defaultDataProvider, defaultOptions, names } from '../_testData/_utils'
+import { defaultRunner, names } from '../_testData/_utils'
 
 const corpus = [bojukaBog, bloodCrypt, birdsOfParadise, ramunapRuins, concordantCrossroads]
-const queryRunner = new QueryRunner({ corpus, defaultOptions, dataProvider: defaultDataProvider })
+const queryRunner = defaultRunner(corpus);
 describe('produces filter', function() {
   describe('mana', function() {
     it("handles >= and :", async () => {

@@ -1,13 +1,12 @@
 import { phantomBeast } from '../_testData/phantomBeast'
 import { preordain } from '../_testData/preordain'
 import { negate } from '../_testData/negate'
-import { QueryRunner } from '../../queryRunner'
-import { defaultDataProvider, defaultOptions, names } from '../_testData/_utils'
+import { defaultRunner, names } from '../_testData/_utils'
 
 
 describe('collectorNumber filter', function() {
   const corpus = [negate, phantomBeast, preordain]
-  const queryRunner = new QueryRunner({ corpus, defaultOptions, dataProvider: defaultDataProvider });
+  const queryRunner = defaultRunner(corpus);
 
   ['cn', 'number'].forEach(filterKeyword => {
     it(`${filterKeyword} parses <= properly`, async () => {

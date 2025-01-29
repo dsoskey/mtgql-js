@@ -1,11 +1,10 @@
 import { mirrex } from '../_testData/mirrex'
 import { birdsOfParadise } from '../_testData/birdsOfParadise'
-import { QueryRunner } from '../../queryRunner'
-import { defaultDataProvider, defaultOptions, names } from '../_testData/_utils'
+import { defaultRunner, names } from '../_testData/_utils'
 
 describe('border filter', function() {
   const corpus = [mirrex, birdsOfParadise]
-  const queryRunner = new QueryRunner({ corpus, defaultOptions, dataProvider: defaultDataProvider });
+  const queryRunner = defaultRunner(corpus);
 
   it("gets parsed properly", async () => {
     const result = names(await queryRunner.search('border:white'))

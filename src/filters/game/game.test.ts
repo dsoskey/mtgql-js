@@ -1,12 +1,11 @@
 import { asymmetrySage } from '../_testData/asymmetrySage'
 import { barrysLand } from '../_testData/barrysLand'
 import { zodiacDragonMtgo } from '../_testData/zodiacDragon'
-import { QueryRunner } from '../../queryRunner'
-import { defaultDataProvider, defaultOptions, names } from '../_testData/_utils'
+import { defaultRunner, names } from '../_testData/_utils'
 
 describe('game filter', function() {
   const corpus = [asymmetrySage, barrysLand, zodiacDragonMtgo]
-  const queryRunner = new QueryRunner({ corpus, defaultOptions, dataProvider: defaultDataProvider })
+  const queryRunner = defaultRunner(corpus)
   it("includes cards present in arena", async function() {
     const result = names(await queryRunner.search("game:arena"))
 

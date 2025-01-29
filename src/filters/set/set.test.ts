@@ -1,11 +1,10 @@
-import { QueryRunner } from '../../queryRunner'
-import {defaultDataProvider, defaultOptions, names, searchNames} from '../_testData/_utils'
+import { defaultRunner, names, searchNames } from '../_testData/_utils'
 import { preordain } from '../_testData/preordain'
 import { animateLand } from '../_testData/animateLand'
 import {delverOfSecrets} from "../_testData/delverOfSecrets";
 
 const corpus = [preordain, animateLand, delverOfSecrets]
-const queryRunner = new QueryRunner({ corpus, defaultOptions, dataProvider: defaultDataProvider })
+const queryRunner = defaultRunner(corpus);
 
 describe('set filter', function() {
   ["s", "set", "e", "edition"].forEach(filterKeyword => {

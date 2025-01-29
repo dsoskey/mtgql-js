@@ -1,14 +1,13 @@
 import { kroxaTitanOfDeathsHunger } from '../_testData/kroxaTitanOfDeathsHunger'
 import { aetherbladeAgent } from '../_testData/aetherbladeAgent'
 import { preordain } from '../_testData/preordain'
-import { QueryRunner } from '../../queryRunner'
-import { defaultDataProvider, defaultOptions, names } from '../_testData/_utils'
+import { defaultRunner, names } from '../_testData/_utils'
 import { davrielsWithering } from '../_testData/davrielsWithering'
 import { thoughtKnotSeer } from '../_testData/thoughtKnotSeer'
 
 describe('color filters', function() {
   const corpus = [preordain, davrielsWithering, aetherbladeAgent, kroxaTitanOfDeathsHunger, thoughtKnotSeer]
-  const queryRunner = new QueryRunner({ corpus, defaultOptions, dataProvider: defaultDataProvider })
+  const queryRunner = defaultRunner(corpus);
 
   it('handles the default for :, >=', async () => {
     const result = names(await queryRunner.search("c>=b"))

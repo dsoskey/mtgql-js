@@ -26,7 +26,7 @@ const dataProvider = new MemoryDataProvider({
   cubes: [oldcube, cube], atags: [], otags: [], blocks: [], sets: [],
 })
 describe('cube filter', function() {
-  const queryRunner = new QueryRunner({ corpus, dataProvider, defaultOptions })
+  const queryRunner = QueryRunner.fromCardList({ corpus, dataProvider, defaultOptions })
   it("filters cards in an old model cube", async function() {
     const result = names(await queryRunner.search("cube:gy"))
 

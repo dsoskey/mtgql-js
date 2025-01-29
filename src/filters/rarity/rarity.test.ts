@@ -1,12 +1,11 @@
 import { mirrex } from '../_testData/mirrex'
 import { animateLand } from '../_testData/animateLand'
-import { QueryRunner } from '../../queryRunner'
-import { defaultDataProvider, defaultOptions, names } from '../_testData/_utils'
+import { defaultRunner, names } from '../_testData/_utils'
 import { negate } from '../_testData/negate'
 
 describe('rarity filter', function() {
   const corpus = [mirrex, animateLand, negate]
-  const queryRunner = new QueryRunner({ corpus, defaultOptions, dataProvider: defaultDataProvider });
+  const queryRunner = defaultRunner(corpus);
 
   ["r", 'rarity'].forEach(filterKeyword => {
     it(`${filterKeyword} gets parsed properly`, async () => {

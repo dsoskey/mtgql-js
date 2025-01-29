@@ -16,9 +16,9 @@ describe('block filter',
       }
     ]
     const dataProvider = new MemoryDataProvider({
-      cubes: [], otags: [], atags: [], blocks
+      cubes: [], otags: [], atags: [], blocks, sets: [],
     })
-    const queryRunner = new QueryRunner({ corpus, defaultOptions, dataProvider })
+    const queryRunner = QueryRunner.fromCardList({ corpus, defaultOptions, dataProvider })
     it('finds cards by their set\'s block code', async function() {
       const result = names(await queryRunner.search("block:isd"))
 

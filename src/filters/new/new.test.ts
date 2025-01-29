@@ -1,5 +1,4 @@
-import { QueryRunner } from '../../queryRunner'
-import { defaultDataProvider, defaultOptions, names } from '../_testData/_utils'
+import { defaultRunner } from '../_testData/_utils'
 import { mishrasFactoryPrints } from '../_testData/mishrasFactory'
 import { islandPrints } from '../_testData/island'
 import {Card} from "../../generated";
@@ -9,7 +8,7 @@ describe('new filter', function() {
     ...mishrasFactoryPrints,
     ...islandPrints
   ]
-  const queryRunner = new QueryRunner({ corpus, defaultOptions, dataProvider: defaultDataProvider })
+  const queryRunner = defaultRunner(corpus)
   it('should handle rarity filter', async function() {
     const result = (await queryRunner.search("new:rarity"))._unsafeUnwrap();
   });

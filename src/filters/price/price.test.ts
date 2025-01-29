@@ -1,12 +1,11 @@
 import { bloodCrypt } from '../_testData/bloodCrypt'
 import { tarmogoyf } from '../_testData/tarmogoyf'
-import { QueryRunner } from '../../queryRunner'
-import { defaultDataProvider, defaultOptions, names } from '../_testData/_utils'
+import { defaultRunner, names } from '../_testData/_utils'
 import { asymmetrySage } from '../_testData/asymmetrySage'
 
 describe('price filter', function() {
   const corpus = [asymmetrySage, bloodCrypt, tarmogoyf];
-  const queryRunner = new QueryRunner({ corpus, defaultOptions, dataProvider: defaultDataProvider })
+  const queryRunner = defaultRunner(corpus);
   describe('usd', function() {
     it(`< should work`, async function() {
       const result = names(await queryRunner.search("usd<15"))
