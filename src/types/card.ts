@@ -1,4 +1,4 @@
-import { Card } from '../generated'
+import { Card, Color } from '../generated'
 import { ObjectValues } from './common'
 import { NormedCard, OracleKeys } from './normedCard'
 
@@ -93,6 +93,7 @@ export const IS_VALUE_MAP = {
   bear: "bear",
   booster: "booster",
   brawlcommander: "brawlcommander",
+  brawler: "brawler",
   buyabox: "buyabox",
   cardmarket: "cardmarket",
   class: "class",
@@ -444,3 +445,23 @@ function escapeRegex(text: string): string {
 }
 export const noReminderText = (text: string): string =>
   text.replace(/\(.*\)/gi, '').trim();
+
+export function getColors(card: Card | NormedCard): Color[] {
+  const colorSet = new Set<Color>();
+  for (const color of card.colors??[]) {
+    colorSet.add(color);
+  }
+  for (const color of card.color_indicator??[]) {
+    colorSet.add(color);
+  }
+  for (const face of card.card_faces??[]) {
+    for (const color of face.colors??[]) {
+      colorSet.add(color);
+    }
+    for (const color of face.color_indicator??[]) {
+      colorSet.add(color);
+    }
+  }
+
+  return Array.from(colorSet);
+}

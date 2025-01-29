@@ -451,6 +451,7 @@ export const isOracleVal = (value: IsValue) => (card: NormedCard): boolean => {
     case 'duelcommander':
       return !isOracleVal('token')(card) && isOracleVal('commander')(card) && card.legalities.duel === 'legal'
     case 'brawlcommander': // double check this ish
+    case 'brawler':
       return !isOracleVal('token')(card) && isOracleVal('commander')(card) && card.legalities.brawl !== 'banned'
     case 'spell':
       return (

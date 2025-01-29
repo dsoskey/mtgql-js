@@ -8,6 +8,23 @@
     { "url": "https://api.scryfall.com" }
   ],
   "paths": {
+    "/bulk-data/:type": {
+      "get": {
+        "description": "gets list of scryfall bulk data",
+        "responses": {
+          "200": {
+            "description": "bulk data manifests",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BulkData"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/cards/search": {
       "get": {
         "operationId": "search",
@@ -551,6 +568,23 @@
             },
             "additionalProperties": true
           }
+        }
+      },
+      "BulkData": {
+        "type": "object",
+        "required": ["object", "id", "type", "updated_at", "uri", "name", "description", "size", "download_uri", "content_type", "content_encoding"],
+        "properties": {
+          "object": { "type": "string", "enum": ["bulk_data"]},
+          "id": { "type": "string" },
+          "type": {"type": "string", "enum":  ["oracle_cards"]},
+          "updated_at": { "type": "string" },
+          "uri": { "type": "string" },
+          "name": { "type": "string" },
+          "description": { "type": "string" },
+          "size": { "type": "number" },
+          "download_uri": { "type": "string" },
+          "content_type": { "type": "string" },
+          "content_encoding": { "type": "string" }
         }
       },
       "ErrorMessage": {

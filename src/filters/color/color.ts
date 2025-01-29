@@ -7,7 +7,9 @@ export const colorMatch = (operator: Operator, value: Set<string>): FilterNode =
   filterFunc: (card: NormedCard) => {
       const faceMatchMap = [
         card.colors,
+        card.color_indicator,
         ...card.card_faces?.map((it) => it.colors),
+        ...card.card_faces?.map((it) => it.color_indicator),
       ]
         .filter((it) => it !== undefined)
         .map((colors) => colors.map((it) => it.toLowerCase()))
@@ -69,6 +71,9 @@ export const colorCount = (operator: Operator, count: number): FilterNode => ora
     const colorSet: Set<String> = new Set(it.colors ?? [])
     for (const face of it.card_faces ?? []) {
       for (const color of (face.colors ?? [])) {
+        colorSet.add(color)
+      }
+      for (const color of (face.color_indicator ?? [])) {
         colorSet.add(color)
       }
     }

@@ -4,7 +4,7 @@ export { QueryRunner } from './queryRunner';
 export type { Block } from './types/block';
 
 export type { ManaSymbol } from './types/card';
-export { DOUBLE_FACED_LAYOUTS, IS_VALUE_MAP, toSplitCost } from './types/card';
+export { DOUBLE_FACED_LAYOUTS, IS_VALUE_MAP, toSplitCost, getColors } from './types/card';
 
 export type { CoverImage, Cube, CubeCard, CubeSource, ExternalCubeSource } from './types/cube';
 export { CUBE_SOURCE_OPTIONS } from './types/cube';

@@ -25,8 +25,8 @@ interface VennDiagram {
 
 type ParserProducer = () => Parser
 
-export interface QueryRunnerParams {
-  corpus: Card[]
+export interface QueryRunnerParams<T> {
+  corpus: T[]
   defaultOptions?: SearchOptions,
   dataProvider: DataProvider
   getParser?: ParserProducer
@@ -39,11 +39,18 @@ export class QueryRunner {
 
   private readonly filters: FilterProvider
 
-  constructor({ corpus, defaultOptions, dataProvider, getParser }: QueryRunnerParams) {
-    this.corpus = normCardList(corpus);
+  constructor({ corpus, defaultOptions, dataProvider, getParser }: QueryRunnerParams<NormedCard>) {
+    this.corpus = corpus;
     this.filters = new CachingFilterProvider(dataProvider)
     this.getParser = getParser ?? MQLParser
     this.defaultOptions = defaultOptions ?? { order: 'name' }
+  }
+
+  static fromCardList({ corpus, ...rest }: QueryRunnerParams<Card>) {
+    return new QueryRunner({
+      corpus: normCardList(corpus),
+      ...rest
+    })
   }
 
   search = (query: string, _options?: Partial<SearchOptions>): ResultAsync<Card[], SearchError> => {
