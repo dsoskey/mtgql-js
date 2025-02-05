@@ -1,4 +1,3 @@
-import { Result } from 'neverthrow'
 import { Card } from '../../generated'
 import { MemoryDataProvider } from '../dataProvider'
 import { QueryRunner } from '../../queryRunner'
@@ -13,10 +12,11 @@ export const defaultDataProvider = new MemoryDataProvider({
 export const defaultRunner = (corpus: Card[]) =>
   QueryRunner.fromCardList({ corpus, defaultOptions, dataProvider: defaultDataProvider })
 
-export const names = (result: Result<Card[], SearchError>) =>
-  result._unsafeUnwrap().map(it => it.name)
+export const names = async (result: Promise<Card[]>) => {
+  const rs = await result
+  return rs.map(it => it.name);
+}
 
 export async function searchNames(runner: QueryRunner, query: string) {
-  const result = await runner.search(query);
-  return names(result);
+  return names(runner.search(query));
 }

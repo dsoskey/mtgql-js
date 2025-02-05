@@ -1,4 +1,4 @@
-import { defaultRunner, names, searchNames } from '../_testData/_utils'
+import { defaultRunner, searchNames } from '../_testData/_utils'
 import { preordain } from '../_testData/preordain'
 import { animateLand } from '../_testData/animateLand'
 import {delverOfSecrets} from "../_testData/delverOfSecrets";
@@ -9,13 +9,13 @@ const queryRunner = defaultRunner(corpus);
 describe('set filter', function() {
   ["s", "set", "e", "edition"].forEach(filterKeyword => {
     it(`${filterKeyword} should match exact set codes`, async function() {
-      const result = names(await queryRunner.search(`${filterKeyword}:m11`))
+      const result = await searchNames(queryRunner, `${filterKeyword}:m11`)
 
       expect(result).toEqual([preordain.name])
     })
   })
   it("should match exact set names", async function() {
-    const result = names(await queryRunner.search('set:"Magic 2011"'))
+    const result = await searchNames(queryRunner, 'set:"Magic 2011"')
 
     expect(result).toEqual([preordain.name])
   })
@@ -28,7 +28,7 @@ describe('set filter', function() {
 
 describe('set-type filter', function() {
   it("should match exact set types", async function() {
-    const result = names(await queryRunner.search("st:core"))
+    const result = await searchNames(queryRunner, "st:core")
 
     expect(result).toEqual([preordain.name])
   })

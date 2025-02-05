@@ -3,7 +3,7 @@ import { birdsOfParadise } from '../_testData/birdsOfParadise'
 import { bojukaBog } from '../_testData/bojukaBog'
 import { bloodCrypt } from '../_testData/bloodCrypt'
 import { Cube } from '../../types'
-import { defaultOptions, names } from '../_testData/_utils'
+import { defaultOptions, searchNames } from '../_testData/_utils'
 import { MemoryDataProvider } from '../dataProvider'
 
 const corpus = [birdsOfParadise, bojukaBog, bloodCrypt];
@@ -28,12 +28,12 @@ const dataProvider = new MemoryDataProvider({
 describe('cube filter', function() {
   const queryRunner = QueryRunner.fromCardList({ corpus, dataProvider, defaultOptions })
   it("filters cards in an old model cube", async function() {
-    const result = names(await queryRunner.search("cube:gy"))
+    const result = await searchNames(queryRunner, "cube:gy")
 
     expect(result).toEqual([birdsOfParadise.name, bloodCrypt.name])
   })
   it("filters cards in a new model cube", async function() {
-    const result = names(await queryRunner.search("cube:soskgy"))
+    const result = await searchNames(queryRunner, "cube:soskgy")
 
     expect(result).toEqual([birdsOfParadise.name, bloodCrypt.name])
   })

@@ -3,10 +3,8 @@ import {
   normCardList, NormedCard,
   SearchOptions,
   NearlyError,
-  SearchError,
   AstNode,
 } from './types'
-import {err, errAsync, ok, okAsync, ResultAsync} from 'neverthrow'
 import { Card } from './generated'
 import { FilterProvider, CachingFilterProvider } from './filters'
 import { chooseFilterFunc } from './filters/print'
@@ -53,13 +51,13 @@ export class QueryRunner {
     })
   }
 
-  search = (query: string, _options?: Partial<SearchOptions>): ResultAsync<Card[], SearchError> => {
+  search = async (query: string, _options?: Partial<SearchOptions>): Promise<Card[]> => {
     const options: SearchOptions = { ...this.defaultOptions, ..._options }
     const func = QueryRunner.generateSearchFunction(this.corpus, this.filters, this.getParser)
     return func(query, options)
   }
 
-  static parseFilterNode = (getParser: ParserProducer, filters: FilterProvider, query: string): ResultAsync<FilterNode, SearchError> => {
+  static parseFilterNode = async (getParser: ParserProducer, filters: FilterProvider, query: string): Promise<FilterNode> => {
     const parser = getParser();
     try {
       console.debug(`feeding ${query}`)
@@ -80,183 +78,176 @@ export class QueryRunner {
       const { message, token } = error as NearlyError
       console.error(message)
       // TODO: process message
-      return errAsync({
+      return Promise.reject({
         query,
         errorOffset: token?.offset ?? 0,
         message: "",
         type: "syntax"
       })
     }
-    return okAsync(parser)
-      .andThen(parser => filters.visitNode(parser.results[0] as AstNode))
-      .mapErr(err => ({ ...err, query, type: "parse" }))
+    return filters.visitNode(parser.results[0] as AstNode);
+      // .mapErr(err => ({ ...err, query, type: "parse" }))
   }
 
   static generateSearchFunction = (
     corpus: NormedCard[],
     filters: FilterProvider,
     getParser: ParserProducer = MQLParser
-  ) => (
+  ) => async (
     query: string,
     options: SearchOptions
-  ): ResultAsync<Card[], SearchError> => {
-    return QueryRunner.parseFilterNode(getParser, filters, query)
-      .andThen(node => {
-        const { filtersUsed, filterFunc } = node;
+  ): Promise<Card[]> => {
+    const node = await QueryRunner.parseFilterNode(getParser, filters, query);
+    const { filtersUsed, filterFunc } = node;
 
-        // filter normedCards
-        const filtered: NormedCard[] = []
-        try {
-          for (const card of corpus) {
-            if (filterFunc(card)) {
-              filtered.push(card)
-            }
-          }
-
-          const printFilterFunc = chooseFilterFunc(node)
-
-          // filter prints
-          const printFiltered: Card[] = filtered.flatMap(printFilterFunc)
-
-          // sort
-          const order: SortOrder = getOrder(filtersUsed, options)
-          const sorted = sortBy(printFiltered, [...SortFunctions.bySortOrder(order), SortFunctions.byName]) as Card[]
-
-          // direction
-          const direction = getDirection(filtersUsed, options)
-          if (direction === 'auto') {
-            switch (order) {
-              case 'rarity':
-              case 'usd':
-              case 'tix':
-              case 'eur':
-              case 'edhrec':
-                sorted.reverse()
-                break
-              case 'released':
-              default:
-                break
-            }
-          } else if (direction === 'desc') {
-            sorted.reverse()
-          }
-
-          // limit
-          const limit = getLimit(filtersUsed);
-          if (limit >= 0) {
-            return ok(sorted.slice(0, limit));
-          }
-
-          return ok(sorted)
-        } catch (e) {
-          console.error(e)
-          return err({
-            query,
-            type: "filter",
-            errorOffset: 0, // how do i manage this??
-            message: `Filter error: ${e.message}`,
-          })
+    // filter normedCards
+    const filtered: NormedCard[] = []
+    try {
+      for (const card of corpus) {
+        if (filterFunc(card)) {
+          filtered.push(card)
         }
+      }
+
+      const printFilterFunc = chooseFilterFunc(node)
+
+      // filter prints
+      const printFiltered: Card[] = filtered.flatMap(printFilterFunc)
+
+      // sort
+      const order: SortOrder = getOrder(filtersUsed, options)
+      const sorted = sortBy(printFiltered, [...SortFunctions.bySortOrder(order), SortFunctions.byName]) as Card[]
+
+      // direction
+      const direction = getDirection(filtersUsed, options)
+      if (direction === 'auto') {
+        switch (order) {
+          case 'rarity':
+          case 'usd':
+          case 'tix':
+          case 'eur':
+          case 'edhrec':
+            sorted.reverse()
+            break
+          case 'released':
+          default:
+            break
+        }
+      } else if (direction === 'desc') {
+        sorted.reverse()
+      }
+
+      // limit
+      const limit = getLimit(filtersUsed);
+      if (limit >= 0) {
+        return sorted.slice(0, limit);
+      }
+
+      return sorted
+    } catch (e) {
+      console.error(e)
+      return Promise.reject({
+        query,
+        type: "filter",
+        errorOffset: 0, // how do i manage this??
+        message: `Filter error: ${e.message}`,
       })
+    }
   }
 
   static generateVennDiagram = (
     corpus: NormedCard[],
     filters: FilterProvider,
     getParser: ParserProducer = MQLParser
-  ) => (
+  ) => async (
     left: string, right: string,
     options: SearchOptions
-  ): ResultAsync<VennDiagram, SearchError> => {
-    const leftNode = QueryRunner.parseFilterNode(getParser, filters, left)
-    const rightNode = QueryRunner.parseFilterNode(getParser, filters, right)
+  ): Promise<VennDiagram> => {
+    const leftNode = await QueryRunner.parseFilterNode(getParser, filters, left)
+    const rightNode = await QueryRunner.parseFilterNode(getParser, filters, right)
 
-    return ResultAsync.combine([leftNode, rightNode])
-      .andThen(([leftNode, rightNode]) => {
-        const leftOracles: Set<string> = new Set()
-        const rightOracles: Set<string> = new Set()
-        const union: NormedCard[] = []
+    const leftOracles: Set<string> = new Set()
+    const rightOracles: Set<string> = new Set()
+    const union: NormedCard[] = []
 
-        try {
-          for (const card of corpus) {
-            const isLeft = leftNode.filterFunc(card)
-            const isRight = rightNode.filterFunc(card)
+    try {
+      for (const card of corpus) {
+        const isLeft = leftNode.filterFunc(card)
+        const isRight = rightNode.filterFunc(card)
 
-            if (isLeft || isRight) {
-              union.push(card)
-            }
-            if (isRight) {
-              rightOracles.add(card.oracle_id)
-            }
-            if (isLeft) {
-              leftOracles.add(card.oracle_id)
-            }
-          }
-
-          const leftPrintFilter = chooseFilterFunc(leftNode)
-          const rightPrintFilter = chooseFilterFunc(rightNode)
-
-          const leftIds: Set<string> = new Set()
-          const bothIds: Set<string> = new Set()
-          const rightIds: Set<string> = new Set()
-          const unionPrints: Card[] = []
-          for (const card of union) {
-            const matchedLeft  = leftPrintFilter(card)
-            for (const c of matchedLeft) {
-              if (leftOracles.has(c.oracle_id)) {
-                unionPrints.push(c)
-                leftIds.add(c.id)
-              }
-            }
-            const matchedRight = rightPrintFilter(card)
-            for (const c of matchedRight) {
-              if (rightOracles.has(c.oracle_id)) {
-                if (leftIds.has(c.id)) {
-                  bothIds.add(c.id)
-                  leftIds.delete(c.id)
-                } else {
-                  unionPrints.push(c)
-                  rightIds.add(c.id)
-                }
-              }
-            }
-          }
-
-          const combinedFiltersUsed = [...leftNode.filtersUsed, ...rightNode.filtersUsed]
-          const order: SortOrder = getOrder(combinedFiltersUsed, options)
-          const sorted = sortBy(unionPrints, [...SortFunctions.bySortOrder(order), SortFunctions.byName]) as Card[]
-
-          // direction
-          const direction = getDirection(combinedFiltersUsed, options)
-          if (direction === 'auto') {
-            switch (order) {
-              case 'rarity':
-              case 'usd':
-              case 'tix':
-              case 'eur':
-              case 'edhrec':
-                sorted.reverse()
-                break
-              case 'released':
-              default:
-                break
-            }
-          } else if (direction === 'desc') {
-            sorted.reverse()
-          }
-
-          return okAsync({ cards: sorted, leftIds, rightIds, bothIds })
-        } catch (e) {
-          console.error(e)
-          return err({
-            query: `left: ${left}\nright: ${right}`,
-            type: "venn",
-            errorOffset: 0, // how do i manage this??
-            message: `Filter error: ${e.message}`,
-          })
+        if (isLeft || isRight) {
+          union.push(card)
         }
+        if (isRight) {
+          rightOracles.add(card.oracle_id)
+        }
+        if (isLeft) {
+          leftOracles.add(card.oracle_id)
+        }
+      }
 
+      const leftPrintFilter = chooseFilterFunc(leftNode)
+      const rightPrintFilter = chooseFilterFunc(rightNode)
+
+      const leftIds: Set<string> = new Set()
+      const bothIds: Set<string> = new Set()
+      const rightIds: Set<string> = new Set()
+      const unionPrints: Card[] = []
+      for (const card of union) {
+        const matchedLeft  = leftPrintFilter(card)
+        for (const c of matchedLeft) {
+          if (leftOracles.has(c.oracle_id)) {
+            unionPrints.push(c)
+            leftIds.add(c.id)
+          }
+        }
+        const matchedRight = rightPrintFilter(card)
+        for (const c of matchedRight) {
+          if (rightOracles.has(c.oracle_id)) {
+            if (leftIds.has(c.id)) {
+              bothIds.add(c.id)
+              leftIds.delete(c.id)
+            } else {
+              unionPrints.push(c)
+              rightIds.add(c.id)
+            }
+          }
+        }
+      }
+
+      const combinedFiltersUsed = [...leftNode.filtersUsed, ...rightNode.filtersUsed]
+      const order: SortOrder = getOrder(combinedFiltersUsed, options)
+      const sorted = sortBy(unionPrints, [...SortFunctions.bySortOrder(order), SortFunctions.byName]) as Card[]
+
+      // direction
+      const direction = getDirection(combinedFiltersUsed, options)
+      if (direction === 'auto') {
+        switch (order) {
+          case 'rarity':
+          case 'usd':
+          case 'tix':
+          case 'eur':
+          case 'edhrec':
+            sorted.reverse()
+            break
+          case 'released':
+          default:
+            break
+        }
+      } else if (direction === 'desc') {
+        sorted.reverse()
+      }
+
+      return { cards: sorted, leftIds, rightIds, bothIds }
+    } catch (e) {
+      console.error(e)
+      return Promise.reject({
+        query: `left: ${left}\nright: ${right}`,
+        type: "venn",
+        errorOffset: 0, // how do i manage this??
+        message: `Filter error: ${e.message}`,
       })
+    }
   }
 }
 

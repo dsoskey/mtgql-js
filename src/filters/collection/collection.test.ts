@@ -18,17 +18,17 @@ describe('collection filter', function () {
     const all = [...custom1, ...custom2, ...officials];
     const search = QueryRunner.generateSearchFunction(all, new CachingFilterProvider(defaultDataProvider));
     it("filters cards that have a specific collection", async () => {
-        const result = names(await search(`collection:${collectionId1}`, defaultOptions))
+        const result = await names(search(`collection:${collectionId1}`, defaultOptions))
 
         expect(result).toEqual([barrysLand.name, delverOfSecrets.name])
     })
     it('is:custom filters out official cards', async function() {
-        const result = names(await search(`is:custom`, defaultOptions))
+        const result = await names(search(`is:custom`, defaultOptions))
 
         expect(result).toEqual([arrogantBloodlord.name, barrysLand.name, bloodCrypt.name, delverOfSecrets.name])
     })
     it('not:custom filters out custom cards', async function() {
-        const result = names(await search(`not:custom`, defaultOptions))
+        const result = await names(search(`not:custom`, defaultOptions))
 
         expect(result).toEqual([narcomoeba.name, seasideHaven.name])
     })

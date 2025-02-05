@@ -1,6 +1,6 @@
 import { davrielsWithering } from '../_testData/davrielsWithering'
 import { kroxaTitanOfDeathsHunger } from '../_testData/kroxaTitanOfDeathsHunger'
-import { defaultRunner, names } from '../_testData/_utils'
+import { defaultRunner, searchNames } from '../_testData/_utils'
 import { preordain } from '../_testData/preordain'
 import { darkConfidant } from '../_testData/darkConfidant'
 import { combineHybridSymbols } from './mana'
@@ -40,38 +40,38 @@ describe('mana filter', function() {
   const corpus = [preordain, davrielsWithering, darkConfidant, kroxaTitanOfDeathsHunger]
   const queryRunner = defaultRunner(corpus)
   it('should handle exact match', async function() {
-    const result = names(await queryRunner.search("mana=rb"))
+    const result = await searchNames(queryRunner, "mana=rb")
 
     expect(result).toEqual([kroxaTitanOfDeathsHunger.name])
   })
 
   it('should handle != filter', async function() {
-    const result = names(await queryRunner.search("m!=b"))
+    const result = await searchNames(queryRunner, "m!=b")
 
     expect(result).toEqual([darkConfidant.name, kroxaTitanOfDeathsHunger.name, preordain.name])
   })
 
   it('should handle > filter', async function() {
-    const result = names(await queryRunner.search("mana>b"))
+    const result = await searchNames(queryRunner, "mana>b")
 
     expect(result).toEqual([darkConfidant.name, kroxaTitanOfDeathsHunger.name])
   })
 
   it('should handle < filter', async function() {
-    const result = names(await queryRunner.search("mana<rb"))
+    const result = await searchNames(queryRunner, "mana<rb")
 
     expect(result).toEqual([davrielsWithering.name])
   })
 
   it('should handle <= filter', async function() {
-    const result = names(await queryRunner.search("mana<=rb"))
+    const result = await searchNames(queryRunner, "mana<=rb")
 
     expect(result).toEqual([davrielsWithering.name, kroxaTitanOfDeathsHunger.name])
   })
 
   it('should handle >= filter, which is the default', async function() {
-    const result = names(await queryRunner.search("mana>=b"))
-    const defaultResult = names(await queryRunner.search("mana:b"))
+    const result = await searchNames(queryRunner, "mana>=b")
+    const defaultResult = await searchNames(queryRunner, "mana:b")
 
     expect(result).toEqual([darkConfidant.name, davrielsWithering.name, kroxaTitanOfDeathsHunger.name])
     expect(result).toEqual(defaultResult)
@@ -83,11 +83,11 @@ describe('Mana regex filter', function() {
   const corpus = [gitaxianProbe, delverOfSecrets, davrielsWithering]
   const queryRunner = defaultRunner(corpus)
   it('should handle typical regexes', async function() {
-    const result = names(await queryRunner.search("mana:/u/"))
+    const result = await searchNames(queryRunner, "mana:/u/")
     expect(result).toEqual([delverOfSecrets.name, gitaxianProbe.name])
   })
   it('should substitute special regex escapes like \\smp', async function() {
-    const result = names(await queryRunner.search("mana:/\\smp/"))
+    const result = await searchNames(queryRunner, "mana:/\\smp/")
     expect(result).toEqual([gitaxianProbe.name])
   })
 })

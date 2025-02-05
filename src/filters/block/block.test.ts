@@ -1,4 +1,4 @@
-import { defaultOptions, names } from '../_testData/_utils'
+import { defaultOptions, searchNames } from '../_testData/_utils'
 import { QueryRunner } from '../../queryRunner'
 import { birdsOfParadise } from '../_testData/birdsOfParadise'
 import { delverOfSecrets } from '../_testData/delverOfSecrets'
@@ -20,12 +20,12 @@ describe('block filter',
     })
     const queryRunner = QueryRunner.fromCardList({ corpus, defaultOptions, dataProvider })
     it('finds cards by their set\'s block code', async function() {
-      const result = names(await queryRunner.search("block:isd"))
+      const result = await searchNames(queryRunner, "block:isd")
 
       expect(result).toEqual([delverOfSecrets.name])
     })
     it('finds cards by their set\'s block name', async function() {
-      const result = names(await queryRunner.search("block:Innistrad"))
+      const result = await searchNames(queryRunner, "block:Innistrad")
 
       expect(result).toEqual([delverOfSecrets.name])
     })

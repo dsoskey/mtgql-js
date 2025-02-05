@@ -22,7 +22,7 @@ const dataProvider: DataProvider = new MemoryDataProvider({
     blocks: [...],
 });
 
-const queryRunner = new QueryRunner({ corpus: cards, dataProvider });
+const queryRunner = QueryRunner.fromCardList({ corpus: cards, dataProvider });
 
 const result = await queryRunner.search("t:creature c:ur")
 result
@@ -39,6 +39,7 @@ result
 ```shell
 git clone git@github.com:dsoskey/mtgql-js.git
 cd mtgql-js
+npm install
 # see package.json for build subcommands
 npm run build
 ```
