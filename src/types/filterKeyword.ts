@@ -9,8 +9,8 @@ export const FILTER_KEYWORDS = {
   cn: 'cn', number: 'number',
   ci: 'ci', commander: 'commander', id: 'id', identity: 'identity',
   cmc: 'cmc', mv: 'mv', manavalue: 'manavalue',
-  // tag and ctag are custom aliases for cube
-  cube: 'cube', tag: 'tag', ctag: 'ctag',
+  // list and ctag are custom aliases for cube
+  cube: 'cube', list: 'list', ctag: 'ctag',
   date: 'date', year: 'year',
   devotion: 'devotion', // !Devotion can only match single color or hybrid mana. No two-brid either
   direction: 'direction', dir: 'dir',

@@ -335,10 +335,10 @@ newCondition -> "new" onlyEqualOperator newValue
 preferCondition -> "prefer" onlyEqualOperator preferValue
     {% ([{offset}, _, {value}]) => ({ filter: FilterType.Prefer, value, offset }) %}
 
-cubeOracleCondition -> ("cube" | "ctag" | "tag") ":" cubeValue
+cubeOracleCondition -> ("cube" | "ctag" | "list") ":" cubeValue
     {% ([[{offset}], _, {value}]) => ({ filter: FilterType.CubeOracle, value, offset }) %}
 
-cubePrintCondition -> ("cube" | "ctag" | "tag") "=" cubeValue
+cubePrintCondition -> ("cube" | "ctag" | "list") "=" cubeValue
     {% ([[{offset}], _, {value}]) => ({ filter: FilterType.CubePrints, value, offset }) %}
 
 oracleTagCondition -> ("function" | "oracletag" | "otag") onlyEqualOperator stringValue
