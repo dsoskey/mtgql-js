@@ -67,4 +67,13 @@ describe('new filter', function() {
   it('should handle foil filter', async function() {
     const result = await searchNames(queryRunner, "new:foil");
   });
+
+  it('should return an error for an unknown new filter', async function() {
+    return expect(queryRunner.search("new:goil")).rejects.toEqual({
+      errorOffset: 4,
+      message: "Unrecognized 'new' value goil",
+      query: "new:goil",
+      type: "syntax",
+    })
+  })
 });

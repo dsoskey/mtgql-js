@@ -67,7 +67,7 @@ export class CachingFilterProvider implements FilterProvider {
     }
     const cube = await this.provider.getCube(key);
     if (cube === undefined){
-      return Promise.reject({ message: `Couldn't find cube ${key}`, errorOffset: 0 })
+      throw Error(`Couldn't find cube ${key}`)
     }
     const result = new Set(cube.cards?.map(it => it.oracle_id) ?? cube.oracle_ids ?? [])
     this.cubes[key] = result;
@@ -77,7 +77,7 @@ export class CachingFilterProvider implements FilterProvider {
   private getCubePrints = async (key: string): Promise<Set<string>> => {
     const cube = await this.provider.getCube(key);
     if (cube === undefined){
-      return Promise.reject({ message: `Couldn't find cube ${key}`, errorOffset: 0 })
+      throw Error(`Couldn't find cube ${key}`)
     }
     return new Set(cube.cards?.map(it => it.print_id) ?? cube.print_ids ?? [])
   }
@@ -91,7 +91,7 @@ export class CachingFilterProvider implements FilterProvider {
     const otag= await this.provider.getOtag(key);
 
     if (otag === undefined){
-      return Promise.reject({ message: `Couldn't find oracle tag ${key}`, errorOffset: 0 })
+     throw Error(`Couldn't find oracle tag ${key}`)
     }
     const result = new Set(otag.oracle_ids)
     this.otags[key] = result;
@@ -106,7 +106,7 @@ export class CachingFilterProvider implements FilterProvider {
     }
     const atag = await this.provider.getAtag(key);
     if (atag === undefined){
-      return Promise.reject({ message: `Couldn't find illustration tag ${key}`, errorOffset: 0 })
+      throw Error(`Couldn't find illustration tag ${key}`)
     }
     const result = new Set(atag.illustration_ids)
     this.atags[key] = result;
@@ -116,7 +116,7 @@ export class CachingFilterProvider implements FilterProvider {
   private getBlock = async (key:string): Promise<Block> => {
     const block = await this.provider.getBlock(key)
     if (block === undefined) {
-      return Promise.reject({ message: `Couldn't find block ${key}`, errorOffset: 0 })
+      throw Error(`Couldn't find block ${key}`)
     }
     return block
   }
@@ -124,7 +124,7 @@ export class CachingFilterProvider implements FilterProvider {
   private getSet = async (key:string): Promise<CardSet> => {
     const set = await this.provider.getSet(key)
     if (set === undefined) {
-      return Promise.reject({ message: `Couldn't find set ${key}`, errorOffset: 0 })
+      throw Error(`Couldn't find set ${key}`)
     }
     return set
   }
@@ -205,6 +205,7 @@ export class CachingFilterProvider implements FilterProvider {
 
   getFilter = async (leaf: AstLeaf): Promise<FilterNode> => {
     try {
+      let promisedNode: Promise<FilterNode>
       switch (leaf.filter) {
         case FilterType.CmcInt:
           return oracleNode({
@@ -373,7 +374,7 @@ export class CachingFilterProvider implements FilterProvider {
               }
               return dateNode(leaf.operator!, set.released_at)
             } catch (e) {
-              return Promise.reject({ ...e, message: `${leaf.value} must fit date format yyyy or yyyy-MM-dd` })
+              return Promise.reject({ ...e, message: `${leaf.value} must fit date format yyyy or yyyy-MM-dd`, errorOffset: leaf.offset })
             }
           }
           return dateNode(leaf.operator!, leaf.value)
@@ -397,35 +398,20 @@ export class CachingFilterProvider implements FilterProvider {
         case FilterType.Watermark:
           return watermarkFilter(leaf.value)
         case FilterType.CubeOracle:
-          try {
-            return this.cubeOracleFilter(leaf.value)
-          } catch (e) {
-            return Promise.reject({ message: e.message, errorOffset: leaf.offset })
-          }
+            promisedNode = this.cubeOracleFilter(leaf.value)
+            break;
         case FilterType.CubePrints:
-          try {
-            return this.cubePrintFilter(leaf.value)
-          } catch (e) {
-            return Promise.reject({ message: e.message, errorOffset: leaf.offset })
-          }
+            promisedNode = this.cubePrintFilter(leaf.value)
+            break;
         case FilterType.OracleTag:
-          try {
-            return this.otagFilter(leaf.value)
-          } catch (e) {
-            return Promise.reject({ message: e.message, errorOffset: leaf.offset })
-          }
+            promisedNode = this.otagFilter(leaf.value)
+            break;
         case FilterType.IllustrationTag:
-          try {
-            return this.atagFilter(leaf.value)
-          } catch (e) {
-            return Promise.reject({ message: e.message, errorOffset: leaf.offset })
-          }
+            promisedNode = this.atagFilter(leaf.value)
+            break;
         case FilterType.Block:
-          try {
-            return this.blockFilter(leaf.value)
-          } catch (e) {
-            return Promise.reject({ message: e.message, errorOffset: leaf.offset })
-          }
+            promisedNode = this.blockFilter(leaf.value)
+            break;
         case FilterType.New:
           return newFilter(leaf.value)
         case FilterType.Prefer:
@@ -450,11 +436,11 @@ export class CachingFilterProvider implements FilterProvider {
             filtersUsed: [`limit:${leaf.value}`]
           }
       }
+      // Unwrap promised FilterNodes to enrich errors with leaf.offset.
+      return await promisedNode
     } catch (e) {
-      return Promise.reject({
-        errorOffset: leaf.offset,
-        message: e.toString()
-      })
+      e.errorOffset = leaf.offset
+      throw e
     }
   }
 }

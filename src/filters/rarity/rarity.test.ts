@@ -43,4 +43,15 @@ describe('rarity filter', function() {
 
     expect(result).toEqual([animateLand.name, mirrex.name])
   })
+
+  it('throws an error for an unrecognized rarity', async() => {
+    return expect(queryRunner.search("r=buncommon")).rejects.toEqual(
+        {
+          errorOffset: 2,
+          message: "Unrecognized 'rarity' value buncommon",
+          query: "r=buncommon",
+          type: "syntax",
+        }
+    )
+  })
 })

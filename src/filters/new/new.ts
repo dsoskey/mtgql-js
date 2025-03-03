@@ -3,8 +3,24 @@ import {printNode} from '../print'
 import _isEqual from 'lodash/isEqual'
 import {Printing} from "../../types";
 import {CardFinish, Game} from "../../generated";
+import {ObjectValues} from "../../types/common";
 
-type NewValue = "rarity" | "flavor" | "art" | "artist" | "frame" | "language" | "game" | "paper" | "mtgo" | "arena" | "nonfoil" | "foil"
+export const NEW_VALUES_MAP = {
+  rarity: "rarity",
+  flavor: "flavor",
+  art: "art",
+  artist: "artist",
+  frame: "frame",
+  language: "language",
+  game: "game",
+  paper: "paper",
+  mtgo: "mtgo",
+  arena: "arena",
+  nonfoil: "nonfoil",
+  foil: "foil"
+} as const
+export type NewValue = ObjectValues<typeof NEW_VALUES_MAP>
+export const NEW_VALUES = Object.keys(NEW_VALUES_MAP);
 
 export function newFilter(value: NewValue): FilterNode {
   return printNode(["new"], ({printing, card}) => {

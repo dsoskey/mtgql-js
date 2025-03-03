@@ -3,6 +3,10 @@ import { NormedCard } from '../../types'
 import { FilterNode } from '../base'
 import { oracleNode } from '../oracle'
 
+export const FORMATS = [
+  "standard" , "future" , "historic" , "pioneer" , "modern" , "legacy" , "paupercommander" ,
+  "pauper" ,"vintage" , "penny" , "commander" , "brawl" , "duel" , "oldschool" , "timeless",
+]
 
 export const formatMatch = (legality: Legality, value: string): FilterNode => oracleNode({
   filtersUsed: [Legality[legality]],

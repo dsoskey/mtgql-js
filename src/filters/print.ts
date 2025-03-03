@@ -1,7 +1,8 @@
 import { Filter, FilterNode } from './base'
 import { Card } from '../generated'
 import { NormedCard, Printing, PrintingFilterTuple } from '../types'
-import { maxBy, minBy } from 'lodash'
+import maxBy from 'lodash/maxBy'
+import minBy from 'lodash/minBy'
 
 export const printNode = (
   filtersUsed: string[],
@@ -42,6 +43,17 @@ const showAllFilter = new Set([
   'watermark',
   'year',
 ])
+
+export const PREFER_VALUES = [
+    "oldest",
+    "newest",
+    "usd-low",
+    "usd-high",
+    "eur-low",
+    "eur-high",
+    "tix-low",
+    "tix-high"
+]
 
 export const findPrinting = (prefer?: string) =>
   (filterFunc: Filter<PrintingFilterTuple>) =>

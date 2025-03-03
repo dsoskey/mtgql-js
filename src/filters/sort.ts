@@ -2,9 +2,10 @@ import { ObjectValues } from '../types/common'
 import {noReminderText, parsePowTou} from '../types'
 import { Card, Rarity } from '../generated'
 
-const SORT_ORDERS = {
+const SCRYFALL_SORT_ORDERS = {
   artist: 'artist',
   cmc: 'cmc',
+  mv: 'mv',
   color: 'color',
   edhrec: 'edhrec',
   eur: 'eur',
@@ -20,10 +21,13 @@ const SORT_ORDERS = {
   toughness: 'toughness',
   usd: 'usd',
   cube: 'cube',
+}
+const CUSTOM_SORT_ORDERS = {
   wc: "wc",
   fwc: "fwc",
   random: "random",
 } as const
+export const SORT_ORDERS = {...SCRYFALL_SORT_ORDERS, ...CUSTOM_SORT_ORDERS} as const
 export type SortOrder = ObjectValues<typeof SORT_ORDERS>
 
 export class SortFunctions {
@@ -68,6 +72,7 @@ export class SortFunctions {
         return [SortFunctions.byName]
       case 'artist':
       case 'cmc':
+      case "mv":
         return [key]
       case 'set':
         return ['set', SortFunctions.byCollectorNumber]

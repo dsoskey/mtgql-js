@@ -1,4 +1,9 @@
 import { ObjectValues } from './common'
+import {RARITY_ALIAS, RARITY_VALUES} from "../filters/rarity";
+import {NEW_VALUES} from "../filters/new";
+import {PREFER_VALUES} from "../filters/print";
+import {FORMATS} from "../filters/format";
+import {IS_VALUES} from "./card";
 
 export const FILTER_KEYWORDS = {
   '!': '!',
@@ -149,4 +154,83 @@ export enum FilterType {
   OracleId,
   Identity,
   Limit
+}
+
+interface FilterTypeRepr {
+  name: string
+  validValues: string[]
+  aliasValues?: { [key: string]: string }
+}
+
+export const FILTERTYPE_REPR: Record<FilterType, FilterTypeRepr> = {
+  // Fill in valid values as we need them. not all filter types need them
+  [FilterType.CmcInt]: { name: "cmc", validValues: [] },
+  [FilterType.CmcOddEven]: { name: "cmc", validValues: [] },
+  [FilterType.Name]: { name: "name", validValues: [] },
+  [FilterType.NameExact]: { name: "name", validValues: [] },
+  [FilterType.NameRegex]: { name: "name", validValues: [] },
+  [FilterType.ColorSet]: { name: "color", validValues: [] },
+  [FilterType.ColorInt]: { name: "color", validValues: [] },
+  [FilterType.ColorIdentitySet]: { name: "color identity", validValues: [] },
+  [FilterType.ColorIdentityInt]: { name: "color identity", validValues: [] },
+  [FilterType.Mana]: { name: "mana", validValues: [] },
+  [FilterType.ManaRegex]: { name: "mana", validValues: [] },
+  [FilterType.Oracle]: { name: "oracle text", validValues: [] },
+  [FilterType.OracleRegex]: { name: "oracle text", validValues: [] },
+  [FilterType.OracleCount]: { name: "oracle text", validValues: [] },
+  [FilterType.FullOracle]: { name: "full oracle text", validValues: [] },
+  [FilterType.FullOracleRegex]: { name: "full oracle text", validValues: [] },
+  [FilterType.FullOracleCount]: { name: "full oracle text", validValues: [] },
+  [FilterType.Keyword]: { name: "keyword", validValues: [] },
+  [FilterType.KeywordCount]: { name: "keyword", validValues: [] },
+  [FilterType.Type]: { name: "type", validValues: [] },
+  [FilterType.TypeRegex]: { name: "type", validValues: [] },
+  [FilterType.Power]: { name: "power", validValues: [] },
+  [FilterType.Tough]: { name: "toughness", validValues: [] },
+  [FilterType.PowTou]: { name: "combined power and toughness", validValues: [] },
+  [FilterType.Loyalty]: { name: "loyalty", validValues: [] },
+  [FilterType.Defense]: { name: "defense", validValues: [] },
+  [FilterType.Layout]: { name: "layout", validValues: [] },
+  [FilterType.Format]: { name: "format", validValues: FORMATS },
+  [FilterType.Banned]: { name: "banned", validValues: FORMATS },
+  [FilterType.Restricted]: { name: "restricted", validValues: FORMATS },
+  [FilterType.Is]: { name: "is", validValues: IS_VALUES },
+  [FilterType.Not]: { name: "not", validValues: IS_VALUES },
+  [FilterType.Prints]: { name: "prints", validValues: [] },
+  [FilterType.PaperPrints]: { name: "paper prints", validValues: [] },
+  [FilterType.In]: { name: "in", validValues: [] },
+  [FilterType.ProducesSet]: { name: "produces", validValues: [] },
+  [FilterType.ProducesInt]: { name: "produces", validValues: [] },
+  [FilterType.Devotion]: { name: "devotion", validValues: [] },
+  [FilterType.Unique]: { name: "unique", validValues: [] },
+  [FilterType.Order]: { name: "order", validValues: [] },
+  [FilterType.Direction]: { name: "direction", validValues: [] },
+  [FilterType.Rarity]: { name: "rarity", validValues: RARITY_VALUES, aliasValues: RARITY_ALIAS },
+  [FilterType.Set]: { name: "set", validValues: [] },
+  [FilterType.SetType]: { name: "set type", validValues: [] },
+  [FilterType.Artist]: { name: "artist", validValues: [] },
+  [FilterType.CollectorNumber]: { name: "collector number", validValues: [] },
+  [FilterType.Border]: { name: "border", validValues: [] },
+  [FilterType.Date]: { name: "date", validValues: [] },
+  [FilterType.Price]: { name: "price", validValues: [] },
+  [FilterType.Frame]: { name: "frame", validValues: [] },
+  [FilterType.Flavor]: { name: "flavor text", validValues: [] },
+  [FilterType.FlavorRegex]: { name: "flavor text", validValues: [] },
+  [FilterType.FlavorCount]: { name: "flavor text", validValues: [] },
+  [FilterType.Game]: { name: "game", validValues: [] },
+  [FilterType.Language]: { name: "language", validValues: [] },
+  [FilterType.Stamp]: { name: "stamp", validValues: [] },
+  [FilterType.Watermark]: { name: "watermark", validValues: [] },
+  [FilterType.CubeOracle]: { name: "cube cards", validValues: [] },
+  [FilterType.CubePrints]: { name: "cube prints", validValues: [] },
+  [FilterType.OracleTag]: { name: "oracle tag", validValues: [] },
+  [FilterType.IllustrationTag]: { name: "illustration tag", validValues: [] },
+  [FilterType.New]: { name: "new", validValues: NEW_VALUES },
+  [FilterType.Prefer]: { name: "prefer", validValues: PREFER_VALUES },
+  [FilterType.Block]: { name: "block", validValues: [] },
+  [FilterType.Collection]: { name: "collection", validValues: [] },
+  [FilterType.ScryfallId]: { name: "scryfall-id", validValues: [] },
+  [FilterType.OracleId]: { name: "oracle-id", validValues: [] },
+  [FilterType.Identity]: { name: "all", validValues: [] },
+  [FilterType.Limit]: { name: "limit", validValues: [] },
 }

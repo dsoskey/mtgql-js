@@ -363,7 +363,7 @@ export const isPrintVal = (value: IsValue) => ({ printing, card }: PrintingFilte
     //   card.layout === 'emblem'
     //  handle with prints
     default:
-      return unimplemented(value)
+      throw Error(`is:${value} has not been implemented.`)
   }
 }
 
@@ -504,7 +504,7 @@ export const isOracleVal = (value: IsValue) => (card: NormedCard): boolean => {
       return false;
     }
     case 'modal':
-      return /chooses? (\S* or \S*|(up to )?(one|two|three|four|five))( or (more|both)| that hasn't been chosen)?( —|\.)/
+      return /chooses? (\S* or \S*|(up to )?(one|two|three|four|five))( or (more|both)| that hasn't been chosen( this turn)?)?( —|\.)/
           .test(oracle_text.toLowerCase())
     case 'token':
       return card.layout === 'token' || card.type_line.includes('Token')
@@ -657,7 +657,7 @@ export const isOracleVal = (value: IsValue) => (card: NormedCard): boolean => {
     case "phed":
     case "pctb":
     default:
-      return unimplemented(value)
+      throw Error(`is:${value} has not been implemented.`)
   }
 }
 

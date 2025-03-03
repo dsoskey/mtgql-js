@@ -230,6 +230,7 @@ export const IS_VALUE_MAP = {
   deciduous: "deciduous",
 } as const
 export type IsValue = ObjectValues<typeof IS_VALUE_MAP>
+export const IS_VALUES = Object.keys(IS_VALUE_MAP)
 
 const MANA_SYMBOLS = {
   generic: 'generic',

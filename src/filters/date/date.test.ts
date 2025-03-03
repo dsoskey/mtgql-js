@@ -19,7 +19,12 @@ describe('date filters', function() {
 
   it("returns an error when the date doesnt fit yyyy-MM-dd", async () => {
     return expect(queryRunner.search("date<jan1st2021")).rejects.toEqual(
-        {errorOffset: 0, message: "jan1st2021 must fit date format yyyy or yyyy-MM-dd"}
+        {
+          errorOffset: 0,
+          message: "jan1st2021 must fit date format yyyy or yyyy-MM-dd",
+          query: "date<jan1st2021",
+          type: "parse",
+  }
     );
   })
 

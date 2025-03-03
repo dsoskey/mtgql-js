@@ -1,18 +1,13 @@
-import { Parser } from 'nearley'
-import {
-  normCardList, NormedCard,
-  SearchOptions,
-  NearlyError,
-  AstNode,
-} from './types'
-import { Card } from './generated'
-import { FilterProvider, CachingFilterProvider } from './filters'
-import { chooseFilterFunc } from './filters/print'
-import { SortFunctions, SortOrder } from './filters/sort'
+import {Parser} from 'nearley'
+import {AstNode, NearlyError, normCardList, NormedCard, SearchOptions,} from './types'
+import {Card} from './generated'
+import {CachingFilterProvider, FilterProvider} from './filters'
+import {chooseFilterFunc} from './filters/print'
+import {SortFunctions, SortOrder} from './filters/sort'
 import sortBy from 'lodash/sortBy'
-import { MQLParser } from './mql'
-import { DataProvider } from './filters/dataProvider'
-import { FilterNode } from './filters/base'
+import {MQLParser} from './mql'
+import {DataProvider} from './filters/dataProvider'
+import {FilterNode} from './filters/base'
 
 interface VennDiagram {
   cards: Card[]
@@ -72,20 +67,36 @@ export class QueryRunner {
       } else if (parser.results.length === 1) {
         console.debug(parser.results[0])
       } else {
-        console.warn("no matched parses")
+        const baseMessage = "Parser could not recognize your query."
+        const endsWithOperator = /(|!=|<>|<=|>=|[<>≥:=≤])$/.test(query)
+        return Promise.reject({
+          query,
+          errorOffset: endsWithOperator ? query.length - 1 : 0,
+          message: endsWithOperator
+              ? `${baseMessage} The last search filter might need a corresponding value`
+              : baseMessage,
+          type: "syntax"
+        })
       }
     } catch (error) {
       const { message, token } = error as NearlyError
-      console.error(message)
-      // TODO: process message
       return Promise.reject({
         query,
         errorOffset: token?.offset ?? 0,
-        message: "",
+        message,
         type: "syntax"
       })
     }
-    return filters.visitNode(parser.results[0] as AstNode);
+    try {
+      return await filters.visitNode(parser.results[0] as AstNode)
+    } catch (error) {
+      return Promise.reject({
+        query,
+        errorOffset: error.errorOffset ?? 0,
+        message: error.message,
+        type: "parse"
+      })
+    }
       // .mapErr(err => ({ ...err, query, type: "parse" }))
   }
 

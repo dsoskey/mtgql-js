@@ -1,11 +1,11 @@
 @preproccesor typescript
 @builtin "whitespace.ne"
-@builtin "string.ne"
 
 @{%
 const { FilterType } = require('./types/filterKeyword')
 const { combineHybridSymbols } = require("./filters/mana")
 const { lexer } = require('./lexer')
+const { parseEnumToken } = require("./parserUtils")
 %}
 
 @lexer lexer
@@ -31,8 +31,8 @@ clause -> "-":? (
 } %}
 
 boolOperator ->
-      (null | "and" __) {% () => "and" %}
-    | "or" __           {% () => "or" %}
+      (null | %bool_and __) {% () => "and" %}
+    | %bool_or __           {% () => "or" %}
 
 condition -> (
     identityCondition |
@@ -108,10 +108,10 @@ cmcCondition ->
     cmcFilter %operator integerValue {% ([{offset}, op, {value}]) =>
        ({ filter: FilterType.CmcInt, operator: op.value, value, offset })
     %} |
-    cmcFilter onlyEqualOperator ("even" | "odd") {% ([{offset}, _op, [{value}]]) =>
+    cmcFilter onlyEqualOperator (%kw_even | %kw_odd) {% ([{offset}, _op, [{value}]]) =>
         ({ filter: FilterType.CmcOddEven, value, offset })
     %}
-cmcFilter -> ("manavalue" | "mv" | "cmc") {% ([[token]]) => token %}
+cmcFilter -> (%kw_manavalue | %kw_mv | %kw_cmc) {% ([[token]]) => token %}
 
 exactNameCondition -> "!":? stringValue
     {% ([op, string]) => ({
@@ -120,10 +120,10 @@ exactNameCondition -> "!":? stringValue
         offset: op ? op.offset : string.offset
     }) %}
 
-nameCondition -> "name" onlyEqualOperator stringValue
+nameCondition -> %kw_name onlyEqualOperator stringValue
     {% ([{offset}, _, {value}]) => ({ filter: FilterType.Name, value, offset }) %}
 
-nameRegexCondition -> "name" onlyEqualOperator regexString
+nameRegexCondition -> %kw_name onlyEqualOperator regexString
     {% ([{offset}, _, {value}]) => ({ filter: FilterType.NameRegex, value, offset }) %}
 
 colorCondition ->
@@ -133,7 +133,7 @@ colorCondition ->
     colorFilter anyOperator integerValue {% ([{offset}, op, {value}]) =>
         ({ filter: FilterType.ColorInt, operator: op.value, value, offset })
     %}
-colorFilter -> ("c" | "color") {% ([[token]]) => token %}
+colorFilter -> (%kw_c | %kw_color) {% ([[token]]) => token %}
 
 colorIdentityCondition ->
     identityFilter anyOperator colorCombinationValue {% ([{offset}, op, {value}]) =>
@@ -142,12 +142,12 @@ colorIdentityCondition ->
     identityFilter anyOperator integerValue {% ([{offset}, op, {value}]) =>
         ({ filter: FilterType.ColorIdentityInt, operator: op.value, value, offset })
      %}
-identityFilter -> ("ci" | "commander" | "identity" | "id") {% ([[token]]) => token %}
+identityFilter -> (%kw_ci | %kw_commander | %kw_identity | %kw_id) {% ([[token]]) => token %}
 
-manaCostCondition -> ("mana" | "m") %operator manaCostValue
+manaCostCondition -> (%kw_mana | %kw_m) %operator manaCostValue
     {% ([[{offset}], op, {value}]) => ({ filter: FilterType.Mana, operator: op.value, value, offset }) %}
 
-manaCostRegexCondition -> ("mana" | "m") onlyEqualOperator regexString
+manaCostRegexCondition -> (%kw_mana | %kw_m) onlyEqualOperator regexString
     {% ([[{offset}], _, {value}]) => ({ filter: FilterType.ManaRegex, value, offset }) %}
 
 oracleCondition -> oracleFilter onlyEqualOperator stringValue
@@ -162,7 +162,7 @@ oracleRegexCondition -> oracleFilter onlyEqualOperator regexString
     {% ([{offset}, _, {value}]) => ({ filter: FilterType.OracleRegex, value, offset }) %}
 oracleCountCondition -> oracleFilter anyOperator integerValue
     {% ([{offset}, op, {value}]) => ({ filter: FilterType.OracleCount, value, operator: op.value, offset }) %}
-oracleFilter -> ("oracle" | "o" | "text") {% ([[token]]) => token %}
+oracleFilter -> (%kw_oracle | %kw_o | %kw_text) {% ([[token]]) => token %}
 
 fullOracleCondition -> fullOracleFilter onlyEqualOperator stringValue
     {% ([{offset}, _, v], _1, reject) => {
@@ -176,20 +176,20 @@ fullOracleRegexCondition -> fullOracleFilter onlyEqualOperator regexString
     {% ([{offset}, _, {value}]) => ({ filter: FilterType.FullOracleRegex, value, offset }) %}
 fullOracleCountCondition -> fullOracleFilter anyOperator integerValue
     {% ([{offset}, op, {value}]) => ({ filter: FilterType.FullOracleCount, value, operator: op.value, offset }) %}
-fullOracleFilter -> "fo" {% id %}
+fullOracleFilter -> %kw_fo {% id %}
 
-keywordCondition -> ("kw" | "keyword") onlyEqualOperator stringValue
+keywordCondition -> (%kw_kw | %kw_keyword) onlyEqualOperator stringValue
     {% ([[{offset}], _, {value}]) => ({ filter: FilterType.Keyword, value, offset }) %}
-keywordCountCondition -> "keywords" anyOperator integerValue
+keywordCountCondition -> %kw_keywords anyOperator integerValue
     {% ([{offset}, op, {value}]) => ({ filter: FilterType.KeywordCount, value, operator: op.value, offset }) %}
 
-typeCondition -> ("t" | "type") onlyEqualOperator stringValue
+typeCondition -> (%kw_t | %kw_type) onlyEqualOperator stringValue
     {% ([[{offset}], _, {value}]) => ({ filter: FilterType.Type, value, offset }) %}
 
-typeRegexCondition -> ("t" | "type") onlyEqualOperator regexString
+typeRegexCondition -> (%kw_t | %kw_type) onlyEqualOperator regexString
     {% ([[{offset}], _, {value}]) => ({ filter: FilterType.TypeRegex, value, offset }) %}
 
-powerCondition -> ("pow" | "power") anyOperator (integerValue | "tou" | "toughness")
+powerCondition -> (%kw_pow | %kw_power) anyOperator (integerValue | %kw_tou | %kw_toughness)
     {% ([[{offset}], op, [value]]) => ({
         filter: FilterType.Power,
         operator: op.value,
@@ -197,7 +197,7 @@ powerCondition -> ("pow" | "power") anyOperator (integerValue | "tou" | "toughne
         offset
     }) %}
 
-toughCondition -> ("tou" | "toughness") anyOperator (integerValue | "pow" | "power")
+toughCondition -> (%kw_tou | %kw_toughness) anyOperator (integerValue | %kw_pow | %kw_power)
     {% ([[{offset}], op, [value]]) => ({
         filter: FilterType.Tough,
         operator: op.value,
@@ -205,102 +205,116 @@ toughCondition -> ("tou" | "toughness") anyOperator (integerValue | "pow" | "pow
         offset
     }) %}
 
-powTouCondition -> ("pt" | "powtou") anyOperator integerValue
+powTouCondition -> (%kw_pt | %kw_powtou) anyOperator integerValue
     {% ([[{offset}], op, {value}]) => ({ filter: FilterType.PowTou, operator: op.value, value, offset }) %}
 
-loyaltyCondition -> ("loy" | "loyalty") anyOperator integerValue
+loyaltyCondition -> (%kw_loy | %kw_loyalty) anyOperator integerValue
     {% ([[{offset}], operator, {value}]) => ({ filter: FilterType.Loyalty, operator: operator.value, value, offset }) %}
 
-defenseCondition -> ("def" | "defense") anyOperator integerValue
+defenseCondition -> (%kw_def | %kw_defense) anyOperator integerValue
     {% ([[{offset}], op, {value}]) => ({ filter: FilterType.Defense, operator: op.value, value, offset }) %}
 
-layoutCondition -> "layout" onlyEqualOperator stringValue
+layoutCondition -> %kw_layout onlyEqualOperator stringValue
     {% ([{offset}, _, {value}]) => ({ filter: FilterType.Layout, value, offset }) %}
 
-formatCondition -> ("format" | "f") onlyEqualOperator formatValue
-    {% ([[{offset}], _, {value}]) => ({ filter: FilterType.Format, value, offset }) %}
+formatCondition -> (%kw_format | %kw_f) onlyEqualOperator stringValue
+    {% ([[filterToken], _, valueToken]) =>
+        parseEnumToken(FilterType.Format, filterToken, valueToken)
+    %}
 
-bannedCondition -> "banned" onlyEqualOperator formatValue
-    {% ([{offset}, _, {value}]) => ({ filter: FilterType.Banned, value, offset }) %}
+bannedCondition -> %kw_banned onlyEqualOperator stringValue
+    {% ([filterToken, _, valueToken]) =>
+        parseEnumToken(FilterType.Banned, filterToken, valueToken)
+    %}
 
-restrictedCondition -> "restricted" onlyEqualOperator formatValue
-    {% ([{offset}, _, {value}]) => ({ filter: FilterType.Restricted, value, offset }) %}
+restrictedCondition -> %kw_restricted onlyEqualOperator stringValue
+    {% ([filterToken, _, valueToken]) =>
+        parseEnumToken(FilterType.Restricted, filterToken, valueToken)
+    %}
 
-isCondition -> ("is" | "has") onlyEqualOperator isValue
-    {% ([[{offset}], _, {value}]) => ({ filter: FilterType.Is, value, offset }) %}
+isCondition -> (%kw_is | %kw_has) onlyEqualOperator stringValue
+    {% ([[filterToken], _, valueToken]) =>
+        parseEnumToken(FilterType.Is, filterToken, valueToken)
+    %}
 
-notCondition -> "not" onlyEqualOperator isValue
-    {% ([{offset}, _, {value}]) => ({ filter: FilterType.Not, value, offset }) %}
+notCondition -> %kw_not onlyEqualOperator stringValue
+    {% ([filterToken, _, valueToken]) =>
+        parseEnumToken(FilterType.Not, filterToken, valueToken)
+    %}
 
-printCountCondition -> "prints" anyOperator integerValue
+printCountCondition -> %kw_prints anyOperator integerValue
     {% ([{offset}, operator, {value}]) => ({ filter: FilterType.Prints, operator: operator.value, value, offset }) %}
 
-paperPrintCountCondition -> "paperprints" anyOperator integerValue
+paperPrintCountCondition -> %kw_paperprints anyOperator integerValue
     {% ([{offset}, operator, {value}]) => ({ filter: FilterType.PaperPrints, operator: operator.value, value, offset }) %}
 
-inCondition -> "in" onlyEqualOperator stringValue
+inCondition -> %kw_in onlyEqualOperator stringValue
     {% ([{offset}, _, {value}]) => ({ filter: FilterType.In, value, offset }) %}
 
 producesCondition ->
-    "produces" anyOperator producesCombinationValue
+    %kw_produces anyOperator producesCombinationValue
         {% ([{offset}, op, {value}]) => ({ filter: FilterType.ProducesSet, operator: op.value, value, offset })
     %} |
-    "produces" anyOperator integerValue
+    %kw_produces anyOperator integerValue
         {% ([{offset}, op, {value}]) => ({ filter: FilterType.ProducesInt, operator: op.value, value, offset }) %}
 
-devotionCondition -> "devotion" anyOperator devotionValue
+devotionCondition -> %kw_devotion anyOperator devotionValue
     {% ([{offset}, op, {value}]) => ({ filter: FilterType.Devotion, operator: op.value, value, offset }) %}
 
-uniqueCondition -> "unique" onlyEqualOperator ("cards" | "prints" | "art")
+uniqueCondition -> %kw_unique onlyEqualOperator (%kw_cards | %kw_prints | %kw_art)
     {% ([{offset}, _, [{value}]]) => ({ filter: FilterType.Unique, value, offset }) %} |
     "++" {% ([{offset}]) => ({ filter: FilterType.Unique, value: "prints", offset }) %} |
     "@@" {% ([{offset}]) => ({ filter: FilterType.Unique, value: "art", offset }) %}
 
-orderCondition -> "order" onlyEqualOperator orderValue
+orderCondition -> %kw_order onlyEqualOperator %order_value
     {% ([{offset}, _, [{value}]]) => ({ filter: FilterType.Order, value, offset }) %}
 
-directionCondition -> ("dir"|"direction") onlyEqualOperator (ascendingValue | descendingValue)
+directionCondition -> (%kw_dir|%kw_direction) onlyEqualOperator (ascendingValue | descendingValue)
     {% ([[{offset}], _, [value]]) => ({ filter: FilterType.Direction, value, offset }) %}
-ascendingValue -> ("asc" | "ascending") {% () => "asc" %}
-descendingValue -> ("desc" | "descending") {% () => "desc" %}
+ascendingValue -> (%kw_asc | %kw_ascending) {% () => "asc" %}
+descendingValue -> (%kw_desc | %kw_descending) {% () => "desc" %}
 
 # print-matters
-rarityCondition -> ("r" | "rarity") anyOperator rarityValue
-    {% ([[{offset}], operator, value]) => ({ filter: FilterType.Rarity, operator: operator.value, value, offset }) %}
+rarityCondition -> (%kw_r | %kw_rarity) anyOperator stringValue
+    {% ([[filterToken], operator, valueToken]) =>
+        parseEnumToken(FilterType.Rarity, filterToken, valueToken, operator)
+    %}
 
-setCondition -> ("s" | "set"| "e" | "edition") onlyEqualOperator stringValue
-    {% ([[{offset}], _, {value, type}]) => {
-        if (type === "nqstring" && value.includes(",")) {
-            return ({ filter: FilterType.Set, value: value.split(","), offset });
-        }
-
-        return ({ filter: FilterType.Set, value: [value], offset })
+setCondition -> (%kw_s | %kw_set | %kw_e | %kw_edition) onlyEqualOperator csv
+    {% ([[{offset}], _, value], _1, reject) => {
+        if (value === undefined) return reject
+        return ({ filter: FilterType.Set, value: value.map(it => it.value), offset })
      } %}
 
-setTypeCondition -> "st" onlyEqualOperator stringValue
+csv -> stringValue (%comma stringValue {% (a) => { return a[1]} %}):* {% (tokens) => {
+    const [first, rest] = tokens
+    return [first, ...rest]
+} %}
+
+setTypeCondition -> %kw_st onlyEqualOperator stringValue
     {% ([{offset}, _, {value}]) => ({ filter: FilterType.SetType, value, offset }) %}
 
-blockCondition -> ("b" | "block") onlyEqualOperator stringValue
+blockCondition -> (%kw_b | %kw_block) onlyEqualOperator stringValue
     {% ([[{offset}], _, {value}]) => ({ filter: FilterType.Block, value, offset }) %}
 
-artistCondition -> ("a" | "artist") onlyEqualOperator stringValue
+artistCondition -> (%kw_a | %kw_artist) onlyEqualOperator stringValue
     {% ([[{offset}], _, {value}]) => ({ filter: FilterType.Artist, value, offset }) %}
 
-collectorNumberCondition -> ("cn" | "number") anyOperator integerValue
+collectorNumberCondition -> (%kw_cn | %kw_number) anyOperator integerValue
     {% ([[{offset}], operator, {value}]) => ({ filter: FilterType.CollectorNumber, operator: operator.value, value, offset }) %}
 
-borderCondition -> "border" onlyEqualOperator stringValue
+borderCondition -> %kw_border onlyEqualOperator stringValue
     {% ([{offset}, _, {value}]) => ({ filter: FilterType.Border, value, offset }) %}
 
-dateCondition -> ("date" | "year") anyOperator stringValue
+dateCondition -> (%kw_date | %kw_year) anyOperator stringValue
     {% ([[{offset}], op, {value}]) => ({ filter: FilterType.Date, operator: op.value, value, offset }) %}
 
-priceCondition -> ("usd" | "eur" | "tix") anyOperator (integerValue | decimalValue)
+priceCondition -> (%kw_usd | %kw_eur | %kw_tix) anyOperator (integerValue | decimalValue)
     {% ([[unit], op, [{value}]]) => ({
         filter: FilterType.Price, unit: unit.value, operator: op.value, value, offset: unit.offset
     }) %}
 
-frameCondition -> "frame" onlyEqualOperator stringValue
+frameCondition -> %kw_frame onlyEqualOperator stringValue
     {% ([{offset}, _, {value}]) => ({ filter: FilterType.Frame, value, offset }) %}
 
 flavorCondition -> flavorFilter onlyEqualOperator stringValue
@@ -315,57 +329,61 @@ flavorRegexCondition -> flavorFilter onlyEqualOperator regexString
     {% ([{offset}, _, {value}]) => ({ filter: FilterType.FlavorRegex, value, offset }) %}
 flavorCountCondition -> flavorFilter anyOperator integerValue
     {% ([{offset}, op, {value}]) => ({ filter: FilterType.FlavorCount, value, operator: op.value, offset }) %}
-flavorFilter -> ("flavor" | "ft") {% ([[token]]) => token %}
+flavorFilter -> (%kw_flavor | %kw_ft) {% ([[token]]) => token %}
 
-gameCondition -> "game" onlyEqualOperator stringValue
+gameCondition -> %kw_game onlyEqualOperator stringValue
     {% ([{offset}, _, {value}]) => ({ filter: FilterType.Game, value, offset }) %}
 
-languageCondition -> ("lang" | "language") onlyEqualOperator stringValue
+languageCondition -> (%kw_lang | %kw_language) onlyEqualOperator stringValue
     {% ([[{offset}], _, {value}]) => ({ filter: FilterType.Language, value, offset }) %}
 
-stampCondition -> "stamp" onlyEqualOperator stringValue
+stampCondition -> %kw_stamp onlyEqualOperator stringValue
     {% ([{offset}, _, {value}]) => ({ filter: FilterType.Stamp, value, offset }) %}
 
-watermarkCondition -> ("wm" | "watermark") onlyEqualOperator stringValue
+watermarkCondition -> (%kw_wm | %kw_watermark) onlyEqualOperator stringValue
     {% ([[{offset}], _, {value}]) => ({ filter: FilterType.Watermark, value, offset }) %}
 
-newCondition -> "new" onlyEqualOperator newValue
-    {% ([{offset}, _, {value}]) => ({ filter: FilterType.New, value, offset }) %}
+newCondition -> %kw_new onlyEqualOperator stringValue
+    {% ([filterToken, _, valueToken]) =>
+        parseEnumToken(FilterType.New, filterToken, valueToken)
+    %}
 
-preferCondition -> "prefer" onlyEqualOperator preferValue
-    {% ([{offset}, _, {value}]) => ({ filter: FilterType.Prefer, value, offset }) %}
+preferCondition -> %kw_prefer onlyEqualOperator stringValue
+    {% ([filterToken, _, valueToken]) =>
+        parseEnumToken(FilterType.Prefer, filterToken, valueToken)
+    %}
 
-cubeOracleCondition -> ("cube" | "ctag" | "list") ":" cubeValue
+cubeOracleCondition -> (%kw_cube | %kw_ctag | %kw_list) ":" cubeValue
     {% ([[{offset}], _, {value}]) => ({ filter: FilterType.CubeOracle, value, offset }) %}
 
-cubePrintCondition -> ("cube" | "ctag" | "list") "=" cubeValue
+cubePrintCondition -> (%kw_cube | %kw_ctag | %kw_list) "=" cubeValue
     {% ([[{offset}], _, {value}]) => ({ filter: FilterType.CubePrints, value, offset }) %}
 
-oracleTagCondition -> ("function" | "oracletag" | "otag") onlyEqualOperator stringValue
+oracleTagCondition -> (%kw_function | %kw_oracletag | %kw_otag) onlyEqualOperator stringValue
     {% ([[{offset}], _, {value}]) => ({ filter: FilterType.OracleTag, value, offset }) %}
 
-artTagCondition -> ("art" | "arttag" | "atag") onlyEqualOperator stringValue
+artTagCondition -> (%kw_art | %kw_arttag | %kw_atag) onlyEqualOperator stringValue
     {% ([[{offset}], _, {value}]) => ({ filter: FilterType.IllustrationTag, value, offset }) %}
 
-collectionCondition -> "collection" onlyEqualOperator stringValue
+collectionCondition -> %kw_collection onlyEqualOperator stringValue
     {% ([{offset}, _, {value}]) => ({ filter: FilterType.Collection, value, offset }) %}
 
-scryfallIdCondition -> "scryfallid" onlyEqualOperator stringValue
+scryfallIdCondition -> %kw_scryfallid onlyEqualOperator stringValue
     {% ([{offset}, _, {value}]) => ({ filter: FilterType.ScryfallId, value, offset }) %}
 
-oracleIdCondition -> "oracleid" onlyEqualOperator stringValue
+oracleIdCondition -> %kw_oracleid onlyEqualOperator stringValue
     {% ([{offset}, _, {value}]) => ({ filter: FilterType.OracleId, value, offset }) %}
 
-limitCondition -> ("lim" | "limit")  onlyEqualOperator integerValue
+limitCondition -> (%kw_lim | %kw_limit)  onlyEqualOperator integerValue
     {% ([{offset}, _, {value}]) => ({ filter: FilterType.Limit, value, offset }) %}
 
 # Values
-stringValue -> (noQuoteStringValue | %dqstring | %sqstring) {% ([[token]]) => {
+stringValue -> (noQuoteString | %dqstring | %sqstring) {% ([[token]]) => {
     const { value, ...rest } = token
     return { value: value.toLowerCase(), ...rest }
 }%}
 
-cubeValue -> (noQuoteStringValue | %dqstring | %sqstring) {% ([[token]]) => token %}
+cubeValue -> (noQuoteString | %dqstring | %sqstring) {% ([[token]]) => token %}
 
 regexString -> %regex {% function([token]) {
     const { value, ...rest } = token
@@ -380,110 +398,53 @@ integerValue -> %integer {% ([token]) => ({ ...token, value: Number.parseInt(tok
 
 decimalValue -> %decimal {% ([token]) => ({ ...token, value: Number.parseFloat(token.value) }) %}
 
-formatValue -> (
-    "standard" | "future" | "historic" | "pioneer" | "modern" | "legacy" | "paupercommander" |
-    "pauper" |"vintage" | "penny" | "commander" | "brawl" | "duel" | "oldschool" | "timeless"
-) {% ([[format]]) => format %}
+noQuoteString -> [a-zA-z0-9\-]:+ {% ([[token]], _, reject) => {
+    const rejectTypes = ["bool", "regex", "dqstring", "rparen", "lparen", "identity"]
+        if (rejectTypes.includes(token.type)) {
+            return reject;
+        }
 
-isValue -> (
-    "gold" | "twobrid" | "hybrid" | "phyrexian" | "promo" | "reprint" | "firstprint" | "firstprinting" | "digital"
-  | "dfc" | "mdfc" |"tdfc" | "extra"
-  | "meld" | "transform" | "split" | "flip" | "leveler" | "commander" | "spell" | "permanent" | "historic"
-  | "vanilla" | "modal" | "fullart" | "foil" | "nonfoil" | "etched" | "token"
-  | "bikeland" | "cycleland" | "bicycleland" | "bounceland" | "karoo" | "canopyland" | "canland" | "fetchland"
-  | "checkland" | "dual" | "fastland" | "filterland" | "gainland" | "painland" | "scryland" | "shadowland" | "snarl"
-  | "slowland" | "shockland" | "storageland" | "creatureland" | "manland"
-  | "triland" | "triome" | "trikeland" | "tricycleland"
-  | "tangoland" | "battleland" | "bondland"
-  # pulled these from advanced tab in scryfall
-  | "adventure" | "arenaid" | "artseries" | "artist" | "artistmisprint" | "belzenlok"
-  | "lights" | "augmentation" | "back" | "bear" | "booster" | "brawlcommander" | "buyabox"
-  | "cardmarket" | "class" | "ci" | "colorshifted" | "companion" | "contentwarning"
-  | "covered" | "doublesided" | "duelcommander" | "etb"
-  | "englishart" | "etch" | "extended" | "flavorname" | "flavor"
-  | "fbb" | "fwb" | "frenchvanilla" | "funny" | "future"
-  | "hires" | "splitmana" | "llustration" | "ntropack" | "nvitational" | "setextension"
-  | "localizedname" | "mtgoid" | "masterpiece"
-  | "modern" | "multiverse" | "new" | "oathbreaker" | "old" | "oversized" | "paperart"
-  | "party" | "phyrexia" | "planar" | "printedtext"
-  | "related" | "reserved" | "reversible" | "stamp" | "showcase" | "serialized"
-  | "spellbook" | "spikey" | "stamped" | "story" | "tcgplayer" | "textless"
-  | "tombstone" | "onlyprint" | "variation" | "watermark" | "ub" | "unique" | "placeholderimage"
-  | "outlaw" | "mb1" | "fmb1" | "pagl" | "phed" | "pctb"
-  # promo_types
-  | "halo"
-  | "poster" | "scroll" | "boosterfun" | "brawldeck" | "rebalanced"
-  | "duels" | "embossed" | "moonlitland" | "openhouse" | "boxtopper" | "promopack"
-  | "gilded" | "playpromo" | "setpromo" | "fnm" | "mediainsert" | "wizardsplaynetwork" | "bundle" | "concept" | "halofoil"
-  | "godzillaseries" | "neonink" | "instore" | "arenaleague" | "starterdeck" | "confettifoil" | "textured"
-  | "convention" | "themepack" | "commanderparty" | "bringafriend" | "plastic" | "alchemy" | "gameday" | "intropack"
-  | "draculaseries" | "silverfoil" | "datestamped" | "league" | "doublerainbow" | "release" | "draftweekend" | "event" | "surgefoil"
-  | "schinesealtart" | "playerrewards" | "storechampionship" | "giftbox" | "galaxyfoil" | "glossy" | "stepandcompleat" | "oilslick"
-  | "tourney" | "premiereshop" | "judgegift" | "thick" | "jpwalker" | "prerelease" | "planeswalkerdeck"
-  | "upsidedown" | "upsidedownback" | "playtest" | "imagine"
-  # non-scryfall filters
-  | "star" | "custom" | "deciduous"
-) {% ([[category]]) => category %}
-
-# This somehow picks up restricted!=vintage
-noQuoteStringValue ->
-  ("a" | "an" | "o") {% ([[token]]) => token %}
-  | ([^aAoO\- \t\n"'\\\/=<>:!\+@]
-    | "a" [^nN \t\n"'\\=<>:]
-    | "an" [^dD \t\n"'\\=<>:]
-    | "and" [^ \t\n"'\\=<>:]
-    | "o" [^rR \t\n"'\\=<>:]
-    | "or" [^ \t\n"'\\=<>:]
-    ) [^ \t\n"'\\=<>:]:* {% ([startChars, chars], _, reject) => {
-    // hack: The lexer causes "or" to get picked up as a name search
-    // todo: rework noQuoteString to play more nicely with lexer
-    const allChars = startChars.concat(chars)
-    const rejectTypes = ["bool", "regex", "operator", "dqstring", "rparen", "lparen", "identity"]
-    if (allChars.find(it => rejectTypes.includes(it.type))) {
-        return reject;
-    }
-    const value = allChars.map(it=>it.text).join("");
-    return { value, offset: startChars[0]?.offset ?? -1, type: "nqstring" }
-} %}
+    return {...token, type: "nqstring"}
+}%}
 
 # we never need offset from this
 colorCombinationKeyword ->
-    "white" {% () => ['w'] %}
-  | "blue" {% () => ['u'] %}
-  | "black" {% () => ['b'] %}
-  | "red" {% () => ['r'] %}
-  | "green" {% () => ['g'] %}
-  | ("azorius")  {% () => ['w', 'u'] %}
-  | ("dimir")  {% () => ['u', 'b'] %}
-  | ("rakdos")  {% () => ['b', 'r'] %}
-  | ("gruul")  {% () => ['r', 'g'] %}
-  | ("selesnya")  {% () => ['g', 'w'] %}
-  | ("silverquill" | "orzhov")  {% () => ['w', 'b'] %}
-  | ("prismari" | "izzet")  {% () => ['u', 'r'] %}
-  | ("witherbloom" | "golgari")  {% () => ['b', 'g'] %}
-  | ("lorehold" | "boros")  {% () => ['w', 'r'] %}
-  | ("quandrix" | "simic")  {% () => ['u', 'g'] %}
-  | ("brokers" | "bant")  {% () => ['w', 'u', 'g'] %}
-  | ("obscura" | "esper")  {% () => ['w', 'u', 'b'] %}
-  | ("maestros" | "grixis")  {% () => ['u', 'b', 'r'] %}
-  | ("riveteers" | "jund")  {% () => ['b', 'r', 'g'] %}
-  | ("cabaretti" | "naya")  {% () => ['w', 'r', 'g'] %}
-  | ("savai" | "dega" | "mardu")  {% () => ['w', 'b', 'r'] %}
-  | ("ketria" | "ceta" | "temur")  {% () => ['u', 'r', 'g'] %}
-  | ("indatha" | "necra" | "abzan")  {% () => ['w', 'b', 'g'] %}
-  | ("raugrin" | "raka" | "jeskai")  {% () => ['w', 'u', 'r'] %}
-  | ("zagoth" | "ana" | "sultai")  {% () => ['u', 'b', 'g'] %}
-  | "chaos" {% () => ['b','g','r','u'] %}
-  | "aggression" {% () => ['b','g','r','w'] %}
-  | "altruism" {% () => ['w','g','r','u'] %}
-  | "growth" {% () => ['b','g','w','u'] %}
-  | "artifice" {% () => ['b','w','r','u'] %}
-  | ("rainbow" | "fivecolor")  {% () => ['w', 'u', 'b', 'r', 'g'] %}
+    %color_white {% () => ['w'] %}
+  | %color_blue {% () => ['u'] %}
+  | %color_black {% () => ['b'] %}
+  | %color_red {% () => ['r'] %}
+  | %color_green {% () => ['g'] %}
+  | (%color_azorius)  {% () => ['w', 'u'] %}
+  | (%color_dimir)  {% () => ['u', 'b'] %}
+  | (%color_rakdos)  {% () => ['b', 'r'] %}
+  | (%color_gruul)  {% () => ['r', 'g'] %}
+  | (%color_selesnya)  {% () => ['g', 'w'] %}
+  | (%color_silverquill | %color_orzhov)  {% () => ['w', 'b'] %}
+  | (%color_prismari | %color_izzet)  {% () => ['u', 'r'] %}
+  | (%color_witherbloom | %color_golgari)  {% () => ['b', 'g'] %}
+  | (%color_lorehold | %color_boros)  {% () => ['w', 'r'] %}
+  | (%color_quandrix | %color_simic)  {% () => ['u', 'g'] %}
+  | (%color_brokers | %color_bant)  {% () => ['w', 'u', 'g'] %}
+  | (%color_obscura | %color_esper)  {% () => ['w', 'u', 'b'] %}
+  | (%color_maestros | %color_grixis)  {% () => ['u', 'b', 'r'] %}
+  | (%color_riveteers | %color_jund)  {% () => ['b', 'r', 'g'] %}
+  | (%color_cabaretti | %color_naya)  {% () => ['w', 'r', 'g'] %}
+  | (%color_savai | %color_dega | %color_mardu)  {% () => ['w', 'b', 'r'] %}
+  | (%color_ketria | %color_ceta | %color_temur)  {% () => ['u', 'r', 'g'] %}
+  | (%color_indatha | %color_necra | %color_abzan)  {% () => ['w', 'b', 'g'] %}
+  | (%color_raugrin | %color_raka | %color_jeskai)  {% () => ['w', 'u', 'r'] %}
+  | (%color_zagoth | %color_ana | %color_sultai)  {% () => ['u', 'b', 'g'] %}
+  | %color_chaos {% () => ['b','g','r','u'] %}
+  | %color_aggression {% () => ['b','g','r','w'] %}
+  | %color_altruism {% () => ['w','g','r','u'] %}
+  | %color_growth {% () => ['b','g','w','u'] %}
+  | %color_artifice {% () => ['b','w','r','u'] %}
+  | (%color_rainbow | %color_fivecolor)  {% () => ['w', 'u', 'b', 'r', 'g'] %}
 
 colorCombinationValue ->
-    ("c" | "brown" | "colorless")  {% ([[token]]) => ({ value: [], offset: token.offset }) %}
+    ("c" | "C" | %color_brown | %color_colorless)  {% ([[token]]) => ({ value: [], offset: token.offset }) %}
   | colorCombinationKeyword {% ([value]) => ({ value }) %}
-  | noQuoteStringValue {% ([token], _, reject) => {
+  | noQuoteString {% ([token], _, reject) => {
     if (/[^wubrg]/.test(token.value)) {
         return reject
     }
@@ -491,10 +452,10 @@ colorCombinationValue ->
   } %}
 
 producesCombinationValue ->
-    ("brown" | "colorless") {% ([[token]]) => ({ value: ['c'], offset: token.offset }) %}
+    (%color_brown | %color_colorless) {% ([[token]]) => ({ value: ['c'], offset: token.offset }) %}
   | colorCombinationKeyword {% ([value]) => ({ value }) %}
-  | noQuoteStringValue {% ([token], _, reject) => {
-      if (/[^wubrgc]/.test(token.value)) {
+  | noQuoteString {% ([token], _, reject) => {
+      if (/[^wubrgcWUBRGC]/.test(token.value)) {
           return reject
       }
       return { value: token.value.split(""), offset: token.offset }
@@ -506,7 +467,7 @@ manaCostValue -> manaSymbol:+ {% ([symbols]) => ({
     value: symbols.map(it => it.value),
     offset: symbols[0].offset
 }) %} |
- noQuoteStringValue {% ([token], _, reject) => {
+ noQuoteString {% ([token], _, reject) => {
     if (/[^0-9xyzwubrgsc]/.test(token.value)) {
         return reject
     }
@@ -529,26 +490,3 @@ innerManaSymbol -> [0-9]:+ {% ([digits]) => digits.join('') %}
     ) {% ([[color, , [secondColor]]]) => color + "/" + secondColor %}
 
 purebredSymbol -> ("x" | "y" | "z" | "w" | "u" | "b" | "r" | "g" | "s" | "c")  {% id %}
-
-rarityValue ->
-    ("b" | "bonus")  {% () => "bonus" %} |
-    ("m" | "mythic")  {% () => "mythic" %} |
-    ("s" | "special")  {% () => "special" %} |
-    ("r" | "rare")  {% () => "rare" %} |
-    ("u" | "uncommon")  {% () => "uncommon" %} |
-    ("c" | "common")  {% () => "common" %}
-
-orderValue -> ("artist" | orderMv | "power" | "toughness" | "set" | "name" | "usd" | "tix" | "eur" | "rarity" | "color" | "released" | "spoiled" | "edhrec" | "penny" | "review"
-# non-scryfall
-| "wc" | "fwc" | "random")
-    {% id %}
-
-orderMv -> ("cmc" | "mv") {% ([token]) => {
-    return { ...token, value: "cmc" }
-} %}
-
-
-newValue -> ("rarity" | "flavor" | "art" | "artist" | "frame" | "language" | "game" | "paper" | "mtgo" | "arena" | "nonfoil" | "foil")
- {% ([[it]]) => it %}
-
-preferValue -> ("oldest" | "newest" | "usd-low" | "usd-high" | "eur-low" | "eur-high" | "tix-low" | "tix-high") {% ([[it]]) => it %}
