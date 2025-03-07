@@ -63,12 +63,18 @@ export class QueryRunner {
         const uniqueParses = new Set(parser.results.map(it => JSON.stringify(it)))
         if (uniqueParses.size > 1) {
           console.warn('ambiguous parse!')
+          return Promise.reject({
+            query,
+            errorOffset: 0,
+            message: "ambiguous parse! This indicates a bug in the parser, not in your search query.",
+            type: "internal"
+          })
         }
       } else if (parser.results.length === 1) {
         console.debug(parser.results[0])
       } else {
         const baseMessage = "Parser could not recognize your query."
-        const endsWithOperator = /(|!=|<>|<=|>=|[<>≥:=≤])$/.test(query)
+        const endsWithOperator = /(!=|<>|<=|>=|[<>≥:=≤])$/.test(query)
         return Promise.reject({
           query,
           errorOffset: endsWithOperator ? query.length - 1 : 0,

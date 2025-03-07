@@ -114,11 +114,16 @@ cmcCondition ->
 cmcFilter -> (%kw_manavalue | %kw_mv | %kw_cmc) {% ([[token]]) => token %}
 
 exactNameCondition -> "!":? stringValue
-    {% ([op, string]) => ({
-        filter: op ? FilterType.NameExact : FilterType.Name,
-        value: string.value,
-        offset: op ? op.offset : string.offset
-    }) %}
+    {% ([op, string], _, reject) => {
+        if (!op && (string.value === "and" || string.value === "or")) {
+            return reject;
+        }
+        return ({
+            filter: op ? FilterType.NameExact : FilterType.Name,
+            value: string.value,
+            offset: op ? op.offset : string.offset
+        })
+    } %}
 
 nameCondition -> %kw_name onlyEqualOperator stringValue
     {% ([{offset}, _, {value}]) => ({ filter: FilterType.Name, value, offset }) %}

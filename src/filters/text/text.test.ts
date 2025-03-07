@@ -37,6 +37,20 @@ describe('text filters', function() {
 
       expect(result).toEqual([spinerockKnoll.name])
     })
+    it("shouldn't do a name search for a keywordless 'or' string", async () => {
+      const result = await searchNames(queryRunner, "* (st:core or st:expansion or st:masters)")
+
+      expect(result).toEqual([
+        "Ancient Stirrings",
+        "A-Symmetry Sage",
+        "Concordant Crossroads",
+        "Embereth Shieldbreaker // Battle Display",
+        "Phyrexian Walker",
+        "Preordain",
+        "Ramunap Ruins",
+        "Seaside Haven",
+      ])
+    })
   })
   describe('exact name filter', function() {
     it("should do a name search when no keyword is present", async () => {
