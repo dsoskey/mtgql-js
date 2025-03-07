@@ -4,6 +4,7 @@ import {NEW_VALUES} from "../filters/new";
 import {PREFER_VALUES} from "../filters/print";
 import {FORMATS} from "../filters/format";
 import {IS_VALUES} from "./card";
+import {SORT_ORDERS} from "../filters/order/order";
 
 export const FILTER_KEYWORDS = {
   '!': '!',
@@ -203,7 +204,7 @@ export const FILTERTYPE_REPR: Record<FilterType, FilterTypeRepr> = {
   [FilterType.ProducesInt]: { name: "produces", validValues: [] },
   [FilterType.Devotion]: { name: "devotion", validValues: [] },
   [FilterType.Unique]: { name: "unique", validValues: [] },
-  [FilterType.Order]: { name: "order", validValues: [] },
+  [FilterType.Order]: { name: "order", validValues: Object.keys(SORT_ORDERS) },
   [FilterType.Direction]: { name: "direction", validValues: [] },
   [FilterType.Rarity]: { name: "rarity", validValues: RARITY_VALUES, aliasValues: RARITY_ALIAS },
   [FilterType.Set]: { name: "set", validValues: [] },

@@ -1,6 +1,6 @@
-import { ObjectValues } from '../types/common'
-import {noReminderText, parsePowTou} from '../types'
-import { Card, Rarity } from '../generated'
+import { ObjectValues } from '../../types/common'
+import {noReminderText, parsePowTou} from '../../types'
+import { Card, Rarity } from '../../generated'
 
 const SCRYFALL_SORT_ORDERS = {
   artist: 'artist',
@@ -72,8 +72,9 @@ export class SortFunctions {
         return [SortFunctions.byName]
       case 'artist':
       case 'cmc':
-      case "mv":
         return [key]
+      case "mv":
+        return ["cmc"]
       case 'set':
         return ['set', SortFunctions.byCollectorNumber]
       case 'spoiled':

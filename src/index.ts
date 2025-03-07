@@ -30,8 +30,8 @@ export type { Filter, FilterNode } from './filters/base';
 export { OPERATORS, not, identityNode } from './filters/base';
 export type { DataProvider } from './filters/dataProvider'
 export { isOracleVal } from './filters/is';
-export type { SortOrder } from "./filters/sort"
-export { SortFunctions } from './filters/sort';
+export type { SortOrder } from "./filters/order"
+export { SortFunctions } from './filters/order';
 
 export { buildLexer } from './lexer';
 

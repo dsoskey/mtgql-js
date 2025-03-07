@@ -3,7 +3,7 @@ import {AstNode, NearlyError, normCardList, NormedCard, SearchOptions,} from './
 import {Card} from './generated'
 import {CachingFilterProvider, FilterProvider} from './filters'
 import {chooseFilterFunc} from './filters/print'
-import {SortFunctions, SortOrder} from './filters/sort'
+import {SortFunctions, SortOrder} from './filters/order'
 import sortBy from 'lodash/sortBy'
 import {MQLParser} from './mql'
 import {DataProvider} from './filters/dataProvider'

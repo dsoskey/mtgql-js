@@ -266,8 +266,10 @@ uniqueCondition -> %kw_unique onlyEqualOperator (%kw_cards | %kw_prints | %kw_ar
     "++" {% ([{offset}]) => ({ filter: FilterType.Unique, value: "prints", offset }) %} |
     "@@" {% ([{offset}]) => ({ filter: FilterType.Unique, value: "art", offset }) %}
 
-orderCondition -> %kw_order onlyEqualOperator %order_value
-    {% ([{offset}, _, [{value}]]) => ({ filter: FilterType.Order, value, offset }) %}
+orderCondition -> %kw_order onlyEqualOperator stringValue
+    {% ([filterToken, _, valueToken]) =>
+        parseEnumToken(FilterType.Order, filterToken, valueToken)
+    %}
 
 directionCondition -> (%kw_dir|%kw_direction) onlyEqualOperator (ascendingValue | descendingValue)
     {% ([[{offset}], _, [value]]) => ({ filter: FilterType.Direction, value, offset }) %}
