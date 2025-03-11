@@ -66,6 +66,8 @@ condition -> (
     notCondition |
     printCountCondition |
     paperPrintCountCondition |
+    setCountCondition |
+    paperSetCountCondition |
     inCondition |
     rarityCondition |
     setCondition |
@@ -99,7 +101,8 @@ condition -> (
     collectionCondition |
     scryfallIdCondition |
     oracleIdCondition |
-    limitCondition
+    limitCondition |
+    loreCondition
 ) {% ([[condition]]) => condition %}
 
 identityCondition -> %identity {% ([{offset}]) => ({ filter: FilterType.Identity, offset }) %}
@@ -253,6 +256,13 @@ printCountCondition -> %kw_prints anyOperator integerValue
 paperPrintCountCondition -> %kw_paperprints anyOperator integerValue
     {% ([{offset}, operator, {value}]) => ({ filter: FilterType.PaperPrints, operator: operator.value, value, offset }) %}
 
+setCountCondition -> %kw_sets anyOperator integerValue
+    {% ([{offset}, operator, {value}]) => ({ filter: FilterType.Sets, operator: operator.value, value, offset }) %}
+
+paperSetCountCondition -> %kw_papersets anyOperator integerValue
+    {% ([{offset}, operator, {value}]) => ({ filter: FilterType.PaperSets, operator: operator.value, value, offset }) %}
+
+
 inCondition -> %kw_in onlyEqualOperator stringValue
     {% ([{offset}, _, {value}]) => ({ filter: FilterType.In, value, offset }) %}
 
@@ -298,8 +308,8 @@ csv -> stringValue (%comma stringValue {% (a) => { return a[1]} %}):* {% (tokens
     return [first, ...rest]
 } %}
 
-setTypeCondition -> %kw_st onlyEqualOperator stringValue
-    {% ([{offset}, _, {value}]) => ({ filter: FilterType.SetType, value, offset }) %}
+setTypeCondition -> (%kw_st | %kw_settype) onlyEqualOperator stringValue
+    {% ([[{offset}], _, {value}]) => ({ filter: FilterType.SetType, value, offset }) %}
 
 blockCondition -> (%kw_b | %kw_block) onlyEqualOperator stringValue
     {% ([[{offset}], _, {value}]) => ({ filter: FilterType.Block, value, offset }) %}
@@ -337,6 +347,9 @@ flavorRegexCondition -> flavorFilter onlyEqualOperator regexString
 flavorCountCondition -> flavorFilter anyOperator integerValue
     {% ([{offset}, op, {value}]) => ({ filter: FilterType.FlavorCount, value, operator: op.value, offset }) %}
 flavorFilter -> (%kw_flavor | %kw_ft) {% ([[token]]) => token %}
+
+loreCondition -> %kw_lore onlyEqualOperator stringValue
+    {% ([{offset}, _, {value}]) => ({ filter: FilterType.Lore, value, offset }) %}
 
 gameCondition -> %kw_game onlyEqualOperator stringValue
     {% ([{offset}, _, {value}]) => ({ filter: FilterType.Game, value, offset }) %}

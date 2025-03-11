@@ -52,7 +52,8 @@ export const PREFER_VALUES = [
     "eur-low",
     "eur-high",
     "tix-low",
-    "tix-high"
+    "tix-high",
+    "promo"
 ]
 
 export const findPrinting = (prefer?: string) =>

@@ -33,21 +33,12 @@ import { borderNode } from './border'
 import { collectorNumberNode } from './collectorNumber'
 import { oddEvenFilter } from './manavalue'
 import { nameFilter } from './name'
-import { paperPrintCount, printCountFilter } from './printCount'
+import { paperPrintCount, paperSetCount, printCountFilter, setCountFilter } from './printCount'
 import { oracleNode } from './oracle'
 import { printNode } from './print'
 import { DataProvider } from './dataProvider'
 import { newFilter } from './new'
-import {
-  AstLeaf,
-  AstNode,
-  BinaryNode,
-  Block,
-  FilterType,
-  noReminderText,
-  NormedCard,
-  UnaryNode
-} from '../types'
+import { AstLeaf, AstNode, BinaryNode, Block, FilterType, noReminderText, NormedCard, UnaryNode } from '../types'
 import {CardSet, Legality} from "../generated";
 import {oracleIdNode, scryfallIdNode} from "./id";
 
@@ -317,6 +308,10 @@ export class CachingFilterProvider implements FilterProvider {
           return paperPrintCount(leaf.operator!, leaf.value)
         case FilterType.Prints:
           return printCountFilter(leaf.operator!, leaf.value)
+        case FilterType.Sets:
+          return setCountFilter(leaf.operator!, leaf.value)
+        case FilterType.PaperSets:
+          return paperSetCount(leaf.operator!, leaf.value)
         case FilterType.In:
           return inFilter(leaf.value)
         case FilterType.ProducesSet:
@@ -435,6 +430,15 @@ export class CachingFilterProvider implements FilterProvider {
             ...identityNode(),
             filtersUsed: [`limit:${leaf.value}`]
           }
+        case FilterType.Lore:
+          const hasName = textMatch("name", leaf.value)
+          const hasType = textMatch("type_line", leaf.value)
+          const hasText = noReminderTextMatch("oracle_text", leaf.value)
+          return printNode(['lore'], ({ printing, card }) =>
+              hasName(card) || hasText(card) || hasType(card) ||
+              printing.flavor_text?.includes(leaf.value) ||
+              printing.flavor_name?.includes(leaf.value)
+          )
       }
       // Unwrap promised FilterNodes to enrich errors with leaf.offset.
       return await promisedNode

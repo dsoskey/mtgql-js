@@ -144,6 +144,7 @@
             "items": { "$ref": "#/components/schemas/ProducedColor" }
           },
           "reserved": { "type": "boolean" },
+          "game_changer": { "type": "boolean" },
           "toughness": { "type": "string" },
           "type_line": { "type": "string" },
           "artist": { "type": "string" },

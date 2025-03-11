@@ -4,7 +4,7 @@ import {NEW_VALUES} from "../filters/new";
 import {PREFER_VALUES} from "../filters/print";
 import {FORMATS} from "../filters/format";
 import {IS_VALUES} from "./card";
-import {SORT_ORDERS} from "../filters/order/order";
+import {SORT_ORDERS} from "../filters/order";
 
 export const FILTER_KEYWORDS = {
   '!': '!',
@@ -46,7 +46,8 @@ export const FILTER_KEYWORDS = {
   order: 'order',
   r: 'r', rarity: 'rarity',
   restricted: 'restricted',
-  st: 'st',
+  st: 'st', settype: 'settype',
+  lore: "lore",
   stamp: 'stamp',
   t: 't', type: 'type',
   text: 'text',
@@ -65,6 +66,8 @@ export const FILTER_KEYWORDS = {
   // Requires set data
   b: 'b', block: 'block',
   paperprints: 'paperprints',
+  papersets: 'papersets',
+  sets: 'sets',
   scryfallid: "scryfallid",
   oracleid: "oracleid",
   // mtgql exclusive
@@ -120,6 +123,8 @@ export enum FilterType {
   Not,
   Prints,
   PaperPrints,
+  Sets,
+  PaperSets,
   In,
   ProducesSet,
   ProducesInt,
@@ -154,7 +159,8 @@ export enum FilterType {
   ScryfallId,
   OracleId,
   Identity,
-  Limit
+  Limit,
+  Lore
 }
 
 interface FilterTypeRepr {
@@ -197,8 +203,10 @@ export const FILTERTYPE_REPR: Record<FilterType, FilterTypeRepr> = {
   [FilterType.Restricted]: { name: "restricted", validValues: FORMATS },
   [FilterType.Is]: { name: "is", validValues: IS_VALUES },
   [FilterType.Not]: { name: "not", validValues: IS_VALUES },
-  [FilterType.Prints]: { name: "prints", validValues: [] },
-  [FilterType.PaperPrints]: { name: "paper prints", validValues: [] },
+  [FilterType.Prints]: { name: "print count", validValues: [] },
+  [FilterType.PaperPrints]: { name: "paper print count", validValues: [] },
+  [FilterType.Sets]: { name: "set count", validValues: [] },
+  [FilterType.PaperSets]: { name: "paper set count", validValues: [] },
   [FilterType.In]: { name: "in", validValues: [] },
   [FilterType.ProducesSet]: { name: "produces", validValues: [] },
   [FilterType.ProducesInt]: { name: "produces", validValues: [] },
@@ -234,4 +242,5 @@ export const FILTERTYPE_REPR: Record<FilterType, FilterTypeRepr> = {
   [FilterType.OracleId]: { name: "oracle-id", validValues: [] },
   [FilterType.Identity]: { name: "all", validValues: [] },
   [FilterType.Limit]: { name: "limit", validValues: [] },
+  [FilterType.Lore]: { name: "lore", validValues: [] },
 }

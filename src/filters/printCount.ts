@@ -18,3 +18,21 @@ export const paperPrintCount = (operator: Operator, count: number) : FilterNode 
     }
   })
 }
+
+export const setCountFilter = (operator: Operator, count: number): FilterNode => {
+  return oracleNode({
+    filtersUsed: ['sets'],
+    filterFunc: (card) => {
+      return defaultCompare(new Set(card.printings.map(it => it.set)).size, operator, count)
+    }
+  })
+}
+
+export const paperSetCount = (operator: Operator, count: number) : FilterNode => {
+  return oracleNode({
+    filtersUsed: ['papersets'],
+    filterFunc: (card) => {
+      return defaultCompare(new Set(card.printings.filter(it => !it.digital).map(it => it.set)).size, operator, count)
+    }
+  })
+}

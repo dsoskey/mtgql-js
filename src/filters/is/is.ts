@@ -642,6 +642,9 @@ export const isOracleVal = (value: IsValue) => (card: NormedCard): boolean => {
         card.layout === 'planar' ||
         card.type_line?.includes("Vanguard") ||
         card.type_line?.includes("Scheme")
+    case "gamechanger":
+    case "game_changer":
+      return !!card.game_changer
     // not found on/derived from card json
     case 'frenchvanilla': // this is gonna be a big parse :(((((((((((((((((((((
     case 'spikey':
