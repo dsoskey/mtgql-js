@@ -90,6 +90,11 @@ describe('order', () => {
 
         expect(result).toEqual([ancientStirrings.name, adantoVanguard.name, birdsOfParadise.name])
     })
+    it("handles dir:ascending", async () => {
+        const result = await searchNames(queryRunner, "* order:edhrec dir:asc");
+
+        expect(result).toEqual([birdsOfParadise.name, adantoVanguard.name, ancientStirrings.name])
+    })
 
     it("handles order:set", async () => {
         const result = await searchNames(queryRunner, "* order:set");

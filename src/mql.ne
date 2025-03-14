@@ -288,8 +288,8 @@ orderCondition -> %kw_order onlyEqualOperator stringValue
 
 directionCondition -> (%kw_dir|%kw_direction) onlyEqualOperator (ascendingValue | descendingValue)
     {% ([[{offset}], _, [value]]) => ({ filter: FilterType.Direction, value, offset }) %}
-ascendingValue -> (%kw_asc | %kw_ascending) {% () => "asc" %}
-descendingValue -> (%kw_desc | %kw_descending) {% () => "desc" %}
+ascendingValue -> (%dir_asc | %dir_ascending) {% () => "asc" %}
+descendingValue -> (%dir_desc | %dir_descending) {% () => "desc" %}
 
 # print-matters
 rarityCondition -> (%kw_r | %kw_rarity) anyOperator stringValue
