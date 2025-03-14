@@ -5,6 +5,7 @@ import {PREFER_VALUES} from "../filters/print";
 import {FORMATS} from "../filters/format";
 import {IS_VALUES} from "./card";
 import {SORT_ORDERS} from "../filters/order";
+import {LANGUAGE_ALIASES, LANGUAGES} from "../filters/language";
 
 export const FILTER_KEYWORDS = {
   '!': '!',
@@ -227,7 +228,7 @@ export const FILTERTYPE_REPR: Record<FilterType, FilterTypeRepr> = {
   [FilterType.FlavorRegex]: { name: "flavor text", validValues: [] },
   [FilterType.FlavorCount]: { name: "flavor text", validValues: [] },
   [FilterType.Game]: { name: "game", validValues: [] },
-  [FilterType.Language]: { name: "language", validValues: [] },
+  [FilterType.Language]: { name: "language", validValues: LANGUAGES, aliasValues: LANGUAGE_ALIASES },
   [FilterType.Stamp]: { name: "stamp", validValues: [] },
   [FilterType.Watermark]: { name: "watermark", validValues: [] },
   [FilterType.CubeOracle]: { name: "cube cards", validValues: [] },

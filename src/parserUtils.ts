@@ -8,7 +8,7 @@ export function parseEnumToken(
 ): AstLeaf {
     const {value} = valueToken;
     const typeRepr = FILTERTYPE_REPR[filterType];
-    const aliasedValue = typeRepr.aliasValues?.[value] ?? value;
+    const aliasedValue: string = ((typeRepr.aliasValues?.[value] ?? value) as string).replace(/_/g, "");
     if (!typeRepr.validValues.includes(aliasedValue)) {
         const err: NearlyError = new Error(`Unrecognized '${typeRepr.name}' value ${value}`) as NearlyError;
         err.token = valueToken;

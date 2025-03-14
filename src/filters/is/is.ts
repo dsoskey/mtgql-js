@@ -175,7 +175,8 @@ const printMattersFields = new Set<IsValue>([
   "upsidedown",
   "upsidedownback",
   "playtest",
-  "imagine"
+  "imagine",
+  "firstplacefoil"
 ])
 export function printMatters(value: IsValue): boolean {
   return printMattersFields.has(value)
@@ -212,7 +213,7 @@ export const isPrintVal = (value: IsValue) => ({ printing, card }: PrintingFilte
     case 'etched':
       return printing.finishes.includes(CardFinish.etched)
     case 'contentwarning':
-    return card.content_warning ?? false
+      return card.content_warning ?? false
     case 'booster':
     case 'variation':
     case 'promo':
@@ -319,6 +320,7 @@ export const isPrintVal = (value: IsValue) => ({ printing, card }: PrintingFilte
     case "upsidedown":
     case "upsidedownback":
     case "playtest":
+    case "firstplacefoil":
     case "imagine":
       return printing.promo_types?.includes(value)
     case 'halo':
@@ -453,6 +455,10 @@ export const isOracleVal = (value: IsValue) => (card: NormedCard): boolean => {
     case 'brawlcommander': // double check this ish
     case 'brawler':
       return !isOracleVal('token')(card) && isOracleVal('commander')(card) && card.legalities.brawl !== 'banned'
+    case "paupercommander":
+      return card.type_line.includes("Creature")
+          && card.legalities.paupercommander !== "banned"
+          && card.printings.filter(it => it.rarity === "uncommon").length > 0
     case 'spell':
       return (
         ['land', 'token'].filter((type) =>
@@ -643,7 +649,6 @@ export const isOracleVal = (value: IsValue) => (card: NormedCard): boolean => {
         card.type_line?.includes("Vanguard") ||
         card.type_line?.includes("Scheme")
     case "gamechanger":
-    case "game_changer":
       return !!card.game_changer
     // not found on/derived from card json
     case 'frenchvanilla': // this is gonna be a big parse :(((((((((((((((((((((

@@ -355,7 +355,7 @@ gameCondition -> %kw_game onlyEqualOperator stringValue
     {% ([{offset}, _, {value}]) => ({ filter: FilterType.Game, value, offset }) %}
 
 languageCondition -> (%kw_lang | %kw_language) onlyEqualOperator stringValue
-    {% ([[{offset}], _, {value}]) => ({ filter: FilterType.Language, value, offset }) %}
+    {% ([[filterToken], _, valueToken]) => parseEnumToken(FilterType.Language, filterToken, valueToken) %}
 
 stampCondition -> %kw_stamp onlyEqualOperator stringValue
     {% ([{offset}, _, {value}]) => ({ filter: FilterType.Stamp, value, offset }) %}

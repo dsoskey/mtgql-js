@@ -15,4 +15,9 @@ describe('language filter', function() {
 
     expect(result).toEqual([lagoHirvienteDeDarigaaz.name])
   })
+  it('should handle language aliases', async function() {
+    const result = await searchNames(queryRunner, "language:espanol")
+
+    expect(result).toEqual([lagoHirvienteDeDarigaaz.name])
+  })
 })

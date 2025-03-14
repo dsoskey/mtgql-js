@@ -76,6 +76,10 @@ export const findPrinting = (prefer?: string) =>
             print = func(maybePrints, it => Number.parseFloat(it.prices[field]))
             break;
           }
+          case "promo": {
+            print = printings.find(it => it.promo) ?? maybePrints[0];
+            break;
+          }
           case "newest":
             print = maybePrints[maybePrints.length - 1];
             break;
