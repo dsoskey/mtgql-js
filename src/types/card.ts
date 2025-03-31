@@ -1,4 +1,4 @@
-import { Card, Color } from '../generated'
+import {Card, Color, ProducedColor} from '../generated'
 import { ObjectValues } from './common'
 import { NormedCard, OracleKeys } from './normedCard'
 
@@ -231,6 +231,9 @@ export const IS_VALUE_MAP = {
   star: 'star',
   custom: 'custom',
   deciduous: "deciduous",
+  erratatext: "erratatext",
+  erratatype: "erratatype",
+  nooriginaltext: "nooriginaltext",
 } as const
 export type IsValue = ObjectValues<typeof IS_VALUE_MAP>
 export const IS_VALUES = Object.keys(IS_VALUE_MAP)
@@ -413,7 +416,7 @@ export const anyFaceContains = (
   return false
 }
 
-export type RegexableField = 'name' | 'mana_cost' | 'type_line' | 'oracle_text'
+export type RegexableField = 'name' | 'mana_cost' | 'type_line' | 'oracle_text' | 'original_text' | 'original_type'
 export const anyFaceRegexMatch = (
   card: Card | NormedCard,
   field: RegexableField,
@@ -468,4 +471,70 @@ export function getColors(card: Card | NormedCard): Color[] {
   }
 
   return Array.from(colorSet);
+}
+
+export function parseProducedMana(card: Card): ProducedColor[] | undefined {
+
+  const regexSingleMana = /(\{\w})+/
+  const regexTwoMana = /\{(\w)} or \{(\w)}/
+  const regexThreeMana = /\{(\w)}, \{(\w)}, or \{(\w)}/
+  const regexFiveMana = /\{(\w)}, \{(\w)}, \{(\w)}, \{(\w)}, or \{(\w)}/
+  const regexAnyMana = /(an additional )?\w+ mana (of any type that land (produced|could produce)|of any type that a land you control could produce|of either of the circled colors|of any of (the exiled card's|this creature's) colors|of the chosen color|in any combination of( its)? colors|of any( one)? color|of that color)/
+
+  const result = new Set<string>();
+  const toParse = [card.oracle_text ?? '']
+  if (card.card_faces) {
+    toParse.push(...card.card_faces.map(it => it.oracle_text ?? ""))
+  }
+
+  let matchAddMana: RegExpExecArray;
+  for (const face of toParse) {
+    const regexAddMana = /Adds? (.+)\./gi;
+
+    while ((matchAddMana = regexAddMana.exec(face)) !== null) {
+      const [_text, manaString] = matchAddMana;
+
+      let match: RegExpExecArray;
+      if ((match = regexAnyMana.exec(manaString))) {
+        result.add("W")
+        result.add("U")
+        result.add("B")
+        result.add("R")
+        result.add("G")
+      } else if ((match = regexFiveMana.exec(manaString))) {
+        result.add("W")
+        result.add("U")
+        result.add("B")
+        result.add("R")
+        result.add("G")
+      } else if ((match = regexThreeMana.exec(manaString))) {
+        const [_, ...symbols] = match;
+        for (const symbol of symbols) {
+          result.add(symbol)
+        }
+      } else if ((match = regexTwoMana.exec(manaString))) {
+        const [_, ...symbols] = match;
+        for (const symbol of symbols) {
+          result.add(symbol)
+        }
+      } else if ((match = regexSingleMana.exec(manaString))) {
+        for (const symbol of match[0]) {
+          if (symbol !== "{" && symbol !== "}") {
+            result.add(symbol)
+          }
+        }
+      }
+    }
+
+    if (face.includes("add the mana lost this way")) {
+      result.add("W")
+      result.add("U")
+      result.add("B")
+      result.add("R")
+      result.add("G")
+    }
+
+  }
+  if (result.size === 0) return undefined;
+  return Array.from(result) as ProducedColor[];
 }

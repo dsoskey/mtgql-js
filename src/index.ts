@@ -4,7 +4,7 @@ export { QueryRunner } from './queryRunner';
 export type { Block } from './types/block';
 
 export type { ManaSymbol } from './types/card';
-export { DOUBLE_FACED_LAYOUTS, IS_VALUE_MAP, toSplitCost, getColors } from './types/card';
+export { DOUBLE_FACED_LAYOUTS, IS_VALUE_MAP, toSplitCost, getColors, parseProducedMana } from './types/card';
 
 export type { CoverImage, Cube, CubeCard, CubeSource, ExternalCubeSource } from './types/cube';
 export { CUBE_SOURCE_OPTIONS } from './types/cube';
@@ -29,6 +29,7 @@ export { CachingFilterProvider } from './filters';
 export type { Filter, FilterNode } from './filters/base';
 export { OPERATORS, not, identityNode } from './filters/base';
 export type { DataProvider } from './filters/dataProvider'
+export { LANGUAGE_ALIASES } from './filters/language'
 export { isOracleVal } from './filters/is';
 export type { SortOrder } from "./filters/order"
 export { SortFunctions } from './filters/order';

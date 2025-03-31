@@ -1,4 +1,5 @@
-import { ManaCost, toManaCost } from './card'
+import {ManaCost, parseProducedMana, toManaCost} from './card'
+import { producesTestData } from "../filters/_testData/_producesTestData";
 
 describe('toManaCost', function () {
   interface TestCase {
@@ -31,6 +32,19 @@ describe('toManaCost', function () {
   cases.forEach(({ input, expected }) => {
     it('output should match expected', function () {
       expect(toManaCost(input)).toEqual(expected)
+    })
+  })
+})
+
+describe('parseProducedMana', function() {
+
+  producesTestData.forEach((card) => {
+    it(`${card.name} produces ${card.produced_mana}`, function() {
+      const result = parseProducedMana(card);
+      result.sort();
+      const expected = [...card.produced_mana]
+      expected.sort();
+      expect(result).toEqual(expected);
     })
   })
 })
