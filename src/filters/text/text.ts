@@ -6,26 +6,40 @@ import {
     anyFaceRegexMatch,
     noReminderText,
     RegexableField,
-    replaceNamePlaceholder
+    replaceNamePlaceholder, anyPrintFaceContains
 } from '../../types'
 import { defaultCompare, Filter, Operator } from '../base'
 
-export const textMatch =
-  (field: OracleKeys, value: string): Filter<NormedCard> =>
-    (card: NormedCard) => {
-      return anyFaceContains(
+export function matchText(field: OracleKeys, value: string): Filter<NormedCard> {
+    return (card: NormedCard) => anyFaceContains(
         card,
         field,
         // should textMatch be responsible for replaceNamePlaceholder?
         replaceNamePlaceholder(value, card.name)
-      )
-    }
+    )
+}
 
-export const exactMatch =
+export function matchOriginalText(field: "original_text" | "original_type", value: string) {
+    return ({ printing, card }: PrintingFilterTuple) => anyPrintFaceContains(
+        printing,
+        field,
+        replaceNamePlaceholder(value, card.name),
+    )
+}
+export function matchOriginalTextNoReminder(field: "original_text" | "original_type", value: string) {
+    return ({ printing, card }: PrintingFilterTuple) => anyPrintFaceContains(
+        printing,
+        field,
+        replaceNamePlaceholder(value, card.name),
+        noReminderText
+    )
+}
+
+export const matchTextExact =
   (field: OracleKeys, value: string): Filter<NormedCard> =>
     (card: NormedCard) => card[field]?.toString().toLowerCase() === value
 
-export const noReminderTextMatch =
+export const matchTextNoReminder =
   (field: OracleKeys, value: string): Filter<NormedCard> =>
     (card: NormedCard) =>
       anyFaceContains(
@@ -41,7 +55,7 @@ export const oracleTextCount = (operator: Operator, count: number, transform = (
       const transed = transform(it??"")
       return transed.length ? transed.split(/\s+/).length : 0
     }
-    let wordCount;
+    let wordCount: number;
     if (card.oracle_text !== undefined) {
       wordCount = getCount(card.oracle_text)
     } else {
@@ -49,6 +63,22 @@ export const oracleTextCount = (operator: Operator, count: number, transform = (
     }
     return defaultCompare(wordCount, operator, count)
   }
+
+export function originalTextCount(operator: Operator, count: number, transform = (it: string) => it): Filter<PrintingFilterTuple> {
+    return ({printing}) => {
+        const getCount = (it: string | null | undefined) => {
+            const transed = transform(it??"")
+            return transed.length ? transed.split(/\s+/).length : 0
+        }
+        let wordCount: number;
+        if (printing.original_text !== undefined) {
+            wordCount = getCount(printing.original_text)
+        } else {
+            wordCount = printing.card_faces?.map(it => getCount(it.oracle_text)).reduce((l,r) => l+r)
+        }
+        return defaultCompare(wordCount, operator, count)
+    }
+}
 
 export const flavorTextCount = (operator: Operator, count: number) =>
   (tuple: PrintingFilterTuple) => {
@@ -111,7 +141,6 @@ export const regexMatch = (field: RegexableField, value: string): Filter<NormedC
     )
 }
 
-
 export const noReminderRegexMatch = (field: RegexableField, value: string): Filter<NormedCard> => {
   const baseRegex = substituteScryfallRegex(value)
   return (card: NormedCard) =>
@@ -120,5 +149,24 @@ export const noReminderRegexMatch = (field: RegexableField, value: string): Filt
       field,
       new RegExp(baseRegex.toLowerCase()),
       noReminderText
+    )
+}
+
+export function matchPrintRegex(field: RegexableField, value: string): Filter<PrintingFilterTuple> {
+    const baseRegex = substituteScryfallRegex(value)
+    return ({printing}) => anyFaceRegexMatch(
+        printing,
+        field,
+        new RegExp(baseRegex.toLowerCase()),
+    )
+}
+
+export function matchPrintRegexNoReminder(field: RegexableField, value: string): Filter<PrintingFilterTuple> {
+    const baseRegex = substituteScryfallRegex(value)
+    return ({printing}) => anyFaceRegexMatch(
+        printing,
+        field,
+        new RegExp(baseRegex.toLowerCase()),
+        noReminderText
     )
 }

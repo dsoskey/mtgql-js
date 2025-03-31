@@ -49,10 +49,18 @@ condition -> (
     fullOracleCondition |
     fullOracleRegexCondition |
     fullOracleCountCondition |
+    ogTextCondition |
+    ogTextRegexCondition |
+    ogTextCountCondition |
+    fullOgCondition |
+    fullOgRegexCondition |
+    fullOgCountCondition |
     keywordCondition |
     keywordCountCondition |
     typeCondition |
     typeRegexCondition |
+    ogTypeCondition |
+    ogTypeRegexCondition |
     powerCondition |
     toughCondition |
     powTouCondition |
@@ -154,18 +162,11 @@ identityFilter -> (%kw_ci | %kw_commander | %kw_identity | %kw_id) {% ([[token]]
 
 manaCostCondition -> (%kw_mana | %kw_m) %operator manaCostValue
     {% ([[{offset}], op, {value}]) => ({ filter: FilterType.Mana, operator: op.value, value, offset }) %}
-
 manaCostRegexCondition -> (%kw_mana | %kw_m) onlyEqualOperator regexString
     {% ([[{offset}], _, {value}]) => ({ filter: FilterType.ManaRegex, value, offset }) %}
 
 oracleCondition -> oracleFilter onlyEqualOperator stringValue
-    {% ([{offset}, _, v], _1, reject) => {
-        const {value} = v;
-        if (v.type === "nqstring" && /^\d+$/.test(value.toString())) {
-            return reject
-        }
-        return { filter: FilterType.Oracle, value, offset }
-    } %}
+    {% ([{offset}, _, {value}]) => ({ filter: FilterType.Oracle, value, offset }) %}
 oracleRegexCondition -> oracleFilter onlyEqualOperator regexString
     {% ([{offset}, _, {value}]) => ({ filter: FilterType.OracleRegex, value, offset }) %}
 oracleCountCondition -> oracleFilter anyOperator integerValue
@@ -173,18 +174,28 @@ oracleCountCondition -> oracleFilter anyOperator integerValue
 oracleFilter -> (%kw_oracle | %kw_o | %kw_text) {% ([[token]]) => token %}
 
 fullOracleCondition -> fullOracleFilter onlyEqualOperator stringValue
-    {% ([{offset}, _, v], _1, reject) => {
-        const {value} = v;
-        if (v.type === "nqstring" && /^\d+$/.test(value.toString())) {
-            return reject
-        }
-        return { filter: FilterType.FullOracle, value, offset }
-    } %}
+    {% ([{offset}, _, {value}]) => ({ filter: FilterType.FullOracle, value, offset }) %}
 fullOracleRegexCondition -> fullOracleFilter onlyEqualOperator regexString
     {% ([{offset}, _, {value}]) => ({ filter: FilterType.FullOracleRegex, value, offset }) %}
 fullOracleCountCondition -> fullOracleFilter anyOperator integerValue
     {% ([{offset}, op, {value}]) => ({ filter: FilterType.FullOracleCount, value, operator: op.value, offset }) %}
 fullOracleFilter -> %kw_fo {% id %}
+
+ogTextCondition -> ogTextFilter onlyEqualOperator stringValue
+    {% ([{offset}, _, {value}]) => ({ filter: FilterType.OriginalText, value, offset }) %}
+ogTextRegexCondition -> ogTextFilter onlyEqualOperator regexString
+    {% ([{offset}, _, {value}]) => ({ filter: FilterType.OriginalTextRegex, value, offset }) %}
+ogTextCountCondition -> ogTextFilter anyOperator integerValue
+    {% ([{offset}, op, {value}]) => ({ filter: FilterType.OriginalTextCount, operator: op.value, value, offset }) %}
+ogTextFilter -> (%kw_ogo | %kw_ogtext) {% ([[token]]) => token %}
+
+fullOgCondition -> fullOgTextFilter onlyEqualOperator stringValue
+    {% ([{offset}, _, {value}]) => ({ filter: FilterType.FullOriginalText, value, offset }) %}
+fullOgRegexCondition -> fullOgTextFilter onlyEqualOperator regexString
+    {% ([{offset}, _, {value}]) => ({ filter: FilterType.FullOriginalTextRegex, value, offset }) %}
+fullOgCountCondition -> fullOgTextFilter anyOperator integerValue
+    {% ([{offset}, op, {value}]) => ({ filter: FilterType.FullOriginalTextCount, operator: op.value, value, offset }) %}
+fullOgTextFilter -> (%kw_fogo | %kw_fogtext) {% ([[token]]) => token %}
 
 keywordCondition -> (%kw_kw | %kw_keyword) onlyEqualOperator stringValue
     {% ([[{offset}], _, {value}]) => ({ filter: FilterType.Keyword, value, offset }) %}
@@ -193,9 +204,13 @@ keywordCountCondition -> %kw_keywords anyOperator integerValue
 
 typeCondition -> (%kw_t | %kw_type) onlyEqualOperator stringValue
     {% ([[{offset}], _, {value}]) => ({ filter: FilterType.Type, value, offset }) %}
-
 typeRegexCondition -> (%kw_t | %kw_type) onlyEqualOperator regexString
     {% ([[{offset}], _, {value}]) => ({ filter: FilterType.TypeRegex, value, offset }) %}
+
+ogTypeCondition -> (%kw_ogt | %kw_ogtype) onlyEqualOperator stringValue
+    {% ([[{offset}], _, {value}]) => ({ filter: FilterType.OriginalType, value, offset }) %}
+ogTypeRegexCondition -> (%kw_ogt | %kw_ogtype) onlyEqualOperator regexString
+    {% ([[{offset}], _, {value}]) => ({ filter: FilterType.OriginalTypeRegex, value, offset }) %}
 
 powerCondition -> (%kw_pow | %kw_power) anyOperator (integerValue | %kw_tou | %kw_toughness)
     {% ([[{offset}], op, [value]]) => ({
@@ -323,8 +338,8 @@ collectorNumberCondition -> (%kw_cn | %kw_number) anyOperator integerValue
 borderCondition -> %kw_border onlyEqualOperator stringValue
     {% ([{offset}, _, {value}]) => ({ filter: FilterType.Border, value, offset }) %}
 
-dateCondition -> (%kw_date | %kw_year) anyOperator stringValue
-    {% ([[{offset}], op, {value}]) => ({ filter: FilterType.Date, operator: op.value, value, offset }) %}
+dateCondition -> (%kw_date | %kw_year) anyOperator (stringValue | yearValue)
+    {% ([[{offset}], op, [{value}]]) => ({ filter: FilterType.Date, operator: op.value, value, offset }) %}
 
 priceCondition -> (%kw_usd | %kw_eur | %kw_tix) anyOperator (integerValue | decimalValue)
     {% ([[unit], op, [{value}]]) => ({
@@ -418,8 +433,15 @@ integerValue -> %integer {% ([token]) => ({ ...token, value: Number.parseInt(tok
 
 decimalValue -> %decimal {% ([token]) => ({ ...token, value: Number.parseFloat(token.value) }) %}
 
+yearValue -> %integer {% ([token], _, reject) => {
+    if (token.value.length !== 4) {
+        return reject;
+    }
+    return token;
+} %}
+
 noQuoteString -> [a-zA-z0-9\-]:+ {% ([[token]], _, reject) => {
-    const rejectTypes = ["bool", "regex", "dqstring", "rparen", "lparen", "identity"]
+    const rejectTypes = ["integer", "bool", "regex", "dqstring", "rparen", "lparen", "identity"]
         if (rejectTypes.includes(token.type)) {
             return reject;
         }

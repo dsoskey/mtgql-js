@@ -1,6 +1,6 @@
 import {Card, Color, ProducedColor} from '../generated'
 import { ObjectValues } from './common'
-import { NormedCard, OracleKeys } from './normedCard'
+import {NormedCard, OracleKeys, Printing, PrintKeys} from './normedCard'
 
 export const DOUBLE_FACED_LAYOUTS = [
   'transform',
@@ -416,14 +416,46 @@ export const anyFaceContains = (
   return false
 }
 
+export const anyPrintFaceContains = (
+    printing: Printing,
+    field: PrintKeys,
+    value: string,
+    fieldTransform: (a: string) => string = (it) => it
+): boolean => {
+  if (printing[field]) {
+    return fieldTransform(printing[field].toString().toLowerCase()).includes(value)
+  }
+  for (const face of printing.card_faces ?? []) {
+    if (fieldTransform(face[field]?.toString().toLowerCase() ?? '').includes(value)) {
+      return true;
+    }
+  }
+  return false
+}
+// Alt algo
+// return ({ printing }: PrintingFilterTuple) => {
+//   const fieldsToCheck = [printing[field]]
+//   if (printing.card_faces) {
+//     for(const face of printing.card_faces) {
+//       fieldsToCheck.push(face[field])
+//     }
+//   }
+//   for (const field of fieldsToCheck) {
+//     if (field && field.includes(value)) {
+//       return true
+//     }
+//   }
+//   return false
+// }
+
 export type RegexableField = 'name' | 'mana_cost' | 'type_line' | 'oracle_text' | 'original_text' | 'original_type'
 export const anyFaceRegexMatch = (
-  card: Card | NormedCard,
+  card: Card | NormedCard | Printing,
   field: RegexableField,
   regex: RegExp,
   fieldTransform: (val: string) => string = (it) => it
 ): boolean => {
-  const squiggleMode = regex.source.includes("~")
+  const squiggleMode = regex.source.includes("~") && "name" in card
   const fieldVal = card[field];
   if (fieldVal) {
     const squiggled = squiggleMode
@@ -432,7 +464,7 @@ export const anyFaceRegexMatch = (
     return regex.test(fieldTransform(squiggled.toLowerCase()))
   }
 
-  for (const face of card.card_faces) {
+  for (const face of card.card_faces??[]) {
     const fieldVal = face[field];
     if (fieldVal) {
       const squiggled = squiggleMode

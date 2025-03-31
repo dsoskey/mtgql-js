@@ -279,6 +279,18 @@ export class CachingFilterProvider implements FilterProvider {
                         filtersUsed: ["full-oracle"],
                         filterFunc: oracleTextCount(leaf.operator!, leaf.value),
                     })
+                case FilterType.OriginalText:
+                    return printNode(["original_text"], matchOriginalTextNoReminder("original_text", leaf.value))
+                case FilterType.OriginalTextRegex:
+                    return printNode(["original_text"], matchPrintRegexNoReminder("original_text", leaf.value))
+                case FilterType.OriginalTextCount:
+                    return printNode(["original_text"], originalTextCount(leaf.operator, leaf.value, noReminderText))
+                case FilterType.FullOriginalText:
+                    return printNode(["full-original_text"], matchOriginalText("original_text", leaf.value))
+                case FilterType.FullOriginalTextRegex:
+                    return printNode(["full-original_text"], matchPrintRegex("original_text", leaf.value))
+                case FilterType.FullOriginalTextCount:
+                    return printNode(["full-original_text"], originalTextCount(leaf.operator, leaf.value))
                 case FilterType.Keyword:
                     return keywordMatch(leaf.value)
                 case FilterType.KeywordCount:
@@ -293,6 +305,10 @@ export class CachingFilterProvider implements FilterProvider {
                         filtersUsed: ["type-regex"],
                         filterFunc: regexMatch('type_line', leaf.value),
                     })
+                case FilterType.OriginalType:
+                    return printNode(["original_type"], matchOriginalText("original_type", leaf.value))
+                case FilterType.OriginalTypeRegex:
+                    return printNode(["original_type"], matchPrintRegex("original_type", leaf.value))
                 case FilterType.Power:
                     return combatToCombatNode('power', leaf.operator!, leaf.value)
                 case FilterType.Tough:

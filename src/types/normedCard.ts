@@ -67,7 +67,7 @@ const PRINT_KEYS = {
   original_text: 'original_text',
   original_type: 'original_type',
 } as const
-type PrintKeys = ObjectValues<typeof PRINT_KEYS>
+export type PrintKeys = ObjectValues<typeof PRINT_KEYS>
 
 export type Printing = Pick<Card, PrintKeys>
 

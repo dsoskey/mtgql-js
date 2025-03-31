@@ -12,7 +12,7 @@ import {
   NormedCard, PrintingFilterTuple } from '../../types'
 import { FilterNode } from '../base'
 import { oracleNode } from '../oracle'
-import {textMatch} from '../text'
+import {matchText} from '../text'
 import { printNode } from '../print'
 import { CardFinish, CardSecurityStamp, FrameEffect } from "../../generated";
 
@@ -20,13 +20,13 @@ export const isPrintPrefix = `is-print:`
 
 // optimization: predefined, reusable textMatch funcs save allocation on the hot loop
 const partyFilters = ['cleric', 'rogue', 'warrior', 'wizard']
-    .map(type => textMatch('type_line', type))
+    .map(type => matchText('type_line', type))
 const outlawFilters = ['assassin', 'mercenary', 'pirate', 'rogue', 'warlock']
-    .map(type => textMatch('type_line', type))
+    .map(type => matchText('type_line', type))
 const permanentFilters = ['creature', 'enchantment', 'artifact', 'land', 'battle', 'planeswalker']
-    .map(type => textMatch('type_line', type))
+    .map(type => matchText('type_line', type))
 const historicFilters = ['legendary', 'artifact', 'saga']
-    .map(type => textMatch('type_line', type))
+    .map(type => matchText('type_line', type))
 
 const EVERGREEN_KEYWORDS: Set<string> = new Set([
   "Deathtouch",
@@ -405,7 +405,7 @@ export const isOracleVal = (value: IsValue) => (card: NormedCard): boolean => {
     case 'reserved':
       return card.reserved
     case 'planar':
-      return textMatch('type_line', 'plane ')(card) || textMatch('type_line', 'phenomenon')(card)
+      return matchText('type_line', 'plane ')(card) || matchText('type_line', 'phenomenon')(card)
     case 'augmentation':
       return card.layout === "augment" || card.layout === "host"
     case 'companion':

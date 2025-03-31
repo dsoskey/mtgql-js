@@ -33,7 +33,7 @@ export const buildLexer = () => moo.states({
     bang: "!",
     comma: ",",
     identity: "*",
-    regex: { match: /\/(?:\\[\/\\a-zA-Z]|[^\n\/\\])*\//, value: s =>s.slice(1, -1) },
+    regex: { match: /\/(?:\\[\/\\a-zA-Z)(]|[^\n\/\\])*\//, value: s =>s.slice(1, -1) },
     dqstring: { match: /"(?:\\["\\]|[^\n"\\])*"/, value: s => s.slice(1, -1) },
     sqstring: { match: /'(?:\\['\\]|[^\n'\\])*'/, value: s => s.slice(1, -1) },
     word: {

@@ -12,6 +12,9 @@ import { phyrexianWalker } from '../_testData/phyrexianWalker'
 import {merfolkSpy} from "../_testData/merfolkSpy";
 import {merfolkWindrobber} from "../_testData/merfolkWindrobber";
 import {coralhelmCommander} from "../_testData/coralhelmCommander";
+import {irrigationDitch} from "../_testData/irrigationDitch";
+import {condemn} from "../_testData/condemn";
+import {blastedLandscape} from "../_testData/blastedLandscape";
 
 describe('text filters', function() {
   const queryRunner = defaultRunner([
@@ -153,6 +156,36 @@ describe('text filters', function() {
       const result = await searchNames(queryRunner, `fo:/put .* on the bottom/`)
 
       expect(result).toEqual([ancientStirrings.name, preordain.name, spinerockKnoll.name])
+    })
+  })
+
+  describe("original text", function() {
+    const corpus = [irrigationDitch, ancientStirrings, condemn, blastedLandscape]
+    const queryRunner = defaultRunner(corpus);
+    it("handles cards with original_text", async function() {
+      const result = await searchNames(queryRunner, 'ogo:ditch')
+
+      expect(result).toEqual([irrigationDitch.name]);
+    })
+
+
+    it("handles cards with original_text that has reminder text", async function() {
+      const result = await searchNames(queryRunner, 'fogo:discard')
+
+      expect(result).toEqual([blastedLandscape.name])
+    })
+
+    it('handles regular expressions for full original text', async function() {
+      const result = await searchNames(queryRunner, `fogo:/\\(.+\\)/`)
+
+      expect(result).toEqual([blastedLandscape.name])
+    })
+
+    it("handles original text count", async function() {
+      const result = await searchNames(queryRunner, 'ogo<20')
+
+      // ancient stirrings is ignored because it doesn't have original_text
+      expect(result).toEqual([blastedLandscape.name, condemn.name])
     })
   })
 })
