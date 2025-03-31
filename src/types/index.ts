@@ -1,4 +1,5 @@
 export type * from './ast';
+export * from './ast';
 export type * from './block';
 
 export type * from './card';

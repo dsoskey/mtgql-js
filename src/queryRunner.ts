@@ -1,5 +1,5 @@
 import {Parser} from 'nearley'
-import {AstNode, NearlyError, normCardList, NormedCard, SearchOptions,} from './types'
+import {AstNode, NearlyError, astSexpr, normCardList, NormedCard, SearchOptions,} from './types'
 import {Card} from './generated'
 import {CachingFilterProvider, FilterProvider} from './filters'
 import {chooseFilterFunc} from './filters/print'
@@ -71,7 +71,8 @@ export class QueryRunner {
           })
         }
       } else if (parser.results.length === 1) {
-        console.debug(parser.results[0])
+        const result = parser.results[0];
+        console.debug(astSexpr(result))
       } else {
         const baseMessage = "Parser could not recognize your query."
         const endsWithOperator = /(!=|<>|<=|>=|[<>≥:=≤])$/.test(query)
