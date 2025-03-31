@@ -119,6 +119,4 @@ describe('order', () => {
 
         expect(result).toEqual([birdsOfParadise.name, ancientStirrings.name, adantoVanguard.name])
     })
-
-
 });

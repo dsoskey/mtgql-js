@@ -190,7 +190,7 @@ function countHelper(card:Card, getCount: (it?: string) => number) {
   if (card.oracle_text !== undefined) {
     wordCount = getCount(card.oracle_text)
   } else {
-    wordCount = card.card_faces?.map(it => getCount(it.oracle_text)).reduce((l,r) => l+r)
+    wordCount = card.card_faces?.map(it => getCount(it.oracle_text)).reduce((l,r) => l+r, 0)
   }
   return wordCount;
 }

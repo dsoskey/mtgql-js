@@ -27,7 +27,7 @@ export const inFilter = (value: string): FilterNode => {
   return oracleNode({
     filtersUsed: ["in"],
     filterFunc: (card) => {
-      return card.printings.filter(
+      return card.printings.some(
         printing => _set({ printing, card }) ||
           _frame({ printing, card }) ||
           _setType({ printing, card }) ||
@@ -37,7 +37,7 @@ export const inFilter = (value: string): FilterNode => {
             && !ignoreSetType.has(printing.set_type)
             && !ignoreSetCode.has(printing.set)
           )
-      ).length > 0
+      )
     }
   })
 }

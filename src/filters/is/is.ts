@@ -458,7 +458,7 @@ export const isOracleVal = (value: IsValue) => (card: NormedCard): boolean => {
     case "paupercommander":
       return card.type_line.includes("Creature")
           && card.legalities.paupercommander !== "banned"
-          && card.printings.filter(it => it.rarity === "uncommon").length > 0
+          && card.printings.some(it => it.rarity === "uncommon")
     case 'spell':
       return (
         ['land', 'token'].filter((type) =>
@@ -632,8 +632,7 @@ export const isOracleVal = (value: IsValue) => (card: NormedCard): boolean => {
     case 'custom':
       return card.collectionId?.length > 0
     case "deciduous": {
-      const withoutEvergreen = card.keywords.filter(it => !EVERGREEN_KEYWORDS.has(it));
-      return withoutEvergreen.length > 0;
+      return card.keywords.some(it => !EVERGREEN_KEYWORDS.has(it));
     }
     case 'extra':
        /*

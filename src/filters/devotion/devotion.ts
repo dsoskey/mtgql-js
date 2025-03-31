@@ -1,7 +1,7 @@
-import { FilterNode, Operator } from '../base'
-import { ManaSymbol, NormedCard, toManaCost, toSplitCost } from '../../types'
-import { isVal } from '../is'
-import { oracleNode } from '../oracle'
+import {FilterNode, Operator} from '../base'
+import {ManaSymbol, NormedCard, toManaCost, toSplitCost} from '../../types'
+import {isVal} from '../is'
+import {oracleNode} from '../oracle'
 
 
 export const devotionOperation = (operator: Operator, pips: string[]): FilterNode => {
@@ -15,11 +15,10 @@ export const devotionOperation = (operator: Operator, pips: string[]): FilterNod
       const count = pips.length
       if (!(isVal('permanent').filterFunc(card))) return false
 
-      const cardCosts = [
+      return [
         card.mana_cost,
         ...card.card_faces?.map((it) => it.mana_cost),
-      ]
-        .filter((rawCost) => {
+      ].some((rawCost) => {
           if (rawCost === undefined || rawCost === null) return false
           const cost = toManaCost(toSplitCost(rawCost))
           const compareValue = cost[pip] ?? 0
@@ -42,7 +41,6 @@ export const devotionOperation = (operator: Operator, pips: string[]): FilterNod
               return compareValue !== count
           }
         })
-      return cardCosts.length > 0
     }
   })
 }

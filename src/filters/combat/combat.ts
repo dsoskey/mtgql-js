@@ -60,8 +60,7 @@ export const powTouTotalOperation = (
         .map(
           ({ power, toughness }) => parsePowTou(power) + parsePowTou(toughness)
         )
-        .filter((faceValue) => defaultCompare(faceValue, operator, targetValue))
-        .length > 0
+        .some((faceValue) => defaultCompare(faceValue, operator, targetValue))
     )
   },
 })

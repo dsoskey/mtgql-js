@@ -77,44 +77,40 @@ export const colorMatch = (operator: Operator, value: Set<string>): FilterNode =
       switch (operator) {
         case '=':
           return (
-            faceMatchMap.filter(
+            faceMatchMap.some(
               (it) => it.match.length === value.size && it.not.length === 0
-            ).length > 0
+            )
           )
         case '!=': // ????? This looks wrong
-          return faceMatchMap.filter((it) => it.match.length === 0).length > 0
+          return faceMatchMap.some((it) => it.match.length === 0)
         case '<':
           return (
-            faceMatchMap.filter(
+            faceMatchMap.some(
               (it) => it.not.length === 0 && it.match.length < value.size
-            ).length > 0
+            )
           )
         case "≤":
         case '<=':
-          return (
-            faceMatchMap.filter(
-              (it) => it.not.length === 0 && it.match.length <= value.size
-            ).length > 0
+          return faceMatchMap.some(
+            (it) => it.not.length === 0 && it.match.length <= value.size
           )
         case '>':
           return (
-            faceMatchMap.filter(
+            faceMatchMap.some(
               (it) => it.not.length > 0 && it.match.length === value.size
-            ).length > 0
+            )
           )
         // Scryfall adapts ":" to the context. in this context it acts as >= for non-colorless color sets
         // For colorless, ":" acts as "="
         case ':':
           if (value.size === 0) {
-            return faceMatchMap.filter(
+            return faceMatchMap.some(
               (it) => it.match.length === value.size && it.not.length === 0
-            ).length > 0
+            )
           }
         case "≥":
         case '>=':
-          return (
-            faceMatchMap.filter((it) => it.match.length === value.size).length > 0
-          )
+          return faceMatchMap.some((it) => it.match.length === value.size)
         case '<>':
           throw Error('<> is not a valid operator for color filter')
       }
