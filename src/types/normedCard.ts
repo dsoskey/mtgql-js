@@ -64,6 +64,8 @@ const PRINT_KEYS = {
   full_art: 'full_art',
   textless: 'textless',
   story_spotlight: 'story_spotlight',
+  original_text: 'original_text',
+  original_type: 'original_type',
 } as const
 type PrintKeys = ObjectValues<typeof PRINT_KEYS>
 

@@ -163,6 +163,8 @@
             "type": "array",
             "items": { "$ref": "#/components/schemas/CardFinish" }
           },
+          "foil": { "type": "boolean" },
+          "nonfoil": { "type": "boolean" },
           "flavor_name": { "type": "string" },
           "flavor_text": { "type": "string" },
           "frame_effects": {
@@ -209,7 +211,9 @@
             "$ref": "#/components/schemas/CardSecurityStamp"
           },
           "watermark": { "type": "string" },
-          "preview":  { "$ref": "#/components/schemas/Preview" }
+          "preview":  { "$ref": "#/components/schemas/Preview" },
+          "original_text": { "type":  "string" },
+          "original_type": { "type":  "string" }
         },
         "additionalProperties": false
       },
@@ -288,7 +292,9 @@
           "printed_type_line": { "type": "string" },
           "toughness": { "type": "string" },
           "type_line": { "type": "string" },
-          "watermark": { "type": "string" }
+          "watermark": { "type": "string" },
+          "original_text": { "type":  "string" },
+          "original_type": { "type":  "string" }
         }
       },
       "Color": { "type": "string", "enum": ["W", "U", "B", "R", "G"] },
@@ -463,7 +469,10 @@
           "upsidedown",
           "upsidedownback",
           "playtest",
-          "firstplacefoil"
+          "firstplacefoil",
+          "beginnerbox",
+          "startercollection",
+          "sldbonus"
         ],
         "type": "string"
       },
