@@ -176,7 +176,10 @@ const printMattersFields = new Set<IsValue>([
   "upsidedownback",
   "playtest",
   "imagine",
-  "firstplacefoil"
+  "firstplacefoil",
+  "erratatext",
+  "erratatype",
+  "nooriginaltext",
 ])
 export function printMatters(value: IsValue): boolean {
   return printMattersFields.has(value)
@@ -189,6 +192,12 @@ function unimplemented(value: string): boolean {
 
 export const isPrintVal = (value: IsValue) => ({ printing, card }: PrintingFilterTuple): boolean => {
   switch (value) {
+    case "nooriginaltext":
+      return printing.original_text === undefined;
+    case "erratatext":
+      return printing.original_text && printing.original_text !== card.oracle_text
+    case "erratatype":
+      return printing.original_type && printing.original_type !== card.type_line
     case 'illustration':
       return printing.illustration_id !== undefined
     case 'multiverse':
