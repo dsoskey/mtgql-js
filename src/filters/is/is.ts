@@ -28,6 +28,9 @@ const permanentFilters = ['creature', 'enchantment', 'artifact', 'land', 'battle
 const historicFilters = ['legendary', 'artifact', 'saga']
     .map(type => matchText('type_line', type))
 
+const defaultFrames = new Set(["1993", "1997", "2003", "2015"]);
+const defaultBorders = new Set(["black", "silver", "white"]);
+
 const EVERGREEN_KEYWORDS: Set<string> = new Set([
   "Deathtouch",
   "Defender",
@@ -180,6 +183,16 @@ const printMattersFields = new Set<IsValue>([
   "erratatext",
   "erratatype",
   "nooriginaltext",
+  "default",
+  "typical",
+  "normal",
+  "traditional",
+  "baseline",
+  "nondefault",
+  "atypical",
+  "abnormal",
+  "nontraditional",
+  "oddframe",
 ])
 export function printMatters(value: IsValue): boolean {
   return printMattersFields.has(value)
@@ -373,6 +386,29 @@ export const isPrintVal = (value: IsValue) => ({ printing, card }: PrintingFilte
     //   card.layout === 'double_faced_token' ||
     //   card.layout === 'emblem'
     //  handle with prints
+    case "nondefault":
+    case "atypical":
+    case "abnormal":
+    case "nontraditional":
+      return !(
+          defaultFrames.has(printing.frame)
+          && defaultBorders.has(printing.border_color)
+          && !printing.full_art
+          && !printing.textless
+          //     && !is:oddframe
+      )
+    case "default":
+    case "typical":
+    case "normal":
+    case "traditional":
+    case "baseline":
+      return (
+          defaultFrames.has(printing.frame)
+          && defaultBorders.has(printing.border_color)
+          && !printing.full_art
+          && !printing.textless
+      //     && !is:oddframe
+      )
     default:
       throw Error(`is:${value} has not been implemented.`)
   }

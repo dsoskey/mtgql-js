@@ -234,6 +234,16 @@ export const IS_VALUE_MAP = {
   erratatext: "erratatext",
   erratatype: "erratatype",
   nooriginaltext: "nooriginaltext",
+  oddframe: "oddframe",
+  default: "default",
+  typical:"typical",
+  normal:"normal",
+  traditional:"traditional",
+  baseline:"baseline",
+  nondefault: "nondefault",
+  atypical: "atypical",
+  abnormal: "abnormal",
+  nontraditional: "nontraditional",
 } as const
 export type IsValue = ObjectValues<typeof IS_VALUE_MAP>
 export const IS_VALUES = Object.keys(IS_VALUE_MAP)
