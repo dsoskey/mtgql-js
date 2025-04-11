@@ -3,6 +3,7 @@ import { Card } from '../generated'
 import { NormedCard, Printing, PrintingFilterTuple } from '../types'
 import maxBy from 'lodash/maxBy'
 import minBy from 'lodash/minBy'
+import {isDefaultPrinting} from "./is";
 
 export const printNode = (
   filtersUsed: string[],
@@ -82,6 +83,18 @@ export const findPrinting = (prefer?: string) =>
           }
           case "newest":
             print = maybePrints[maybePrints.length - 1];
+            break;
+          case "nondefault":
+          case "atypical":
+          case "abnormal":
+          case "nontraditional":
+            print = maybePrints.find(it => !isDefaultPrinting(it)) ?? maybePrints[0];
+            break;
+          case "default":
+          case "typical":
+          case "normal":
+          case "traditional":
+            print = maybePrints.find(it => isDefaultPrinting(it)) ?? maybePrints[0];
             break;
           case "oldest":
           default:

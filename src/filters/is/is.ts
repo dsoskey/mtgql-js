@@ -9,7 +9,8 @@ import {
   parsePowTou,
   SHOCKLAND_REGEX,
   DEFAULT_CARD_BACK_ID,
-  NormedCard, PrintingFilterTuple } from '../../types'
+  NormedCard, PrintingFilterTuple, Printing
+} from '../../types'
 import { FilterNode } from '../base'
 import { oracleNode } from '../oracle'
 import {matchText} from '../text'
@@ -203,6 +204,16 @@ function unimplemented(value: string): boolean {
   return false
 }
 
+export function isDefaultPrinting(printing: Printing) {
+  return (
+      defaultFrames.has(printing.frame)
+      && defaultBorders.has(printing.border_color)
+      && !printing.full_art
+      && !printing.textless
+      //     && !is:oddframe
+  )
+}
+
 export const isPrintVal = (value: IsValue) => ({ printing, card }: PrintingFilterTuple): boolean => {
   switch (value) {
     case "nooriginaltext":
@@ -390,25 +401,13 @@ export const isPrintVal = (value: IsValue) => ({ printing, card }: PrintingFilte
     case "atypical":
     case "abnormal":
     case "nontraditional":
-      return !(
-          defaultFrames.has(printing.frame)
-          && defaultBorders.has(printing.border_color)
-          && !printing.full_art
-          && !printing.textless
-          //     && !is:oddframe
-      )
+      return !isDefaultPrinting(printing);
     case "default":
     case "typical":
     case "normal":
     case "traditional":
     case "baseline":
-      return (
-          defaultFrames.has(printing.frame)
-          && defaultBorders.has(printing.border_color)
-          && !printing.full_art
-          && !printing.textless
-      //     && !is:oddframe
-      )
+      return isDefaultPrinting(printing);
     default:
       throw Error(`is:${value} has not been implemented.`)
   }

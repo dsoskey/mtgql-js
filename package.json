@@ -1,6 +1,6 @@
 {
   "name": "mtgql",
-  "version": "3.2.0",
+  "version": "3.2.1",
   "description": "query language for searching magic: the gathering cards",
   "main": "build/index.js",
   "types": "build/index.d.ts",

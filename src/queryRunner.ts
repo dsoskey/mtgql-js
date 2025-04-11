@@ -267,6 +267,15 @@ export class QueryRunner {
       })
     }
   }
+
+  static singleCardFilter = async (query: string, filterProvider: FilterProvider, getParser: ParserProducer = MQLParser) => {
+    const filterNode = await QueryRunner.parseFilterNode(getParser, filterProvider, query);
+
+    return (card: Card) => {
+      const normed = normCardList([card])[0];
+      return filterNode.filterFunc(normed);
+    }
+  }
 }
 
 function getOrder(filtersUsed: string[], options: SearchOptions): SortOrder {
