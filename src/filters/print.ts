@@ -1,6 +1,6 @@
 import { Filter, FilterNode } from './base'
 import { Card } from '../generated'
-import { NormedCard, Printing, PrintingFilterTuple } from '../types'
+import {NormedCard, Printing, PrintingFilterTuple, SearchOptions} from '../types'
 import maxBy from 'lodash/maxBy'
 import minBy from 'lodash/minBy'
 import {isDefaultPrinting} from "./is";
@@ -54,7 +54,9 @@ export const PREFER_VALUES = [
     "eur-high",
     "tix-low",
     "tix-high",
-    "promo"
+    "promo",
+    "nondefault",
+    "default",
 ]
 
 export const findPrinting = (prefer?: string) =>
@@ -152,11 +154,10 @@ export const uniqueArts =
     }
 
 
-export const chooseFilterFunc = (filterNode: FilterNode) => {
+export const chooseFilterFunc = (filterNode: FilterNode, options?: SearchOptions) => {
   const { filtersUsed, printFilter } = filterNode
-  const firstUnique = filtersUsed.find(filter => filter.startsWith('unique:'))
-  const firstPrefer = filtersUsed
-    .find(filter => filter.startsWith('prefer:'))
+  const firstUnique = filtersUsed.find(filter => filter.startsWith('unique:')) ?? options?.unique;
+  const firstPrefer = (filtersUsed.find(filter => filter.startsWith('prefer:')) ?? options?.prefer)
     ?.replace('prefer:', '') ?? undefined;
   if (firstUnique !== undefined) {
     const funcKey = firstUnique.replace('unique:', '')

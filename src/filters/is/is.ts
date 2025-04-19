@@ -210,6 +210,7 @@ export function isDefaultPrinting(printing: Printing) {
       && defaultBorders.has(printing.border_color)
       && !printing.full_art
       && !printing.textless
+      && (printing.frame_effects??[]).length === 0
       //     && !is:oddframe
   )
 }

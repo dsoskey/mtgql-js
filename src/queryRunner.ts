@@ -127,7 +127,7 @@ export class QueryRunner {
         }
       }
 
-      const printFilterFunc = chooseFilterFunc(node)
+      const printFilterFunc = chooseFilterFunc(node, options);
 
       // filter prints
       const printFiltered: Card[] = filtered.flatMap(printFilterFunc)
@@ -204,8 +204,8 @@ export class QueryRunner {
         }
       }
 
-      const leftPrintFilter = chooseFilterFunc(leftNode)
-      const rightPrintFilter = chooseFilterFunc(rightNode)
+      const leftPrintFilter = chooseFilterFunc(leftNode, options)
+      const rightPrintFilter = chooseFilterFunc(rightNode, options)
 
       const leftIds: Set<string> = new Set()
       const bothIds: Set<string> = new Set()

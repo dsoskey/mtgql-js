@@ -28,4 +28,5 @@ export interface SearchOptions {
   unique?: keyof typeof UniqueStrategy;
   order: keyof typeof Sort;
   dir?: keyof typeof SortDirection;
+  prefer?: string
 }

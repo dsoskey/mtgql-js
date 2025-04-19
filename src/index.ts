@@ -31,6 +31,7 @@ export { OPERATORS, not, identityNode } from './filters/base';
 export type { DataProvider } from './filters/dataProvider'
 export { LANGUAGE_ALIASES } from './filters/language'
 export { isOracleVal } from './filters/is';
+export { PREFER_VALUES  } from './filters/print'
 export type { SortOrder } from "./filters/order"
 export { SortFunctions } from './filters/order';
 
