@@ -5,7 +5,7 @@
 const { FilterType } = require('./types/filterKeyword')
 const { combineHybridSymbols } = require("./filters/mana")
 const { lexer } = require('./lexer')
-const { parseEnumToken } = require("./parserUtils")
+const { parseEnumToken, parseSimpleManaCost } = require("./parserUtils")
 %}
 
 @lexer lexer
@@ -509,12 +509,13 @@ manaCostValue -> manaSymbol:+ {% ([symbols]) => ({
     value: symbols.map(it => it.value),
     offset: symbols[0].offset
 }) %} |
+ integerValue {% ([token]) => ({ value: [token.value.toString()], offset: token.offset }) %} |
  noQuoteString {% ([token], _, reject) => {
-    if (/[^0-9xyzwubrgsc]/.test(token.value)) {
-        return reject
+    if (/[^0-9xyzwubrgscXYZWUBRGSC]/.test(token.value)) {
+        return reject;
     }
-    return { value: token.value.split("") , offset: token.offset }
-  } %}
+    return { value: parseSimpleManaCost(token.value), offset: token.offset }
+} %}
 
 
 manaSymbol -> "{" innerManaSymbol "}"

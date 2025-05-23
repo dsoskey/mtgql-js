@@ -21,3 +21,35 @@ export function parseEnumToken(
         offset: filterToken.offset
     })
 }
+
+/**
+ * Parses a mana cost string with no curly braces in it.
+ * Multiple number costs are combined into a single generic cost
+ * @param rawManaCost - cost to parse
+ * @return an array of raw mana symbols
+ */
+export function parseSimpleManaCost(rawManaCost: string): string[] {
+    const split = rawManaCost.toLowerCase().split("")
+    let genericCost = 0;
+    let currentNumberString = '';
+    const nonDigits = [];
+    for (let i = 0; i < split.length; i++) {
+        const currentChar = split[i];
+        if (Number.isNaN(parseInt(currentChar))) {
+            nonDigits.push(currentChar);
+            if (currentNumberString.length > 0) {
+                genericCost += parseInt(currentNumberString);
+                currentNumberString = '';
+            }
+        } else {
+            currentNumberString += currentChar;
+        }
+    }
+    if (currentNumberString.length > 0) {
+        genericCost += parseInt(currentNumberString);
+    }
+    if (genericCost) {
+        return [genericCost.toString(), ...nonDigits];
+    }
+    return nonDigits;
+}
