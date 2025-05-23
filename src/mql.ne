@@ -487,10 +487,10 @@ colorCombinationValue ->
     ("c" | "C" | %color_brown | %color_colorless)  {% ([[token]]) => ({ value: [], offset: token.offset }) %}
   | colorCombinationKeyword {% ([value]) => ({ value }) %}
   | noQuoteString {% ([token], _, reject) => {
-    if (/[^wubrg]/.test(token.value)) {
+    if (/[^wubrgWUBRG]/.test(token.value)) {
         return reject
     }
-    return { value: token.value.split(""), offset: token.offset }
+    return { value: token.value.toLowerCase().split(""), offset: token.offset }
   } %}
 
 producesCombinationValue ->

@@ -52,6 +52,12 @@ describe('color filters', function() {
     ])
   })
 
+  it('handles uppercase color characters', async () => {
+    const result = await searchNames(queryRunner, "c=U")
+
+    expect(result).toEqual([preordain.name])
+  })
+
   it('handles colorless', async () => {
     const result = await searchNames(queryRunner, "c=c")
     const result2 = await searchNames(queryRunner, "c:c")

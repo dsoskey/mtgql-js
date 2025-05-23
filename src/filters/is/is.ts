@@ -385,6 +385,7 @@ export const isPrintVal = (value: IsValue) => ({ printing, card }: PrintingFilte
         printing.set === "hho" ||
         printing.set === "ptg" ||
         printing.set === "h17" ||
+        printing.set === "unk" ||
         printing.set_type === 'token' ||
         (printing.promo_types??[] as string[]).includes("thick") ||
         (printing.games as string[]).includes("astral") ||
