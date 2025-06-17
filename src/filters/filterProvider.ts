@@ -6,10 +6,10 @@ import {
     Block,
     FilterType,
     noReminderText,
-    NormedCard,
+    NormedCard, toSplitCost,
     UnaryNode
 } from "../types";
-import {andNode, defaultOperation, FilterNode, identity, identityNode, notNode, orNode} from "./base";
+import {andNode, defaultCompare, defaultOperation, FilterNode, identity, identityNode, notNode, orNode} from "./base";
 import {DataProvider} from "./dataProvider";
 import {CardSet, Legality} from "../generated";
 import {oracleNode} from "./oracle";
@@ -29,7 +29,7 @@ import {
     matchPrintRegexNoReminder,
     originalTextCount
 } from "./text";
-import {nameFilter} from "./name";
+import {fuzzyNameFilter, nameFilter} from "./name";
 import {colorCount, colorMatch} from "./color";
 import {colorIdentityCount, colorIdentityMatch} from "./identity";
 import {manaCostMatch} from "./mana";
@@ -229,6 +229,11 @@ export class CachingFilterProvider implements FilterProvider {
                         filtersUsed: ["name"],
                         filterFunc: nameFilter(leaf.value)
                     });
+                case FilterType.NameFuzzy:
+                    return oracleNode({
+                        filtersUsed: ["name"],
+                        filterFunc: fuzzyNameFilter(leaf.value),
+                    })
                 case FilterType.NameRegex:
                     return oracleNode({
                         filtersUsed: ["name"],
@@ -473,6 +478,17 @@ export class CachingFilterProvider implements FilterProvider {
                         printing.flavor_text?.includes(leaf.value) ||
                         printing.flavor_name?.includes(leaf.value)
                     )
+                case FilterType.Pips:
+                    return oracleNode({
+                        filterFunc(it: NormedCard): boolean {
+                            const toCompare = it.mana_cost === undefined
+                                ? 0
+                                : toSplitCost(it.mana_cost).filter(it => Number.isNaN(parseInt(it)) && it !== "x" && it!=="y" && it!=="z").length;
+                            return defaultCompare(toCompare, leaf.operator, leaf.value);
+                        },
+                        filtersUsed: [`pips`]
+
+                    })
             }
             // Unwrap promised FilterNodes to enrich errors with leaf.offset.
             return await promisedNode

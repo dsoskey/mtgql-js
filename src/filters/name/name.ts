@@ -41,6 +41,16 @@ const withoutDiacritics = (str: string): string => {
   return result.join("")
 }
 
+export function normalizeName(name: string): string {
+  return withoutDiacritics(name)
+      .replace(/[\s,.:]/g, '')
+}
+
+export const fuzzyNameFilter = (name: string): Filter<NormedCard> => (card) => {
+  return anyFaceContains(card, "name", name) ||
+      anyFaceContains(card, "name", name, normalizeName)
+}
+
 export const nameFilter = (name: string): Filter<NormedCard> => (card) => {
   return anyFaceContains(card, "name", name) ||
     anyFaceContains(card, "name", name, withoutDiacritics)

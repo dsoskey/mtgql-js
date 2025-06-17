@@ -401,6 +401,7 @@ export const toSplitCost = (cost: string): Array<ManaSymbol> =>
   cost.toLowerCase()
     .slice(1, cost.length - 1)
     .split('}{')
+    .filter(it => it.length > 0)
     .sort() as ManaSymbol[]
 
 export const isDual = (card: Card | NormedCard) =>

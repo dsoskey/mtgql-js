@@ -77,6 +77,7 @@ export const FILTER_KEYWORDS = {
   ogo: "ogo", ogtext: "ogtext",
   fogo: "fogo", fogtext: "fogtext",
   ogt: "ogt", ogtype: "ogtype",
+  pips: "pips",
 } as const
 
 export const KEYWORDS_TO_IMPLEMENT = {
@@ -96,6 +97,7 @@ export enum FilterType {
   CmcInt,
   CmcOddEven,
   Name,
+  NameFuzzy,
   NameExact,
   NameRegex,
   ColorSet,
@@ -172,7 +174,8 @@ export enum FilterType {
   OracleId,
   Identity,
   Limit,
-  Lore
+  Lore,
+  Pips
 }
 
 interface FilterTypeRepr {
@@ -186,6 +189,7 @@ export const FILTERTYPE_REPR: Record<FilterType, FilterTypeRepr> = {
   [FilterType.CmcInt]: { name: "cmc", validValues: [] },
   [FilterType.CmcOddEven]: { name: "cmc", validValues: [] },
   [FilterType.Name]: { name: "name", validValues: [] },
+  [FilterType.NameFuzzy]: { name: "fuzzy name", validValues: [] },
   [FilterType.NameExact]: { name: "name", validValues: [] },
   [FilterType.NameRegex]: { name: "name", validValues: [] },
   [FilterType.ColorSet]: { name: "color", validValues: [] },
@@ -263,4 +267,5 @@ export const FILTERTYPE_REPR: Record<FilterType, FilterTypeRepr> = {
   [FilterType.Identity]: { name: "all", validValues: [] },
   [FilterType.Limit]: { name: "limit", validValues: [] },
   [FilterType.Lore]: { name: "lore", validValues: [] },
+  [FilterType.Pips]: { name: "pips", validValues: [] },
 }

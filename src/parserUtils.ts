@@ -29,12 +29,10 @@ export function parseEnumToken(
  * @return an array of raw mana symbols
  */
 export function parseSimpleManaCost(rawManaCost: string): string[] {
-    const split = rawManaCost.toLowerCase().split("")
     let genericCost = 0;
     let currentNumberString = '';
     const nonDigits = [];
-    for (let i = 0; i < split.length; i++) {
-        const currentChar = split[i];
+    for (const currentChar of rawManaCost.toLowerCase()) {
         if (Number.isNaN(parseInt(currentChar))) {
             nonDigits.push(currentChar);
             if (currentNumberString.length > 0) {

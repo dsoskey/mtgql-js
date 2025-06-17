@@ -143,8 +143,20 @@ export const uniqueArts =
       const returnedPrints: Printing[] = []
       for (const print of filteredPrints) {
         if (print.illustration_id !== undefined && !foundArtIds.has(print.illustration_id)) {
-          foundArtIds.add(print.illustration_id)
-          returnedPrints.push(print)
+          foundArtIds.add(print.illustration_id);
+          returnedPrints.push(print);
+        } else if (print.card_faces !== undefined) {
+            const illustrationIds = print.card_faces
+                .filter(face =>
+                    face.illustration_id !== undefined &&
+                    !foundArtIds.has(face.illustration_id));
+
+            if (illustrationIds.length > 0) {
+                for (const face of illustrationIds) {
+                    foundArtIds.add(face.illustration_id);
+                }
+                returnedPrints.push(print);
+            }
         }
       }
       return returnedPrints.map((it) => ({

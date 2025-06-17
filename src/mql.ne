@@ -110,7 +110,8 @@ condition -> (
     scryfallIdCondition |
     oracleIdCondition |
     limitCondition |
-    loreCondition
+    loreCondition |
+    pipsCondition
 ) {% ([[condition]]) => condition %}
 
 identityCondition -> %identity {% ([{offset}]) => ({ filter: FilterType.Identity, offset }) %}
@@ -130,7 +131,7 @@ exactNameCondition -> "!":? stringValue
             return reject;
         }
         return ({
-            filter: op ? FilterType.NameExact : FilterType.Name,
+            filter: op ? FilterType.NameExact : FilterType.NameFuzzy,
             value: string.value,
             offset: op ? op.offset : string.offset
         })
@@ -411,6 +412,10 @@ oracleIdCondition -> %kw_oracleid onlyEqualOperator stringValue
 
 limitCondition -> (%kw_lim | %kw_limit)  onlyEqualOperator integerValue
     {% ([{offset}, _, {value}]) => ({ filter: FilterType.Limit, value, offset }) %}
+
+pipsCondition -> %kw_pips anyOperator integerValue
+    {% ([{offset}, op, {value}]) => ({ filter: FilterType.Pips, value, offset, operator: op.value }) %}
+
 
 # Values
 stringValue -> (noQuoteString | %dqstring | %sqstring) {% ([[token]]) => {
