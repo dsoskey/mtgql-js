@@ -154,6 +154,28 @@ export class CachingFilterProvider implements FilterProvider {
         return printNode(['newcube'], ({printing}) => ids.has(printing.id))
     }
 
+    cubeTagFilter = async (cubeKey: string, tag: string, type: "oracle_id" | "print_id"): Promise<FilterNode> => {
+        const cube = await this.provider.getCube(cubeKey)
+        if (cube === undefined) {
+            throw Error(`Couldn't find cube ${cubeKey}`);
+        }
+        const ids = new Set<string>();
+        for (const card of cube.cards) {
+            if (card.tags?.includes(tag)) {
+                ids.add(card[type]);
+            }
+        }
+        switch (type) {
+            case "oracle_id":
+                return oracleNode({
+                filtersUsed: ['cube-tag'],
+                filterFunc: (card: NormedCard) => ids.has(card.oracle_id)
+            })
+            case 'print_id':
+                return printNode(['cube-tag'], ({printing}) => ids.has(printing.id))
+        }
+    }
+
     otagFilter = async (key: string): Promise<FilterNode> => {
         const ids = await this.getOtag(key);
         return oracleNode({
@@ -437,6 +459,16 @@ export class CachingFilterProvider implements FilterProvider {
                 case FilterType.CubePrints:
                     promisedNode = this.cubePrintFilter(leaf.value)
                     break;
+                case FilterType.CubePTag: {
+                    const {cubeID, tag} = leaf.value;
+                    promisedNode = this.cubeTagFilter(cubeID, tag, "print_id");
+                    break;
+                }
+                case FilterType.CubeOTag: {
+                    const {cubeID, tag} = leaf.value;
+                    promisedNode = this.cubeTagFilter(cubeID, tag, "oracle_id");
+                    break;
+                }
                 case FilterType.OracleTag:
                     promisedNode = this.otagFilter(leaf.value)
                     break;

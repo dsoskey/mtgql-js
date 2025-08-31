@@ -96,6 +96,8 @@ condition -> (
     watermarkCondition |
     cubeOracleCondition |
     cubePrintCondition |
+    cubeOTagCondition |
+    cubePTagCondition |
     producesCondition |
     uniqueCondition |
     orderCondition |
@@ -392,8 +394,14 @@ preferCondition -> %kw_prefer onlyEqualOperator stringValue
 cubeOracleCondition -> (%kw_cube | %kw_ctag | %kw_list) ":" cubeValue
     {% ([[{offset}], _, {value}]) => ({ filter: FilterType.CubeOracle, value, offset }) %}
 
+cubeOTagCondition -> (%kw_cube | %kw_ctag | %kw_list) ":" cubeValue "." stringValue
+    {% ([[{offset}], _, cubeToken, _1, tagToken]) => ({ filter: FilterType.CubeOTag, value: { cubeID: cubeToken.value, tag: tagToken.value }, offset }) %}
+
 cubePrintCondition -> (%kw_cube | %kw_ctag | %kw_list) "=" cubeValue
     {% ([[{offset}], _, {value}]) => ({ filter: FilterType.CubePrints, value, offset }) %}
+
+cubePTagCondition -> (%kw_cube | %kw_ctag | %kw_list) "=" cubeValue "." stringValue
+    {% ([[{offset}], _, cubeToken, _1, tagToken]) => ({ filter: FilterType.CubePTag, value: { cubeID: cubeToken.value, tag: tagToken.value }, offset }) %}
 
 oracleTagCondition -> (%kw_function | %kw_oracletag | %kw_otag) onlyEqualOperator stringValue
     {% ([[{offset}], _, {value}]) => ({ filter: FilterType.OracleTag, value, offset }) %}
