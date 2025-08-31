@@ -10,7 +10,7 @@ import {cloudPirate} from "../_testData/cloudPirate";
 import {faerieDreamthief} from "../_testData/faerieDreamthief";
 import {soldierOfFortune} from "../_testData/soldierOfFortune";
 import {avenHeartstabber} from "../_testData/avenHeartstabber";
-import {sunpetalGrove} from "../_testData/sunpetalGrove";
+import {sunpetalGroveNew, sunpetalGroveOld} from "../_testData/sunpetalGrove";
 import {preordain} from "../_testData/preordain";
 import {negate} from "../_testData/negate";
 import {lich} from "../_testData/lich";
@@ -25,11 +25,11 @@ import {collectThemAll} from "../_testData/collectThemAll";
 describe('is filters', function () {
     describe('etb', function () {
         it('should find cards that have an ability related to entering the battlefield', async function () {
-            const corpus = [kroxaTitanOfDeathsHunger, soldierOfFortune, sunpetalGrove];
+            const corpus = [kroxaTitanOfDeathsHunger, soldierOfFortune, sunpetalGroveOld];
             const queryRunner = defaultRunner(corpus)
             const result = await searchNames(queryRunner, "has:etb");
 
-            expect(result).toEqual([kroxaTitanOfDeathsHunger.name, sunpetalGrove.name])
+            expect(result).toEqual([kroxaTitanOfDeathsHunger.name, sunpetalGroveOld.name])
         });
     });
 
@@ -94,7 +94,7 @@ describe('is filters', function () {
 
     describe('permanent', function () {
         it('should find all permanent types', async function () {
-            const corpus = [kroxaTitanOfDeathsHunger, sunpetalGrove, preordain, negate, lich, blackLotus, invasionOfTarkir,];
+            const corpus = [kroxaTitanOfDeathsHunger, sunpetalGroveOld, preordain, negate, lich, blackLotus, invasionOfTarkir,];
             const queryRunner = defaultRunner(corpus);
             const result = await searchNames(queryRunner, "is:permanent");
 
@@ -103,7 +103,7 @@ describe('is filters', function () {
                 invasionOfTarkir.name,
                 kroxaTitanOfDeathsHunger.name,
                 lich.name,
-                sunpetalGrove.name,
+                sunpetalGroveOld.name,
             ]);
         });
         it('should find permanents with instant or sorcery in a card face', async function () {
@@ -126,5 +126,22 @@ describe('is filters', function () {
 
             expect(result).toEqual([emberethShieldbreaker.name, torstenVonUrsus.name]);
         });
+    })
+
+    describe('checkland', function() {
+        [
+            { type: 'old', card: sunpetalGroveOld },
+            { type: 'new', card: sunpetalGroveNew },
+
+        ].forEach((testCase) => {
+            it (`should handle ${testCase.type} checkland oracle text`, async function()  {
+                const corpus = [testCase.card];
+                const queryRunner = defaultRunner(corpus);
+                const result = await searchNames(queryRunner, "is:checkland");
+
+                expect(result).toEqual([testCase.card.name]);
+            })
+        })
+
     })
 });

@@ -580,7 +580,7 @@ export const isOracleVal = (value: IsValue) => (card: NormedCard): boolean => {
           .test(oracle_text)
     case 'checkland':
       return (isDual(card) &&
-        /.* enters the battlefield tapped unless you control an? .* or an? *./
+        /.* enters (the battlefield )?tapped unless you control an? .* or an? *./
             .test(oracle_text)
       )
     case 'dual':

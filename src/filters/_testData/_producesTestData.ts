@@ -1,5 +1,5 @@
 import {Card} from "../../generated";
-import {sunpetalGrove} from "./sunpetalGrove";
+import {sunpetalGroveOld} from "./sunpetalGrove";
 import {birdsOfParadise} from "./birdsOfParadise";
 import {lagoHirvienteDeDarigaaz} from "./lagoHirvienteDeDarigaaz";
 
@@ -162,7 +162,7 @@ export const producesTestData: Card[] = [
             "cardhoarder": "https://www.cardhoarder.com/cards/133480?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall"
         }
     },
-    sunpetalGrove,
+    sunpetalGroveOld,
     birdsOfParadise,
     lagoHirvienteDeDarigaaz,
     {
