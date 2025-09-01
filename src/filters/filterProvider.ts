@@ -161,8 +161,10 @@ export class CachingFilterProvider implements FilterProvider {
         }
         const ids = new Set<string>();
         for (const card of cube.cards) {
-            if (card.tags?.includes(tag)) {
-                ids.add(card[type]);
+            for (const cardTag of card.tags ?? []) {
+                if (cardTag.toLowerCase() === tag) {
+                    ids.add(card[type]);
+                }
             }
         }
         switch (type) {
