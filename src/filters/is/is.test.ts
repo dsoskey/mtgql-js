@@ -21,8 +21,25 @@ import {seaGateRestoration} from "../_testData/seaGateRestoration";
 import {bedeckBedazzle} from "../_testData/bedeckBedazzle";
 import {torstenVonUrsus} from "../_testData/torstenVonUrsus";
 import {collectThemAll} from "../_testData/collectThemAll";
+import {bonecrusherGiant} from "../_testData/bonecrusherGiant";
+import {alpineMeadow} from "../_testData/alpineMeadow";
 
 describe('is filters', function () {
+    describe('default', function() {
+        it('should find cards that have default-coded frame effects', async function () {
+            const corpus = [
+                alpineMeadow, // snow
+                kroxaTitanOfDeathsHunger, //legendary
+                soldierOfFortune, // frame_effects: undefined,
+                bonecrusherGiant, // showcase
+            ]
+            const queryRunner = defaultRunner(corpus)
+            const result = await searchNames(queryRunner, "is:default");
+
+            expect(result).toEqual([alpineMeadow.name, kroxaTitanOfDeathsHunger.name, soldierOfFortune.name])
+        });
+    })
+
     describe('etb', function () {
         it('should find cards that have an ability related to entering the battlefield', async function () {
             const corpus = [kroxaTitanOfDeathsHunger, soldierOfFortune, sunpetalGroveOld];

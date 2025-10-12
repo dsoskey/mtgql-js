@@ -472,7 +472,8 @@
           "firstplacefoil",
           "beginnerbox",
           "startercollection",
-          "sldbonus"
+          "sldbonus",
+          "universesbeyond"
         ],
         "type": "string"
       },

@@ -15,7 +15,7 @@ import { FilterNode } from '../base'
 import { oracleNode } from '../oracle'
 import {matchText} from '../text'
 import { printNode } from '../print'
-import { CardFinish, CardSecurityStamp, FrameEffect } from "../../generated";
+import { CardFinish, FrameEffect } from "../../generated";
 
 export const isPrintPrefix = `is-print:`
 
@@ -199,18 +199,25 @@ export function printMatters(value: IsValue): boolean {
   return printMattersFields.has(value)
 }
 
-function unimplemented(value: string): boolean {
-  console.warn(`is:${value} is unimplemented`)
-  return false
-}
-
+const nonDefaultPrints = new Set([
+    'showcase',
+    'extendedart',
+    'fullart',
+    'colorshifted',
+    'shatteredglass',
+    'borderless',
+    'upsidedowndfc',
+]);
 export function isDefaultPrinting(printing: Printing) {
   return (
+      (printing.finishes.includes('nonfoil') || printing.finishes.includes('foil')) &&
       defaultFrames.has(printing.frame)
       && defaultBorders.has(printing.border_color)
       && !printing.full_art
       && !printing.textless
-      && (printing.frame_effects??[]).length === 0
+          && (printing.frame_effects??[]).filter(it =>
+            nonDefaultPrints.has(it)
+      ).length === 0
       //     && !is:oddframe
   )
 }
@@ -273,7 +280,7 @@ export const isPrintVal = (value: IsValue) => ({ printing, card }: PrintingFilte
       return printing.security_stamp?.length > 0
     case 'ub':
     case 'universesbeyond':
-      return printing.security_stamp?.includes(CardSecurityStamp.triangle)
+      return printing.promo_types?.includes("universesbeyond");
     case 'artist':
       return printing.artist?.length > 0
     case 'flavor':
