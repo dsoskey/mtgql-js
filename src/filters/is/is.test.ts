@@ -23,20 +23,22 @@ import {torstenVonUrsus} from "../_testData/torstenVonUrsus";
 import {collectThemAll} from "../_testData/collectThemAll";
 import {bonecrusherGiant} from "../_testData/bonecrusherGiant";
 import {alpineMeadow} from "../_testData/alpineMeadow";
+import {emrakulTheAeonsTorn} from "../_testData/emrakulTheAeonsTorn";
 
 describe('is filters', function () {
     describe('default', function() {
         it('should find cards that have default-coded frame effects', async function () {
             const corpus = [
                 alpineMeadow, // snow
-                kroxaTitanOfDeathsHunger, //legendary
+                emrakulTheAeonsTorn, //legendary
+                kroxaTitanOfDeathsHunger, // promo_type: stamped
                 soldierOfFortune, // frame_effects: undefined,
                 bonecrusherGiant, // showcase
             ]
             const queryRunner = defaultRunner(corpus)
             const result = await searchNames(queryRunner, "is:default");
 
-            expect(result).toEqual([alpineMeadow.name, kroxaTitanOfDeathsHunger.name, soldierOfFortune.name])
+            expect(result).toEqual([alpineMeadow.name, emrakulTheAeonsTorn.name, soldierOfFortune.name])
         });
     })
 
