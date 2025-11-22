@@ -516,6 +516,11 @@ export const isOracleVal = (value: IsValue) => (card: NormedCard): boolean => {
         isDual(card) &&
         /When .* enters( the battlefield)?, scry 1/.test(oracle_text)
       )
+    case 'surveilland':
+      return (
+          isDual(card) &&
+          /When .* enters( the battlefield)?, surveil 1/.test(oracle_text)
+      )
     case 'shadowland':
     case 'snarl':
       return (
@@ -537,7 +542,7 @@ export const isOracleVal = (value: IsValue) => (card: NormedCard): boolean => {
     case 'creatureland':
       return (
         card.type_line.includes('Land') &&
-        new RegExp(`(${card.name}|it) becomes? an? .* creature`)
+        new RegExp(`(${card.name}|it|his land) becomes? an? .* creature`)
             .test(oracle_text)
       )
     case 'triland':
@@ -573,6 +578,10 @@ export const isOracleVal = (value: IsValue) => (card: NormedCard): boolean => {
         /.* enters( the battlefield)? tapped unless you control two or more other lands\./
             .test(oracle_text)
       )
+    case "pathway":
+      return card.name.endsWith('Pathway')
+          && card.layout === 'modal_dfc'
+          && card.produced_mana.length === 2
     case 'star':
       return card.power?.includes("*") || card.toughness?.includes("*");
     case 'custom':

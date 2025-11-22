@@ -33,6 +33,8 @@ import {templeOfMaladyNew, templeOfMaladyOld} from "../_testData/templeOfMalady"
 import {prairieStreamNew, prairieStreamOld} from "../_testData/prairieStream";
 import {rejuvenatingSpringsNew, rejuvenatingSpringsOld} from "../_testData/rejuvenatingSprings";
 import {stormCarvedCoastNew, stormCarvedCoastOld} from "../_testData/stormcarvedCoast";
+import {hedgeMaze, hedgeMazeNew, hedgeMazeOld} from "../_testData/hedgeMaze";
+import {blightstepPathway} from "../_testData/blightstepPathway";
 
 describe('is filters', function () {
     describe('default', function() {
@@ -185,6 +187,9 @@ describe('is filters', function () {
             { filter: 'snarl', wordingType: 'new', card: shineshadowSnarlNew },
             { filter: 'slowland', wordingType: 'old', card: stormCarvedCoastOld },
             { filter: 'slowland', wordingType: 'new', card: stormCarvedCoastNew },
+            { filter: 'surveilland', wordingType: 'old', card: hedgeMazeOld },
+            { filter: 'surveilland', wordingType: 'new', card: hedgeMazeNew },
+            { filter: 'pathway', wordingType: '', card: blightstepPathway },
         ].forEach(({ filter, wordingType, card}) => {
             it (`should handle ${wordingType} ${filter} oracle text`, async function()  {
                 const corpus = [card];
