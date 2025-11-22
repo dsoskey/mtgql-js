@@ -1,5 +1,5 @@
 import { phantomBeast } from '../_testData/phantomBeast'
-import { kroxaTitanOfDeathsHunger } from '../_testData/kroxaTitanOfDeathsHunger'
+import { kroxaTitanOfDeathsHungerOld } from '../_testData/kroxaTitanOfDeathsHunger'
 import { delverOfSecrets } from '../_testData/delverOfSecrets'
 import { defaultRunner, searchNames } from '../_testData/_utils'
 import { norinTheWary } from '../_testData/norinTheWary'
@@ -9,7 +9,7 @@ import { preordain } from '../_testData/preordain'
 describe('combat filters', function() {
   const corpus = [
     phantomBeast,
-    kroxaTitanOfDeathsHunger,
+    kroxaTitanOfDeathsHungerOld,
     norinTheWary,
     preordain,
   ]
@@ -40,7 +40,7 @@ describe('combat filters', function() {
     it('should handle pow=tou', async function() {
       const result = await searchNames(queryRunner, "pow=tou")
 
-      expect(result).toEqual([kroxaTitanOfDeathsHunger.name])
+      expect(result).toEqual([kroxaTitanOfDeathsHungerOld.name])
     })
     it('should handle pow<tou', async function() {
       const result = await searchNames(queryRunner, "pow<tou")
@@ -50,12 +50,12 @@ describe('combat filters', function() {
     it('should handle pow>=tou', async function() {
       const result = await searchNames(queryRunner, "pow>=tou")
 
-      expect(result).toEqual([kroxaTitanOfDeathsHunger.name, norinTheWary.name])
+      expect(result).toEqual([kroxaTitanOfDeathsHungerOld.name, norinTheWary.name])
     })
     it('should handle pow<=tou', async function() {
       const result = await searchNames(queryRunner, "pow<=tou")
 
-      expect(result).toEqual([kroxaTitanOfDeathsHunger.name, phantomBeast.name])
+      expect(result).toEqual([kroxaTitanOfDeathsHungerOld.name, phantomBeast.name])
     })
     it('should handle pow!=tou', async function() {
       const result = await searchNames(queryRunner, "pow!=tou")
@@ -71,7 +71,7 @@ describe('combat filters', function() {
     it('should handle tou=pow', async function() {
       const result = await searchNames(queryRunner, "tou=pow")
 
-      expect(result).toEqual([kroxaTitanOfDeathsHunger.name])
+      expect(result).toEqual([kroxaTitanOfDeathsHungerOld.name])
     })
     it('should handle tou<pow', async function() {
       const result = await searchNames(queryRunner, "tou<pow")
@@ -81,12 +81,12 @@ describe('combat filters', function() {
     it('should handle tou>=pow', async function() {
       const result = await searchNames(queryRunner, "tou>=pow")
 
-      expect(result).toEqual([kroxaTitanOfDeathsHunger.name, phantomBeast.name])
+      expect(result).toEqual([kroxaTitanOfDeathsHungerOld.name, phantomBeast.name])
     })
     it('should handle tou<=pow', async function() {
       const result = await searchNames(queryRunner, "tou<=pow")
 
-      expect(result).toEqual([kroxaTitanOfDeathsHunger.name, norinTheWary.name])
+      expect(result).toEqual([kroxaTitanOfDeathsHungerOld.name, norinTheWary.name])
     })
 
     it("should handle stars", async () => {
@@ -102,7 +102,7 @@ describe('combat filters', function() {
       it(`should handle ${filterKeyword}`, async () => {
         const result = await searchNames(queryRunner, `${filterKeyword}>11`)
 
-        expect(result).toEqual([kroxaTitanOfDeathsHunger.name])
+        expect(result).toEqual([kroxaTitanOfDeathsHungerOld.name])
       })
     })
   })

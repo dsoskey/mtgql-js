@@ -1,6 +1,6 @@
 import { Card } from '../../generated'
 
-export const bloodCrypt = {
+export const bloodCryptOld = {
   "object": "card",
   "oracle_id": "43985bbc-a0f6-4812-984e-392bc8562633",
   "name": "Blood Crypt",
@@ -121,3 +121,131 @@ export const bloodCrypt = {
   "textless": false,
   "story_spotlight": false
 } as Card
+
+export const bloodCryptNew = {
+  "object": "card",
+  "id": "8bd5828b-8dcd-4ce6-b834-ebe9cbaa12d1",
+  "oracle_id": "43985bbc-a0f6-4812-984e-392bc8562633",
+  "multiverse_ids": [
+    253683
+  ],
+  "mtgo_id": 46505,
+  "mtgo_foil_id": 46506,
+  "tcgplayer_id": 66412,
+  "cardmarket_id": 258316,
+  "name": "Blood Crypt",
+  "lang": "en",
+  "released_at": "2012-10-05",
+  "uri": "https://api.scryfall.com/cards/8bd5828b-8dcd-4ce6-b834-ebe9cbaa12d1",
+  "scryfall_uri": "https://scryfall.com/card/rtr/238/blood-crypt?utm_source=api",
+  "layout": "normal",
+  "highres_image": true,
+  "image_status": "highres_scan",
+  "image_uris": {
+    "small": "https://cards.scryfall.io/small/front/8/b/8bd5828b-8dcd-4ce6-b834-ebe9cbaa12d1.jpg?1562789618",
+    "normal": "https://cards.scryfall.io/normal/front/8/b/8bd5828b-8dcd-4ce6-b834-ebe9cbaa12d1.jpg?1562789618",
+    "large": "https://cards.scryfall.io/large/front/8/b/8bd5828b-8dcd-4ce6-b834-ebe9cbaa12d1.jpg?1562789618",
+    "png": "https://cards.scryfall.io/png/front/8/b/8bd5828b-8dcd-4ce6-b834-ebe9cbaa12d1.png?1562789618",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/8/b/8bd5828b-8dcd-4ce6-b834-ebe9cbaa12d1.jpg?1562789618",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/8/b/8bd5828b-8dcd-4ce6-b834-ebe9cbaa12d1.jpg?1562789618"
+  },
+  "mana_cost": "",
+  "cmc": 0.0,
+  "type_line": "Land — Swamp Mountain",
+  "oracle_text": "({T}: Add {B} or {R}.)\nAs this land enters, you may pay 2 life. If you don't, it enters tapped.",
+  "colors": [],
+  "color_identity": [
+    "B",
+    "R"
+  ],
+  "keywords": [],
+  "produced_mana": [
+    "B",
+    "R"
+  ],
+  "legalities": {
+    "standard": "not_legal",
+    "future": "not_legal",
+    "historic": "legal",
+    "timeless": "legal",
+    "gladiator": "legal",
+    "pioneer": "legal",
+    "modern": "legal",
+    "legacy": "legal",
+    "pauper": "not_legal",
+    "vintage": "legal",
+    "penny": "not_legal",
+    "commander": "legal",
+    "oathbreaker": "legal",
+    "standardbrawl": "not_legal",
+    "brawl": "legal",
+    "alchemy": "not_legal",
+    "paupercommander": "not_legal",
+    "duel": "legal",
+    "oldschool": "not_legal",
+    "premodern": "not_legal",
+    "predh": "legal"
+  },
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "reserved": false,
+  "game_changer": false,
+  "foil": true,
+  "nonfoil": true,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "oversized": false,
+  "promo": false,
+  "reprint": true,
+  "variation": false,
+  "set_id": "80b2374d-c5f1-403e-9772-f6c806fd275e",
+  "set": "rtr",
+  "set_name": "Return to Ravnica",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/80b2374d-c5f1-403e-9772-f6c806fd275e",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Artr&unique=prints",
+  "scryfall_set_uri": "https://scryfall.com/sets/rtr?utm_source=api",
+  "rulings_uri": "https://api.scryfall.com/cards/8bd5828b-8dcd-4ce6-b834-ebe9cbaa12d1/rulings",
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A43985bbc-a0f6-4812-984e-392bc8562633&unique=prints",
+  "collector_number": "238",
+  "digital": false,
+  "rarity": "rare",
+  "watermark": "rakdos",
+  "flavor_text": "Where the dead serve as diversion, decor, and dessert.",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "artist": "Vincent Proce",
+  "artist_ids": [
+    "d82b1138-76d3-49f7-9d8c-bc2e2d3e0b0a"
+  ],
+  "illustration_id": "fd7edda6-c0e8-475d-8d92-b77e427f62ab",
+  "border_color": "black",
+  "frame": "2003",
+  "full_art": false,
+  "textless": false,
+  "booster": true,
+  "story_spotlight": false,
+  "edhrec_rank": 78,
+  "prices": {
+    "usd": "16.04",
+    "usd_foil": "19.86",
+    "usd_etched": null,
+    "eur": "15.04",
+    "eur_foil": "18.65",
+    "tix": "0.09"
+  },
+  "related_uris": {
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=253683&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DBlood%2BCrypt",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DBlood%2BCrypt",
+    "edhrec": "https://edhrec.com/route/?cc=Blood+Crypt"
+  },
+  "purchase_uris": {
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F66412%3Fpage%3D1",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=258316&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "cardhoarder": "https://www.cardhoarder.com/cards/46505?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall"
+  }
+} as Card;

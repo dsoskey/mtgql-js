@@ -325,7 +325,7 @@ export const isOracleVal = (value: IsValue) => (card: NormedCard): boolean => {
     case 'spellbook': // check oracle text for draft from spellbook text
       return anyFaceRegexMatch(card, 'oracle_text', /(conjure the power nine|(conjure|draft).* from .* spellbook)/)
     case 'etb':
-      return anyFaceContains(card, 'oracle_text', 'enters the battlefield')
+      return anyFaceContains(card, 'oracle_text', 'enters')
     case 'bear':
       return card.cmc === 2 && [
         card,
@@ -468,9 +468,9 @@ export const isOracleVal = (value: IsValue) => (card: NormedCard): boolean => {
       )
     case 'bounceland':
     case 'karoo':
-      return (/Add \{.}\{.}\./.test(oracle_text)
-          && (/When .* enters the battlefield, sacrifice it unless you return an untapped/.test(oracle_text)
-              || /When .* enters the battlefield, return a land you control to its owner's hand/.test(oracle_text))
+      return (/Add \{.}\{.}( to your mana pool)?\./.test(oracle_text)
+          && (/When .* enters( the battlefield)?, sacrifice it unless you return an untapped/.test(oracle_text)
+              || /When .* enters( the battlefield)?, return a land you control to its owner's hand/.test(oracle_text))
       )
     case 'canopyland':
     case 'canland':
@@ -491,7 +491,7 @@ export const isOracleVal = (value: IsValue) => (card: NormedCard): boolean => {
     case 'fastland':
       return (
         isDual(card) &&
-        /.* enters the battlefield tapped unless you control two or fewer other lands\./.test(oracle_text)
+        /.* enters( the battlefield)? tapped unless you control two or fewer other lands\./.test(oracle_text)
       )
     case 'filterland':
       return (
@@ -502,8 +502,8 @@ export const isOracleVal = (value: IsValue) => (card: NormedCard): boolean => {
     case 'gainland':
       return (
         isDual(card) &&
-        /.* enters the battlefield tapped\./.test(oracle_text) &&
-        /When .* enters the battlefield, you gain 1 life\./.test(oracle_text)
+        /.* enters( the battlefield)? tapped\./.test(oracle_text) &&
+        /When .* enters( the battlefield)?, you gain 1 life\./.test(oracle_text)
       )
     case 'painland':
       return (
@@ -514,13 +514,13 @@ export const isOracleVal = (value: IsValue) => (card: NormedCard): boolean => {
     case 'scryland':
       return (
         isDual(card) &&
-        /When .* enters the battlefield, scry 1/.test(oracle_text)
+        /When .* enters( the battlefield)?, scry 1/.test(oracle_text)
       )
     case 'shadowland':
     case 'snarl':
       return (
         isDual(card) &&
-        /As .* enters the battlefield, you may reveal an? .* or .* card from your hand\. If you don't, .* enters the battlefield tapped./.test(
+        /As .* enters( the battlefield)?, you may reveal an? .* or .* card from your hand\. If you don't, .* enters( the battlefield)? tapped/.test(
           oracle_text
         )
       )
@@ -559,18 +559,18 @@ export const isOracleVal = (value: IsValue) => (card: NormedCard): boolean => {
       return (
         card.type_line.includes('Land') &&
         hasNumLandTypes(card, 2) &&
-        /.* enters the battlefield tapped unless you control two or more basic lands\./
+        /.* enters( the battlefield)? tapped unless you control two or more basic lands\./
             .test(oracle_text)
       )
     case 'bondland':
       return (
         card.type_line.includes("Land") &&
-        oracle_text.includes("enters the battlefield tapped unless you have two or more opponents")
+        /enters( the battlefield)? tapped unless you have two or more opponents/.test(oracle_text)
       )
     case 'slowland':
       return (
         isDual(card) &&
-        /.* enters the battlefield tapped unless you control two or more other lands\./
+        /.* enters( the battlefield)? tapped unless you control two or more other lands\./
             .test(oracle_text)
       )
     case 'star':

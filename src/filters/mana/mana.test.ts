@@ -1,5 +1,5 @@
 import { davrielsWithering } from '../_testData/davrielsWithering'
-import { kroxaTitanOfDeathsHunger } from '../_testData/kroxaTitanOfDeathsHunger'
+import { kroxaTitanOfDeathsHungerOld } from '../_testData/kroxaTitanOfDeathsHunger'
 import { defaultRunner, searchNames } from '../_testData/_utils'
 import { preordain } from '../_testData/preordain'
 import { darkConfidant } from '../_testData/darkConfidant'
@@ -66,7 +66,7 @@ describe('mana filter', function() {
     preordain,
     davrielsWithering,
     darkConfidant,
-    kroxaTitanOfDeathsHunger,
+    kroxaTitanOfDeathsHungerOld,
     ghaltaPrimalHunger,
     emrakulTheAeonsTorn,
   ]
@@ -99,7 +99,7 @@ describe('mana filter', function() {
   it('should handle exact match', async function() {
     const result = await searchNames(queryRunner, "mana=rb")
 
-    expect(result).toEqual([kroxaTitanOfDeathsHunger.name])
+    expect(result).toEqual([kroxaTitanOfDeathsHungerOld.name])
   })
 
   it('should handle != filter', async function() {
@@ -110,7 +110,7 @@ describe('mana filter', function() {
       darkConfidant.name,
       emrakulTheAeonsTorn.name,
       ghaltaPrimalHunger.name,
-      kroxaTitanOfDeathsHunger.name,
+      kroxaTitanOfDeathsHungerOld.name,
       preordain.name
     ])
   })
@@ -118,7 +118,7 @@ describe('mana filter', function() {
   it('should handle > filter', async function() {
     const result = await searchNames(queryRunner, "mana>b")
 
-    expect(result).toEqual([darkConfidant.name, kroxaTitanOfDeathsHunger.name])
+    expect(result).toEqual([darkConfidant.name, kroxaTitanOfDeathsHungerOld.name])
   })
 
   it('should handle < filter', async function() {
@@ -130,14 +130,14 @@ describe('mana filter', function() {
   it('should handle <= filter', async function() {
     const result = await searchNames(queryRunner, "mana<=rb")
 
-    expect(result).toEqual([davrielsWithering.name, kroxaTitanOfDeathsHunger.name])
+    expect(result).toEqual([davrielsWithering.name, kroxaTitanOfDeathsHungerOld.name])
   })
 
   it('should handle >= filter, which is the default', async function() {
     const result = await searchNames(queryRunner, "mana>=b")
     const defaultResult = await searchNames(queryRunner, "mana:b")
 
-    expect(result).toEqual([darkConfidant.name, davrielsWithering.name, kroxaTitanOfDeathsHunger.name])
+    expect(result).toEqual([darkConfidant.name, davrielsWithering.name, kroxaTitanOfDeathsHungerOld.name])
     expect(result).toEqual(defaultResult)
   })
   it.todo("should handle mixed symbols (aka r{r/u})")

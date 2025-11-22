@@ -1,4 +1,4 @@
-import { kroxaTitanOfDeathsHunger } from '../_testData/kroxaTitanOfDeathsHunger'
+import { kroxaTitanOfDeathsHungerOld } from '../_testData/kroxaTitanOfDeathsHunger'
 import { aetherbladeAgent } from '../_testData/aetherbladeAgent'
 import { preordain } from '../_testData/preordain'
 import { defaultRunner, searchNames } from '../_testData/_utils'
@@ -6,14 +6,14 @@ import { davrielsWithering } from '../_testData/davrielsWithering'
 import { thoughtKnotSeer } from '../_testData/thoughtKnotSeer'
 
 describe('color filters', function() {
-  const corpus = [preordain, davrielsWithering, aetherbladeAgent, kroxaTitanOfDeathsHunger, thoughtKnotSeer]
+  const corpus = [preordain, davrielsWithering, aetherbladeAgent, kroxaTitanOfDeathsHungerOld, thoughtKnotSeer]
   const queryRunner = defaultRunner(corpus);
 
   it('handles the default for :, >=', async () => {
     const result = await searchNames(queryRunner, "c>=b")
     const defaultResult = await searchNames(queryRunner, "c:b")
 
-    expect(result).toEqual([aetherbladeAgent.name, davrielsWithering.name, kroxaTitanOfDeathsHunger.name])
+    expect(result).toEqual([aetherbladeAgent.name, davrielsWithering.name, kroxaTitanOfDeathsHungerOld.name])
     expect(defaultResult).toEqual(result)
   })
 
@@ -32,7 +32,7 @@ describe('color filters', function() {
   it('handles >', async () => {
     const result = await searchNames(queryRunner, "c>b")
 
-    expect(result).toEqual([aetherbladeAgent.name, kroxaTitanOfDeathsHunger.name])
+    expect(result).toEqual([aetherbladeAgent.name, kroxaTitanOfDeathsHungerOld.name])
   })
 
   it('handles <', async () => {
@@ -47,7 +47,7 @@ describe('color filters', function() {
     expect(result).toEqual([
       aetherbladeAgent.name,
       davrielsWithering.name,
-      kroxaTitanOfDeathsHunger.name,
+      kroxaTitanOfDeathsHungerOld.name,
       thoughtKnotSeer.name
     ])
   })
@@ -69,6 +69,6 @@ describe('color filters', function() {
   it('handles color count filters', async function () {
     const result = await searchNames(queryRunner, "c=2")
 
-    expect(result).toEqual([aetherbladeAgent.name, kroxaTitanOfDeathsHunger.name])
+    expect(result).toEqual([aetherbladeAgent.name, kroxaTitanOfDeathsHungerOld.name])
   })
 })

@@ -1,4 +1,4 @@
-import {kroxaTitanOfDeathsHunger} from "../_testData/kroxaTitanOfDeathsHunger";
+import {kroxaTitanOfDeathsHungerNew, kroxaTitanOfDeathsHungerOld} from "../_testData/kroxaTitanOfDeathsHunger";
 import {tajuruPreserver} from "../_testData/tajuruPreserver";
 import {chameleonColossus} from "../_testData/chameleonColossus";
 import {norinTheWary} from "../_testData/norinTheWary";
@@ -24,6 +24,15 @@ import {collectThemAll} from "../_testData/collectThemAll";
 import {bonecrusherGiant} from "../_testData/bonecrusherGiant";
 import {alpineMeadow} from "../_testData/alpineMeadow";
 import {emrakulTheAeonsTorn} from "../_testData/emrakulTheAeonsTorn";
+import {bloodCryptNew, bloodCryptOld} from "../_testData/bloodCrypt";
+import {gruulTurfNew, gruulTurfOld} from "../_testData/gruulTurf";
+import {seachromeCoastNew, seachromeCoastOld} from "../_testData/seachromeCoast";
+import {jwarIsleRefugeNew, jwarIsleRefugeOld} from "../_testData/jwarIsleRefuge";
+import {shineshadowSnarlNew, shineshadowSnarlOld} from "../_testData/shineshadowSnarl";
+import {templeOfMaladyNew, templeOfMaladyOld} from "../_testData/templeOfMalady";
+import {prairieStreamNew, prairieStreamOld} from "../_testData/prairieStream";
+import {rejuvenatingSpringsNew, rejuvenatingSpringsOld} from "../_testData/rejuvenatingSprings";
+import {stormCarvedCoastNew, stormCarvedCoastOld} from "../_testData/stormcarvedCoast";
 
 describe('is filters', function () {
     describe('default', function() {
@@ -31,7 +40,7 @@ describe('is filters', function () {
             const corpus = [
                 alpineMeadow, // snow
                 emrakulTheAeonsTorn, //legendary
-                kroxaTitanOfDeathsHunger, // promo_type: stamped
+                kroxaTitanOfDeathsHungerOld, // promo_type: stamped
                 soldierOfFortune, // frame_effects: undefined,
                 bonecrusherGiant, // showcase
             ]
@@ -43,18 +52,25 @@ describe('is filters', function () {
     })
 
     describe('etb', function () {
-        it('should find cards that have an ability related to entering the battlefield', async function () {
-            const corpus = [kroxaTitanOfDeathsHunger, soldierOfFortune, sunpetalGroveOld];
+        it('should find cards that have an ability related to entering the battlefield (old wording)', async function () {
+            const corpus = [kroxaTitanOfDeathsHungerOld, soldierOfFortune, sunpetalGroveOld];
             const queryRunner = defaultRunner(corpus)
             const result = await searchNames(queryRunner, "has:etb");
 
-            expect(result).toEqual([kroxaTitanOfDeathsHunger.name, sunpetalGroveOld.name])
+            expect(result).toEqual([kroxaTitanOfDeathsHungerOld.name, sunpetalGroveOld.name])
+        });
+        it('should find cards that have an ability related to entering the battlefield (new wording)', async function () {
+            const corpus = [kroxaTitanOfDeathsHungerNew, soldierOfFortune, sunpetalGroveNew];
+            const queryRunner = defaultRunner(corpus)
+            const result = await searchNames(queryRunner, "has:etb");
+
+            expect(result).toEqual([kroxaTitanOfDeathsHungerNew.name, sunpetalGroveNew.name])
         });
     });
 
     describe('party', function () {
         it('should find cards with a party type', async function () {
-            const corpus = [kroxaTitanOfDeathsHunger, norinTheWary, asymmetrySage, yawgmothThranPhysician, merfolkSpy];
+            const corpus = [kroxaTitanOfDeathsHungerOld, norinTheWary, asymmetrySage, yawgmothThranPhysician, merfolkSpy];
             const queryRunner = defaultRunner(corpus)
             const result = await searchNames(queryRunner, "is:party");
 
@@ -66,14 +82,14 @@ describe('is filters', function () {
             ])
         })
         it('should find cards with changeling', async function () {
-            const corpus = [kroxaTitanOfDeathsHunger, chameleonColossus];
+            const corpus = [kroxaTitanOfDeathsHungerOld, chameleonColossus];
             const queryRunner = defaultRunner(corpus)
             const result = await searchNames(queryRunner, "is:party");
 
             expect(result).toEqual([chameleonColossus.name])
         });
         it("should find cards that are granted a party type by an ability", async function () {
-            const corpus = [kroxaTitanOfDeathsHunger, tajuruPreserver];
+            const corpus = [kroxaTitanOfDeathsHungerOld, tajuruPreserver];
             const queryRunner = defaultRunner(corpus)
             const result = await searchNames(queryRunner, "is:party");
 
@@ -83,7 +99,7 @@ describe('is filters', function () {
 
     describe('outlaw', function () {
         it('should find cards with an outlaw type', async function () {
-            const corpus = [kroxaTitanOfDeathsHunger, avenHeartstabber, cloudPirate, faerieDreamthief, merfolkSpy, soldierOfFortune];
+            const corpus = [kroxaTitanOfDeathsHungerOld, avenHeartstabber, cloudPirate, faerieDreamthief, merfolkSpy, soldierOfFortune];
             const queryRunner = defaultRunner(corpus)
             const result = await searchNames(queryRunner, "is:outlaw");
 
@@ -96,14 +112,14 @@ describe('is filters', function () {
             ])
         })
         it('should find cards with changeling', async function () {
-            const corpus = [kroxaTitanOfDeathsHunger, chameleonColossus];
+            const corpus = [kroxaTitanOfDeathsHungerOld, chameleonColossus];
             const queryRunner = defaultRunner(corpus)
             const result = await searchNames(queryRunner, "is:outlaw");
 
             expect(result).toEqual([chameleonColossus.name])
         });
         it("should find cards that are granted an outlaw type by an ability", async function () {
-            const corpus = [kroxaTitanOfDeathsHunger, tajuruPreserver];
+            const corpus = [kroxaTitanOfDeathsHungerOld, tajuruPreserver];
             const queryRunner = defaultRunner(corpus)
             const result = await searchNames(queryRunner, "is:outlaw");
 
@@ -113,14 +129,14 @@ describe('is filters', function () {
 
     describe('permanent', function () {
         it('should find all permanent types', async function () {
-            const corpus = [kroxaTitanOfDeathsHunger, sunpetalGroveOld, preordain, negate, lich, blackLotus, invasionOfTarkir,];
+            const corpus = [kroxaTitanOfDeathsHungerOld, sunpetalGroveOld, preordain, negate, lich, blackLotus, invasionOfTarkir,];
             const queryRunner = defaultRunner(corpus);
             const result = await searchNames(queryRunner, "is:permanent");
 
             expect(result).toEqual([
                 blackLotus.name,
                 invasionOfTarkir.name,
-                kroxaTitanOfDeathsHunger.name,
+                kroxaTitanOfDeathsHungerOld.name,
                 lich.name,
                 sunpetalGroveOld.name,
             ]);
@@ -147,20 +163,36 @@ describe('is filters', function () {
         });
     })
 
-    describe('checkland', function() {
+    describe('dual land filters', function () {
         [
-            { type: 'old', card: sunpetalGroveOld },
-            { type: 'new', card: sunpetalGroveNew },
-
-        ].forEach((testCase) => {
-            it (`should handle ${testCase.type} checkland oracle text`, async function()  {
-                const corpus = [testCase.card];
+            { filter: 'battleland', wordingType: 'old', card: prairieStreamOld },
+            { filter: 'battleland', wordingType: 'new', card: prairieStreamNew },
+            { filter: 'bondland', wordingType: 'old', card: rejuvenatingSpringsOld },
+            { filter: 'bondland', wordingType: 'new', card: rejuvenatingSpringsNew },
+            { filter: 'checkland', wordingType: 'old', card: sunpetalGroveOld },
+            { filter: 'checkland', wordingType: 'new', card: sunpetalGroveNew },
+            { filter: 'karoo', wordingType: 'old', card: gruulTurfOld },
+            { filter: 'karoo', wordingType: 'new', card: gruulTurfNew },
+            { filter: 'fastland', wordingType: 'old', card: seachromeCoastOld },
+            { filter: 'fastland', wordingType: 'new', card: seachromeCoastNew },
+            { filter: 'gainland', wordingType: 'old', card: jwarIsleRefugeOld },
+            { filter: 'gainland', wordingType: 'new', card: jwarIsleRefugeNew },
+            { filter: 'scryland', wordingType: 'old', card: templeOfMaladyOld },
+            { filter: 'scryland', wordingType: 'new', card: templeOfMaladyNew },
+            { filter: 'shockland', wordingType: 'old', card: bloodCryptOld },
+            { filter: 'shockland', wordingType: 'new', card: bloodCryptNew },
+            { filter: 'snarl', wordingType: 'old', card: shineshadowSnarlOld },
+            { filter: 'snarl', wordingType: 'new', card: shineshadowSnarlNew },
+            { filter: 'slowland', wordingType: 'old', card: stormCarvedCoastOld },
+            { filter: 'slowland', wordingType: 'new', card: stormCarvedCoastNew },
+        ].forEach(({ filter, wordingType, card}) => {
+            it (`should handle ${wordingType} ${filter} oracle text`, async function()  {
+                const corpus = [card];
                 const queryRunner = defaultRunner(corpus);
-                const result = await searchNames(queryRunner, "is:checkland");
+                const result = await searchNames(queryRunner, `is:${filter}`);
 
-                expect(result).toEqual([testCase.card.name]);
+                expect(result).toEqual([card.name]);
             })
         })
-
     })
 });

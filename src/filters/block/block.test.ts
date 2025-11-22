@@ -2,12 +2,12 @@ import { defaultOptions, searchNames } from '../_testData/_utils'
 import { QueryRunner } from '../../queryRunner'
 import { birdsOfParadise } from '../_testData/birdsOfParadise'
 import { delverOfSecrets } from '../_testData/delverOfSecrets'
-import { bloodCrypt } from '../_testData/bloodCrypt'
+import { bloodCryptOld } from '../_testData/bloodCrypt'
 import { MemoryDataProvider } from '../dataProvider'
 
 describe('block filter',
   function() {
-    const corpus = [birdsOfParadise, delverOfSecrets, bloodCrypt]
+    const corpus = [birdsOfParadise, delverOfSecrets, bloodCryptOld]
     const blocks = [
       {
         block: 'innistrad',

@@ -19,7 +19,7 @@ export const BASIC_LAND_TYPES = [
 ]
 
 export const SHOCKLAND_REGEX =
-  /As .* enters the battlefield, you may pay 2 life. If you don't, it enters the battlefield tapped\./
+  /As .* enters( the battlefield)?, you may pay 2 life. If you don't, it enters( the battlefield)? tapped\./
 
 export const IS_VALUE_MAP = {
   ...PromoType,
@@ -345,7 +345,7 @@ export const toSplitCost = (cost: string): Array<ManaSymbol> =>
     .sort() as ManaSymbol[]
 
 export const isDual = (card: Card | NormedCard) =>
-  card.type_line.includes('Land') && /Add \{.} or \{.}\./.test(card.oracle_text ?? "")
+  card.type_line.includes('Land') && /Add \{.} or \{.}( to your mana pool)?\./.test(card.oracle_text ?? "")
 export const hasNumLandTypes = (card: Card | NormedCard, num: number) =>
   BASIC_LAND_TYPES.filter((type) => card.type_line.toLowerCase().includes(type))
     .length === num
