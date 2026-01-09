@@ -473,7 +473,8 @@
           "beginnerbox",
           "startercollection",
           "sldbonus",
-          "universesbeyond"
+          "universesbeyond",
+          "sourcematerial"
         ],
         "type": "string"
       },
