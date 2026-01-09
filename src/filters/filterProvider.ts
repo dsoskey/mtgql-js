@@ -418,6 +418,9 @@ export class CachingFilterProvider implements FilterProvider {
                 case FilterType.Date: {
                     const valueDate = new Date(leaf.value)
                     if (isNaN(valueDate.getTime())) {
+                        if (leaf.value === "today" || leaf.value === "now") {
+                            return dateNode(leaf.operator!, new Date().toISOString())
+                        }
                         try {
                             const set = await this.getSet(leaf.value)
                             if (set.released_at === undefined) {

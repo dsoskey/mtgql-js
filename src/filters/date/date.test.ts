@@ -62,11 +62,24 @@ describe('date filters', function() {
     const result = await searchNames(queryRunner, "date<=2019-11-07");
 
     expect(result).toEqual([adantoVanguard.name, preordain.name])
-  })
+  });
 
   it('>= compares input date to a printings release date', async () => {
     const result = await searchNames(queryRunner, "date>=2019-11-07");
 
     expect(result).toEqual([adantoVanguard.name, mirrex.name])
+  });
+
+  ['today', 'now'].forEach((value) => {
+    it(`should substitute ${value} for today's date`, async () => {
+      const future = new Date(Date.now() + 10000).toISOString();
+      const corpus = [preordain, {...adantoVanguard, released_at: future }]
+      const queryRunner = QueryRunner.fromCardList({ corpus, defaultOptions, dataProvider });
+
+      const result = await searchNames(queryRunner, "date>today");
+
+      expect(result).toEqual([adantoVanguard.name]);
+    })
+
   })
 })
