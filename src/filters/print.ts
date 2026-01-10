@@ -3,7 +3,7 @@ import { Card } from '../generated'
 import {NormedCard, Printing, PrintingFilterTuple, SearchOptions} from '../types'
 import maxBy from 'lodash/maxBy'
 import minBy from 'lodash/minBy'
-import {isDefaultPrinting} from "./is";
+import {isDefaultPrinting, isPrintVal} from "./is";
 
 export const printNode = (
   filtersUsed: string[],
@@ -57,7 +57,11 @@ export const PREFER_VALUES = [
     "promo",
     "nondefault",
     "default",
+    'ub',
+    'notub',
 ]
+
+const isub = isPrintVal('ub')
 
 export const findPrinting = (prefer?: string) =>
   (filterFunc: Filter<PrintingFilterTuple>) =>
@@ -98,7 +102,13 @@ export const findPrinting = (prefer?: string) =>
           case "traditional":
             print = maybePrints.find(it => isDefaultPrinting(it)) ?? maybePrints[0];
             break;
-          case "oldest":
+        case "ub":
+            print = maybePrints.find(it => isub({ printing: it, card: undefined })) ?? maybePrints[0];
+            break;
+        case "notub":
+            print = maybePrints.find(it => !isub({ printing: it, card: undefined })) ?? maybePrints[0];
+            break;
+        case "oldest":
           default:
             print = maybePrints[0]
         }
