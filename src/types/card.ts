@@ -21,8 +21,20 @@ export const BASIC_LAND_TYPES = [
 export const SHOCKLAND_REGEX =
   /As .* enters( the battlefield)?, you may pay 2 life. If you don't, it enters( the battlefield)? tapped\./
 
+export const FINAL_FANTASY_VALUE_MAP: Record<string, string> = [
+    "i", "ii", 'iii', 'iv', 'v', 'vi', 'vii', 'viii', 'ix', 'x', 'xi', 'xii', 'xiii', 'xiv', 'xv', 'xvi',
+].reduce((l, r, currentIndex) => {
+  const keys = [`ff${r}`, `finalfantasy${r}`, `ff${currentIndex+1}`, `finalfantasy${currentIndex+1}`]
+  for (const key of keys) {
+    l[key] = keys[0];
+  }
+  return l;
+}, {});
+export const FINAL_FANTASY_VALUES: IsValue[] = Object.keys(FINAL_FANTASY_VALUE_MAP) as IsValue[]
+
 export const IS_VALUE_MAP = {
   ...PromoType,
+  ...FINAL_FANTASY_VALUE_MAP,
   gold: 'gold',
   hybrid: 'hybrid',
   phyrexian: 'phyrexian',

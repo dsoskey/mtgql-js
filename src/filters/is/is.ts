@@ -11,6 +11,7 @@ import {
   DEFAULT_CARD_BACK_ID,
   NormedCard, PrintingFilterTuple, Printing
 } from '../../types'
+import { FINAL_FANTASY_VALUE_MAP, FINAL_FANTASY_VALUES} from '../../types/card';
 import { FilterNode } from '../base'
 import { oracleNode } from '../oracle'
 import {matchText} from '../text'
@@ -58,7 +59,8 @@ const EVERGREEN_KEYWORDS: Set<string> = new Set([
 const PROMO_TYPE_LIST: IsValue[] = Object.values(PromoType);
 const PROMO_TYPE_SET = new Set(PROMO_TYPE_LIST);
 const printMattersFields = new Set<IsValue>([
-    ...PROMO_TYPE_LIST,
+  ...PROMO_TYPE_LIST,
+  ...FINAL_FANTASY_VALUES,
   'old',
   'modern',
   'new',
@@ -175,6 +177,10 @@ export function isDefaultPrinting(printing: Printing) {
 }
 
 export const isPrintVal = (value: IsValue) => ({ printing, card }: PrintingFilterTuple): boolean => {
+  if (FINAL_FANTASY_VALUE_MAP[value]) {
+    const promotype = FINAL_FANTASY_VALUE_MAP[value];
+    return printing.promo_types?.includes(promotype as PromoType);
+  }
   if (PROMO_TYPE_SET.has(value)) {
     return printing.promo_types?.includes(value as PromoType);
   }

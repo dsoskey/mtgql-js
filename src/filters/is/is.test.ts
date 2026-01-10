@@ -35,6 +35,7 @@ import {rejuvenatingSpringsNew, rejuvenatingSpringsOld} from "../_testData/rejuv
 import {stormCarvedCoastNew, stormCarvedCoastOld} from "../_testData/stormcarvedCoast";
 import {hedgeMaze, hedgeMazeNew, hedgeMazeOld} from "../_testData/hedgeMaze";
 import {blightstepPathway} from "../_testData/blightstepPathway";
+import {lightningArmyOfOne} from "../_testData/lightningArmyOfOne";
 
 describe('is filters', function () {
     describe('default', function() {
@@ -197,6 +198,22 @@ describe('is filters', function () {
                 const result = await searchNames(queryRunner, `is:${filter}`);
 
                 expect(result).toEqual([card.name]);
+            })
+        })
+    });
+
+    describe('final fantasy filters', function() {
+        const queryRunner = defaultRunner([preordain, lightningArmyOfOne]);
+        [
+            { filter: 'ffxiii' },
+            { filter: 'ff13' },
+            { filter: 'finalfantasyxiii' },
+            { filter: 'finalfantasy13' },
+        ].forEach(({ filter }) => {
+            it (`should handle ${filter}`, async function()  {
+                const result = await searchNames(queryRunner, `is:${filter}`);
+
+                expect(result).toEqual([lightningArmyOfOne.name]);
             })
         })
     })
