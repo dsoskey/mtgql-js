@@ -20,5 +20,8 @@ describe("normCardList", function() {
         }
         const eomer = result[1];
         expect('image_uris' in eomer).toEqual(false);
+        for (const printing of eomer.printings) {
+            expect('image_uris' in printing).toEqual(false);
+        }
     })
 })
