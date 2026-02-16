@@ -1,5 +1,7 @@
-import {ManaCost, parseProducedMana, toManaCost} from './card'
+import {cardImageUri, ManaCost, parseProducedMana, toManaCost} from './card'
 import { producesTestData } from "../filters/_testData/_producesTestData";
+import {sldBerserk} from "../filters/_testData/berserk";
+import {delverOfSecrets} from "../filters/_testData/delverOfSecrets";
 
 describe('toManaCost', function () {
   interface TestCase {
@@ -46,5 +48,17 @@ describe('parseProducedMana', function() {
       expected.sort();
       expect(result).toEqual(expected);
     })
+  })
+})
+
+describe('cardImageUri', function() {
+  it('should use defaults properly', function() {
+    const result = cardImageUri(sldBerserk.id);
+    expect(result).toEqual(sldBerserk.image_uris.normal);
+  });
+
+  it('should use optional parameters', function() {
+    const result = cardImageUri(delverOfSecrets.id, 'back', 'png');
+    expect(result).toEqual(delverOfSecrets.card_faces[1].image_uris.png);
   })
 })

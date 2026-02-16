@@ -268,6 +268,10 @@ export class QueryRunner {
     }
   }
 
+  singleCardFilter = async (query: string)=> {
+    return QueryRunner.singleCardFilter(query, this.filters, this.getParser);
+  }
+
   static singleCardFilter = async (query: string, filterProvider: FilterProvider, getParser: ParserProducer = MQLParser) => {
     const filterNode = await QueryRunner.parseFilterNode(getParser, filterProvider, query);
 

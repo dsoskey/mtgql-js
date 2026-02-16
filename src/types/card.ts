@@ -1,4 +1,4 @@
-import {Card, Color, ProducedColor, PromoType} from '../generated'
+import {Card, Color, type ImageUris, ProducedColor, PromoType} from '../generated'
 import { ObjectValues } from './common'
 import {NormedCard, OracleKeys, Printing, PrintKeys} from './normedCard'
 
@@ -534,4 +534,15 @@ export function parseProducedMana(card: Card): ProducedColor[] | undefined {
   }
   if (result.size === 0) return undefined;
   return Array.from(result) as ProducedColor[];
+}
+
+/**
+ * generates a uri to an image of a given card
+ * @param id - scryfall id of a card (NOT oracle_id)
+ * @param side - which card face
+ * @param quality - quality/type of image to fetch
+ */
+export function cardImageUri(id: string, side: 'front'|'back' = 'front', quality: keyof ImageUris = 'normal') {
+  const extension = quality === 'png' ? 'png':'jpg';
+  return `https://cards.scryfall.io/${quality}/${side}/${id[0]}/${id[1]}/${id}.${extension}`;
 }

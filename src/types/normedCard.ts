@@ -86,8 +86,13 @@ const IGNORE_KEYS = {
   set_search_uri: "set_search_uri",
   set_uri: "set_uri",
   uri: "uri",
+  purchased_uris: "purchased_uris",
+  image_uris: "image_uris",
 }
+
 export type IgnoreKeys = ObjectValues<typeof IGNORE_KEYS>
+
+export type MtgqlCard = Omit<Card, IgnoreKeys>
 
 export interface NormedCard extends Omit<Card, PrintKeys> {
   printings: Printing[]

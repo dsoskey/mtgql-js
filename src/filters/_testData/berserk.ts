@@ -90,12 +90,12 @@ export const sldBerserk = {
   "illustration_id": "36da2cb1-8c81-4e7b-b480-d507daf21a40",
   "image_status": "highres_scan",
   "image_uris": {
-    "small": "https://cards.scryfall.io/small/front/8/6/86ec6360-d69d-41b8-bfca-2c1a3aea2272.jpg?1655153924",
-    "normal": "https://cards.scryfall.io/normal/front/8/6/86ec6360-d69d-41b8-bfca-2c1a3aea2272.jpg?1655153924",
-    "large": "https://cards.scryfall.io/large/front/8/6/86ec6360-d69d-41b8-bfca-2c1a3aea2272.jpg?1655153924",
-    "png": "https://cards.scryfall.io/png/front/8/6/86ec6360-d69d-41b8-bfca-2c1a3aea2272.png?1655153924",
-    "art_crop": "https://cards.scryfall.io/art_crop/front/8/6/86ec6360-d69d-41b8-bfca-2c1a3aea2272.jpg?1655153924",
-    "border_crop": "https://cards.scryfall.io/border_crop/front/8/6/86ec6360-d69d-41b8-bfca-2c1a3aea2272.jpg?1655153924"
+    "small": "https://cards.scryfall.io/small/front/8/6/86ec6360-d69d-41b8-bfca-2c1a3aea2272.jpg",
+    "normal": "https://cards.scryfall.io/normal/front/8/6/86ec6360-d69d-41b8-bfca-2c1a3aea2272.jpg",
+    "large": "https://cards.scryfall.io/large/front/8/6/86ec6360-d69d-41b8-bfca-2c1a3aea2272.jpg",
+    "png": "https://cards.scryfall.io/png/front/8/6/86ec6360-d69d-41b8-bfca-2c1a3aea2272.png",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/8/6/86ec6360-d69d-41b8-bfca-2c1a3aea2272.jpg",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/8/6/86ec6360-d69d-41b8-bfca-2c1a3aea2272.jpg"
   },
   "lang": "en",
   "multiverse_ids": [],
