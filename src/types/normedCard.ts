@@ -78,7 +78,7 @@ export interface PrintingFilterTuple {
 
 export type OracleKeys = keyof Omit<Card, PrintKeys>
 
-const IGNORE_KEYS = {
+const CARD_IGNORE_KEYS: Partial<Record<keyof Card, keyof Card>> = {
   prints_search_uri: "prints_search_uri",
   related_uris: "related_uris",
   rulings_uri: "rulings_uri",
@@ -86,24 +86,32 @@ const IGNORE_KEYS = {
   set_search_uri: "set_search_uri",
   set_uri: "set_uri",
   uri: "uri",
-  purchased_uris: "purchased_uris",
+  purchase_uris: "purchase_uris",
   image_uris: "image_uris",
 }
+export type CardIgnoreKeys = ObjectValues<typeof CARD_IGNORE_KEYS>
 
-export type IgnoreKeys = ObjectValues<typeof IGNORE_KEYS>
 
-export type MtgqlCard = Omit<Card, IgnoreKeys>
+const FACE_IGNORE_KEYS: Partial<Record<keyof CardFace, keyof CardFace>> = {
+  image_uris: "image_uris",
+}
+export type FaceIgnoreKeys = ObjectValues<typeof FACE_IGNORE_KEYS>;
+
+export type MtgqlCard = Omit<Card, CardIgnoreKeys>
+export type MtgqlFace = Omit<CardFace, FaceIgnoreKeys>
 
 export interface NormedCard extends Omit<Card, PrintKeys> {
   printings: Printing[]
   // there are oracle and print fields on card faces, so the normed card holds a reference to one for oracle filters
-  card_faces: CardFace[]
+  card_faces: MtgqlFace[]
   // for external tracking purposes
   collectionId?: string
 }
 
-const ignorePaths = [...Object.keys(PRINT_KEYS), ...Object.keys(IGNORE_KEYS)]
+const cardIgnorePaths = [...Object.keys(PRINT_KEYS), ...Object.keys(CARD_IGNORE_KEYS)]
 const printPaths = Object.keys(PRINT_KEYS)
+
+const faceIgnorePaths = [...Object.keys(FACE_IGNORE_KEYS)]
 
 export function normCardList(cardList: Card[], collectionId?: string): NormedCard[] {
   // grouping by oracle_id flattens cards with multiple different rules text prints like Balloon Stand
@@ -113,11 +121,14 @@ export function normCardList(cardList: Card[], collectionId?: string): NormedCar
 
   for (const oracleId in cardsByOracle) {
     // sorting by released at is needed for new and prefer filters
-    const cards = _sortBy(cardsByOracle[oracleId], it => new Date(it.released_at), "set")
+    const cards = _sortBy(cardsByOracle[oracleId], it => new Date(it.released_at), "set");
     const normed: NormedCard = {
-      ...(_omit(cards[0], ignorePaths)) as Omit<Card, PrintKeys>,
-      printings: cards.map((it) => _pick(it, printPaths) as Printing),
-      card_faces: cards[0].card_faces ?? [],
+      ...(_omit(cards[0], cardIgnorePaths)) as Omit<Card, PrintKeys>,
+      printings: cards.map((it) => ({
+        ..._pick(it, printPaths),
+        card_faces: it.card_faces?.map(face => _omit(face, faceIgnorePaths)),
+      }) as Printing),
+      card_faces: (cards[0].card_faces?.map(face => _omit(face, faceIgnorePaths))) ?? [],
       collectionId,
     }
     result.push(normed)
