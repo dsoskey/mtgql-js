@@ -78,7 +78,7 @@ export interface PrintingFilterTuple {
 
 export type OracleKeys = keyof Omit<Card, PrintKeys>
 
-const CARD_IGNORE_KEYS: Partial<Record<keyof Card, keyof Card>> = {
+const CARD_IGNORE_KEYS = {
   prints_search_uri: "prints_search_uri",
   related_uris: "related_uris",
   rulings_uri: "rulings_uri",
@@ -88,14 +88,14 @@ const CARD_IGNORE_KEYS: Partial<Record<keyof Card, keyof Card>> = {
   uri: "uri",
   purchase_uris: "purchase_uris",
   image_uris: "image_uris",
-}
+} as const;
 export type CardIgnoreKeys = ObjectValues<typeof CARD_IGNORE_KEYS>
 
 
-const FACE_IGNORE_KEYS: Partial<Record<keyof CardFace, keyof CardFace>> = {
+const FACE_IGNORE_KEYS = {
   image_uris: "image_uris",
-}
-export type FaceIgnoreKeys = ObjectValues<typeof FACE_IGNORE_KEYS>;
+} as const;
+export type FaceIgnoreKeys = ObjectValues<typeof FACE_IGNORE_KEYS>
 
 export type MtgqlCard = Omit<Card, CardIgnoreKeys>
 export type MtgqlFace = Omit<CardFace, FaceIgnoreKeys>
@@ -128,7 +128,7 @@ export function normCardList(cardList: Card[], collectionId?: string): NormedCar
         ..._pick(it, printPaths),
         card_faces: it.card_faces?.map(face => _omit(face, faceIgnorePaths)),
       }) as Printing),
-      card_faces: (cards[0].card_faces?.map(face => _omit(face, faceIgnorePaths))) ?? [],
+      card_faces: (cards[0].card_faces?.map(face => _omit(face, faceIgnorePaths)) as MtgqlFace[]) ?? [],
       collectionId,
     }
     result.push(normed)
