@@ -386,7 +386,7 @@ export const isOracleVal = (value: IsValue) => (card: NormedCard): boolean => {
     case 'adventure':
       return card.layout === 'adventure'
     case 'class':
-      return card.type_line.toLowerCase().includes('class')
+      return card.type_line?.toLowerCase().includes('class')
     case 'commander':
       return (
         card.type_line.split('//')[0].toLowerCase().includes('legendary creature') ||
